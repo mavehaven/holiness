@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoloRes — The Future of Dimensional Media</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --off-white: #FAFAF8;
+            --off-black: #2A2A2A;
+            --accent-gray: #E8E8E6;
+            --soft-gray: #C5C5C3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--off-white);
+            color: var(--off-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Theme Variables */
+        body.dark-theme {
+            --off-white: #1A1A1A;
+            --off-black: #FAFAF8;
+            --accent-gray: #2A2A2A;
+            --soft-gray: #3A3A3A;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(250, 250, 248, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .navbar {
+            background: rgba(26, 26, 26, 0.85);
+            border-bottom: 1px solid rgba(250, 250, 248, 0.05);
+        }
+
+        .logo-img {
+            height: 35px;
+            width: auto;
+            filter: invert(1);
+        }
+
+        body.dark-theme .logo-img {
+            filter: invert(0);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .theme-toggle:hover {
+            opacity: 1;
+            background: rgba(26, 26, 26, 0.05);
+        }
+
+        body.dark-theme .theme-toggle:hover {
+            background: rgba(250, 250, 248, 0.1);
+        }
+
+        .theme-icon {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .sun-icon {
+            stroke: var(--off-black);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .moon-icon {
+            stroke: var(--off-black);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        body.dark-theme .sun-icon,
+        body.dark-theme .moon-icon {
+            stroke: var(--off-black);
+        }
+
+        .hamburger {
+            width: 32px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--off-black);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 6rem 3rem;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+        }
+
+        body.dark-theme .nav-menu {
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 2rem;
+        }
+
+        .nav-menu a {
+            color: #FAFAF8;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        body.dark-theme .nav-menu a {
+            color: #FAFAF8;
+        }
+
+        .nav-menu a:hover {
+            transform: translateX(10px);
+            opacity: 0.7;
+        }
+
+        /* Expanded navigation for fullscreen */
+        .expanded-nav {
+            display: none;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .expanded-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .expanded-nav a {
+            color: #2A2A2A;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        body.dark-theme .expanded-nav a {
+            color: #FAFAF8;
+        }
+
+        .expanded-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.3s ease;
+        }
+
+        .expanded-nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            padding-top: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--off-black) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, var(--off-black) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        body.dark-theme .hero-bg {
+            opacity: 0.05;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.03; }
+            50% { opacity: 0.06; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        h1 strong {
+            font-weight: 500;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            opacity: 0.6;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--off-black);
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 1px solid var(--off-black);
+            font-weight: 400;
+        }
+
+        .cta-button:hover {
+            background: var(--off-white);
+            color: var(--off-black);
+            transform: translateY(-2px);
+        }
+
+        body.dark-theme .cta-button {
+            background: var(--off-black);
+            color: var(--off-white);
+            border: 1px solid var(--off-black);
+        }
+
+        body.dark-theme .cta-button:hover {
+            background: var(--off-white);
+            color: var(--off-black);
+        }
+
+        .section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            margin-bottom: 4rem;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .features {
+            background: var(--accent-gray);
+            position: relative;
+        }
+
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .asymmetric-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .asymmetric-card.offset {
+            grid-template-columns: 1fr 1fr;
+            direction: rtl;
+        }
+
+        .asymmetric-card.offset > * {
+            direction: ltr;
+        }
+
+        .feature-image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--accent-gray);
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        body.dark-theme .feature-image-placeholder {
+            border: 1px solid rgba(250, 250, 248, 0.08);
+        }
+
+        .feature-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-image-placeholder:hover {
+            border-color: var(--off-black);
+        }
+
+        .feature-content {
+            padding: 2rem 0;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-text {
+            opacity: 0.7;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .learn-more {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--off-black);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .learn-more:hover {
+            border-bottom-color: var(--off-black);
+            transform: translateX(5px);
+        }
+
+        .packages {
+            background: var(--off-white);
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .package {
+            background: var(--off-white);
+            border: 1px solid var(--accent-gray);
+            padding: 3rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        body.dark-theme .package {
+            background: var(--off-white);
+            border: 1px solid var(--accent-gray);
+        }
+
+        .package::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--off-black);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .package:hover {
+            border-color: var(--off-black);
+            transform: translateY(-5px);
+        }
+
+        .package:hover::before {
+            transform: scaleX(1);
+        }
+
+        .package-name {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .package-desc {
+            opacity: 0.6;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--accent-gray);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .footer {
+            background: var(--off-black);
+            color: var(--off-white);
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+
+        body.dark-theme .footer {
+            background: var(--off-black);
+            color: var(--off-white);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            height: 50px;
+            width: auto;
+            margin-bottom: 2rem;
+        }
+
+        body.dark-theme .footer-logo {
+            filter: invert(1);
+        }
+
+        .footer-tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        .footer-legal {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(250, 250, 248, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .dimension-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--off-black), transparent);
+            margin: 8rem 0;
+            opacity: 0.1;
+        }
+
+        /* Media queries for responsive behavior */
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: 80vh;
+            }
+
+            .asymmetric-card,
+            .asymmetric-card.offset {
+                grid-template-columns: 1fr;
+                direction: ltr;
+                gap: 2rem;
+            }
+
+            .feature-image-placeholder {
+                aspect-ratio: 16/9;
+            }
+
+            .nav-menu {
+                max-width: 100%;
+            }
+
+            .navbar {
+                padding: 0.5rem 1.5rem;
+            }
+        }
+
+        /* Fixed: Expanded navigation for larger screens */
+        @media (min-width: 1024px) {
+            .hamburger {
+                display: none;
+            }
+
+            .expanded-nav {
+                display: flex;
+            }
+            
+            .nav-controls {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="https://c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" alt="HoloRes Logo" class="logo-img">
+        
+        <!-- Expanded navigation for larger screens -->
+        <div class="expanded-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#features">Technology</a></li>
+                <li><a href="#packages">Solutions</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-controls">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
+                <svg class="theme-icon sun-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="4"/>
+                    <line x1="12" y1="2" x2="12" y2="4"/>
+                    <line x1="12" y1="20" x2="12" y2="22"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="2" y1="12" x2="4" y2="12"/>
+                    <line x1="20" y1="12" x2="22" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" style="display: none;">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile navigation menu -->
+    <div class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#features">Technology</a></li>
+            <li><a href="#packages">Solutions</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>The Future is<br><strong>Multidimensional Media</strong></h1>
+            <p class="tagline">
+                No glasses. No gimmicks. Just pure depth and presence.<br>
+                Transform 2D imagery into immersive, lifelike 3D holographic experiences.
+            </p>
+            <a href="#packages" class="cta-button">Explore Solutions</a>
+        </div>
+    </section>
+
+    <div class="dimension-line"></div>
+
+    <section class="section features" id="features">
+        <h2 class="section-title">Technology That Feels Alive</h2>
+        <div class="asymmetric-grid">
+            <div class="asymmetric-card">
+                <div class="feature-image-placeholder">
+                    <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1761127551670x988210656133586400/Optical-principle-of-the-201-inch-holographic-display-prototype-Sizes-and-distances-are.png" alt="Optical Physics">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Optical Physics</h3>
+                    <p class="feature-text">
+                        Advanced autostereoscopic rendering that creates true dimensional depth without requiring special eyewear or devices.
+                    </p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+            <div class="asymmetric-card offset">
+                <div class="feature-image-placeholder">
+                    <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1761136004832x383864490278200900/image.webp" alt="AI Depth Reconstruction">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">AI Depth Reconstruction</h3>
+                    <p class="feature-text">
+                        Intelligent systems that analyze and reconstruct spatial information, breathing dimensional life into flat imagery.
+                    </p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+            <div class="asymmetric-card">
+                <div class="feature-image-placeholder">
+                    <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1761135718571x827914144491197300/fbbhde.png" alt="Proprietary Rendering">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Proprietary Rendering</h3>
+                    <p class="feature-text">
+                        Custom-built rendering engines optimized for presence, clarity, and the seamless illusion of three-dimensional space.
+                    </p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dimension-line"></div>
+
+    <section class="section packages" id="packages">
+        <h2 class="section-title">Solutions for Every Vision</h2>
+        
+        <div class="package-grid">
+            <div class="package">
+                <h3 class="package-name">Stereo Packages</h3>
+                <p class="package-desc">
+                    Feature-based tools for independent creators and studios seeking cinematic stereoscopic control.
+                </p>
+                <ul class="package-features">
+                    <li>Full creative control</li>
+                    <li>Cinematic stereoscopic rendering</li>
+                    <li>Studio-grade output quality</li>
+                    <li>Flexible production pipeline</li>
+                </ul>
+                <a href="#" class="learn-more">Learn More →</a>
+            </div>
+
+            <div class="package">
+                <h3 class="package-name">Auto Stereo Packages</h3>
+                <p class="package-desc">
+                    Performance-based tiers (Pro, Deluxe, Ultra) for professionals demanding precision and power.
+                </p>
+                <ul class="package-features">
+                    <li>Automated depth processing</li>
+                    <li>Pro / Deluxe / Ultra tiers</li>
+                    <li>Seamless autostereoscopic rendering</li>
+                    <li>Professional-grade precision</li>
+                </ul>
+                <a href="#" class="learn-more">Learn More →</a>
+            </div>
+
+            <div class="package">
+                <h3 class="package-name">Holo Packages</h3>
+                <p class="package-desc">
+                    Enterprise-scale systems for museums, resorts, retail, and scientific visualization. Fully customizable.
+                </p>
+                <ul class="package-features">
+                    <li>Enterprise-scale deployment</li>
+                    <li>Custom integration solutions</li>
+                    <li>Real-time holographic displays</li>
+                    <li>White-glove support</li>
+                </ul>
+                <a href="#" class="learn-more">Learn More →</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="dimension-line"></div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="https://c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" alt="HoloRes Logo" class="footer-logo">
+            <p class="footer-tagline">
+                Where art, science, and perception converge.<br>
+                Building the foundation for dimensional media.
+            </p>
+            <a href="#" class="cta-button" style="background: var(--off-white); color: var(--off-black); margin-top: 2rem;">
+                Get in Touch
+            </a>
+            <div class="footer-legal">
+                © 2025 HoloRes. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = themeToggle.querySelector('.sun-icon');
+        const moonIcon = themeToggle.querySelector('.moon-icon');
+
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            
+            if (document.body.classList.contains('dark-theme')) {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        });
+
+        // Navigation functionality
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
