@@ -3,829 +3,3187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HoloRes — The Future of Dimensional Media</title>
+    <title>H o l o R e s | Embrace The Depth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Original CSS variables and base styles */
+        :root {
+            --primary: #000000;
+            --secondary: #333333;
+            --accent: #0070ff;
+            --accent-dark: #0051b8;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #ffffff;
+            --silver: #e0e0e0;
+            --gold: #a0a0a0;
+            --diamond: #f0f0f0;
+            --transition: all 0.4s ease;
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --off-white: #FAFAF8;
-            --off-black: #2A2A2A;
-            --accent-gray: #E8E8E6;
-            --soft-gray: #C5C5C3;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: var(--off-white);
-            color: var(--off-black);
-            line-height: 1.6;
+            background: var(--darker);
+            color: var(--light);
             overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+            /* Enable smooth scrolling */
+            scroll-behavior: smooth;
         }
 
-        /* Dark Theme Variables */
-        body.dark-theme {
-            --off-white: #1A1A1A;
-            --off-black: #FAFAF8;
-            --accent-gray: #2A2A2A;
-            --soft-gray: #3A3A3A;
+        /* HEADINGS & TITLES */
+        h1, h2, h3, h4, h5, h6,
+        .logo h1,
+        nav a,
+        .section-title h2,
+        .tech-info h3,
+        .package-card h3,
+        .cta h2,
+        .footer-column h3,
+        .detail-label,
+        .detail-value,
+        .package-method,
+        .cta-button {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.5px;
         }
 
-        .navbar {
+        /* TECHNICAL DETAILS */
+        .tech-features,
+        .package-details,
+        .package-audience p,
+        .benefit-list li,
+        .footer-links li,
+        .copyright {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles - FIXED ALIGNMENT */
+         /* FIXED: Header Styles with proper alignment */
+        header {
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 0.75rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            width: 100%;
             z-index: 1000;
-            background: rgba(250, 250, 248, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(26, 26, 26, 0.05);
-            transition: all 0.3s ease;
+            height: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
         }
 
-        body.dark-theme .navbar {
-            background: rgba(26, 26, 26, 0.85);
-            border-bottom: 1px solid rgba(250, 250, 248, 0.05);
+        .header-hidden {
+            transform: translateY(-100%);
         }
 
-        .logo-img {
-            height: 35px;
-            width: auto;
-            filter: invert(1);
-        }
-
-        body.dark-theme .logo-img {
-            filter: invert(0);
-        }
-
-        .nav-controls {
+        /* FIXED: Header content alignment */
+        .header-content {
             display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            opacity: 0.8;
-        }
-
-        .theme-toggle:hover {
-            opacity: 1;
-            background: rgba(26, 26, 26, 0.05);
-        }
-
-        body.dark-theme .theme-toggle:hover {
-            background: rgba(250, 250, 248, 0.1);
-        }
-
-        .theme-icon {
-            width: 20px;
-            height: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .sun-icon {
-            stroke: var(--off-black);
-            stroke-width: 1.5;
-            fill: none;
-        }
-
-        .moon-icon {
-            stroke: var(--off-black);
-            stroke-width: 1.5;
-            fill: none;
-        }
-
-        body.dark-theme .sun-icon,
-        body.dark-theme .moon-icon {
-            stroke: var(--off-black);
-        }
-
-        .hamburger {
-            width: 32px;
-            height: 24px;
-            display: flex;
-            flex-direction: column;
             justify-content: space-between;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            display: block;
-            height: 2px;
-            width: 100%;
-            background: var(--off-black);
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(11px) rotate(45deg);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-11px) rotate(-45deg);
-        }
-
-        .nav-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 6rem 3rem;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
-        }
-
-        body.dark-theme .nav-menu {
-            background: rgba(26, 26, 26, 0.95);
-        }
-
-        .nav-menu.active {
-            right: 0;
-        }
-
-        .nav-menu ul {
-            list-style: none;
-        }
-
-        .nav-menu li {
-            margin-bottom: 2rem;
-        }
-
-        .nav-menu a {
-            color: #FAFAF8;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        body.dark-theme .nav-menu a {
-            color: #FAFAF8;
-        }
-
-        .nav-menu a:hover {
-            transform: translateX(10px);
-            opacity: 0.7;
-        }
-
-        /* Expanded navigation for fullscreen */
-        .expanded-nav {
-            display: none;
             align-items: center;
-            gap: 2.5rem;
+            height: 100%;
+            padding: 0 10px;
+            margin-top: 10px;
         }
 
-        .expanded-nav ul {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 100%;
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--light);
+            letter-spacing: 2px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        /* Hamburger Menu - FIXED */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            outline: none;
+            z-index: 1001;
+            color: white;
+            font-size: 24px;
+        }
+
+         /* FIXED: Navigation alignment */
+        nav ul {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 25px;
+            height: 100%;
+        }
+        
+        nav li {
+            display: flex;
+            align-items: center;
         }
 
-        .expanded-nav a {
-            color: #2A2A2A;
+        nav a {
+            color: var(--light);
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
             position: relative;
-            padding: 0.5rem 0;
+            text-transform: uppercase;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
         }
 
-        body.dark-theme .expanded-nav a {
-            color: #FAFAF8;
+        nav a:hover {
+            color: var(--accent);
         }
 
-        .expanded-nav a::after {
+        nav a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 0;
-            height: 1px;
-            background: currentColor;
-            transition: width 0.3s ease;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
         }
 
-        .expanded-nav a:hover::after {
+        nav a:hover::after {
             width: 100%;
         }
 
-        .hero {
-            min-height: 100vh;
+        /* Logo styling */
+        .logo img {
+            height: 30px;
+            width: auto;
+        }
+
+        /* Header right section */
+        .header-right {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Hero Section - Updated with parallax effect */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
             position: relative;
-            padding: 2rem;
-            padding-top: 2rem;
             overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            opacity: 0.03;
-            background: 
-                radial-gradient(circle at 20% 50%, var(--off-black) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, var(--off-black) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        body.dark-theme .hero-bg {
-            opacity: 0.05;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.03; }
-            50% { opacity: 0.06; }
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+                        url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1750878326918x191441407176639940/Bring%20back%20cinema.png') no-repeat center center/cover;
+            padding-top: 60px; /* Account for fixed header */
+            background-attachment: fixed; /* Parallax effect */
+            background-position: center;
         }
 
         .hero-content {
-            max-width: 1200px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+            max-width: 700px;
+            z-index: 2;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: heroFadeIn 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+            animation-delay: 0.3s;
         }
 
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
+        @keyframes heroFadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero h2 {
+            font-size: 4.5rem;
+            font-weight: 800;
             line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--light);
         }
 
-        h1 strong {
-            font-weight: 500;
-        }
-
-        .tagline {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            opacity: 0.6;
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            font-weight: 300;
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            color: var(--silver);
         }
 
         .cta-button {
             display: inline-block;
-            padding: 1.2rem 3rem;
-            background: var(--off-black);
-            color: var(--off-white);
+            background: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 0;
             text-decoration: none;
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            border: 1px solid var(--off-black);
-            font-weight: 400;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .cta-button:hover {
-            background: var(--off-white);
-            color: var(--off-black);
+            background: var(--accent-dark);
+            box-shadow: 0 8px 20px rgba(0, 112, 255, 0.4);
             transform: translateY(-2px);
         }
 
-        body.dark-theme .cta-button {
-            background: var(--off-black);
-            color: var(--off-white);
-            border: 1px solid var(--off-black);
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            background: var(--darker);
+            position: relative;
+            overflow: hidden;
         }
 
-        body.dark-theme .cta-button:hover {
-            background: var(--off-white);
-            color: var(--off-black);
+        /* NEW: Parallax background layers */
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
-        .section {
-            padding: 8rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
+        .layer-1 {
+            background: url('//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750800139836x277339989620230880/Screenshot%202025-06-24%20at%2023.21.40.png') center center/cover;
+            opacity: 0.03;
+            z-index: -1;
+        }
+
+        .layer-2 {
+            background: radial-gradient(circle, rgba(0,112,255,0.05) 0%, transparent 70%);
+            z-index: -1;
         }
 
         .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 300;
-            margin-bottom: 4rem;
             text-align: center;
-            letter-spacing: -0.02em;
+            margin-bottom: 70px;
         }
 
-        .features {
-            background: var(--accent-gray);
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            display: inline-block;
             position: relative;
         }
 
-        .asymmetric-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4rem;
-            max-width: 1000px;
-            margin: 0 auto;
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
         }
 
-        .asymmetric-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+        .section-title p {
+            max-width: 700px;
+            margin: 30px auto 0;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            color: var(--silver);
         }
 
-        .asymmetric-card.offset {
-            grid-template-columns: 1fr 1fr;
-            direction: rtl;
+        /* NEW: Scroll animation classes */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
-        .asymmetric-card.offset > * {
-            direction: ltr;
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .feature-image-placeholder {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: var(--accent-gray);
-            border: 1px solid rgba(26, 26, 26, 0.08);
+        /* Technology Section */
+        .tech-container {
             display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0;
+            padding: 40px;
+            display: flex;
+            gap: 40px;
             align-items: center;
-            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: var(--border);
+            transition: var(--transition);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .tech-image {
+            flex: 1;
             position: relative;
+            height: 400px;
             overflow: hidden;
-            transition: all 0.5s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: var(--border);
         }
 
-        body.dark-theme .feature-image-placeholder {
-            border: 1px solid rgba(250, 250, 248, 0.08);
-        }
-
-        .feature-image-placeholder img {
+        .tech-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            filter: grayscale(30%);
         }
 
-        .feature-image-placeholder:hover {
-            border-color: var(--off-black);
+        .tech-info {
+            flex: 1;
         }
 
-        .feature-content {
-            padding: 2rem 0;
+        .tech-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--light);
         }
 
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            letter-spacing: -0.01em;
+        .tech-info p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: var(--silver);
         }
 
-        .feature-text {
-            opacity: 0.7;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        .learn-more {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--off-black);
-            text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 400;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid transparent;
-        }
-
-        .learn-more:hover {
-            border-bottom-color: var(--off-black);
-            transform: translateX(5px);
-        }
-
-        .packages {
-            background: var(--off-white);
-        }
-
-        .package-grid {
+        .tech-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
         }
 
-        .package {
-            background: var(--off-white);
-            border: 1px solid var(--accent-gray);
-            padding: 3rem 2rem;
-            transition: all 0.4s ease;
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--silver);
+        }
+
+        .feature-icon {
+            color: var(--accent);
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        /* Packages Section */
+        .packages {
+            background: var(--dark);
             position: relative;
+            overflow: hidden;
         }
 
-        body.dark-theme .package {
-            background: var(--off-white);
-            border: 1px solid var(--accent-gray);
+        .package-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .package::before {
+        .package-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .package-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
+            height: 5px;
+            z-index: -1;
+        }
+
+        .package-card.basic::before {
+            background: linear-gradient(to right, #444, #666);
+        }
+
+        .package-card.silver::before {
+            background: linear-gradient(to right, #999, #aaa);
+        }
+
+        .package-card.gold::before {
+            background: linear-gradient(to right, #aaa, #ccc);
+        }
+
+        .package-card.diamond::before {
+            background: linear-gradient(to right, #ccc, #eee);
+        }
+        
+        .package-card.custom::before {
+            background: linear-gradient(to right, #ffd700, #ffa500);
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+
+        .package-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .package-icon img {
+          width: 80px;
+          height: 50px;
+          object-fit: contain;
+        }
+
+        .basic .package-icon {
+            color: #666;
+        }
+
+        .silver .package-icon {
+            color: #999;
+        }
+
+        .gold .package-icon {
+            color: #ccc;
+        }
+
+        .diamond .package-icon {
+            color: #eee;
+        }
+        
+        .custom .package-icon {
+            color: #ffd700;
+        }
+
+        .package-card h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .package-method {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            border-radius: 0;
+            display: inline-block;
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+            border: var(--border);
+        }
+        
+        .package-card.custom .package-method {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        /* Glasses Indicator Styles */
+        .glasses-indicator {
+            margin: 20px auto;
+            position: relative;
+            width: 140px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glasses-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glasses-frame {
+            position: absolute;
+            width: 120px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .glasses-lens {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .lens-left {
+            left: 15px;
+        }
+
+        .lens-right {
+            right: 15px;
+        }
+
+        .nose-bridge {
+            position: absolute;
+            width: 20px;
+            height: 8px;
+            background: currentColor;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .glasses-arm {
+            position: absolute;
+            width: 20px;
             height: 3px;
-            background: var(--off-black);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            background: currentColor;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .package:hover {
-            border-color: var(--off-black);
-            transform: translateY(-5px);
+        .arm-left {
+            left: 0;
+            transform: rotate(10deg);
         }
 
-        .package:hover::before {
-            transform: scaleX(1);
+        .arm-right {
+            right: 0;
+            transform: rotate(-10deg);
         }
 
-        .package-name {
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            letter-spacing: -0.01em;
+        /* Basic glasses */
+        .basic .glasses-frame {
+            border-color: #666;
         }
 
-        .package-desc {
+        .basic .lens-left {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #666;
+        }
+
+        .basic .lens-right {
+            background: rgba(0, 0, 255, 0.1);
+            border: 2px solid #666;
+        }
+
+        .basic .nose-bridge,
+        .basic .glasses-arm {
+            background: #666;
+        }
+
+        /* Silver glasses */
+        .silver .glasses-frame {
+            border-color: #999;
+        }
+
+        .silver .lens-left {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #999;
+        }
+
+        .silver .lens-right {
+            background: rgba(255, 0, 255, 0.1);
+            border: 2px solid #999;
+        }
+
+        .silver .nose-bridge,
+        .silver .glasses-arm {
+            background: #999;
+        }
+
+        /* Gold glasses */
+        .gold .glasses-frame {
+            border-color: #ccc;
+        }
+
+        .gold .lens-left,
+        .gold .lens-right {
+            background: rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+        }
+
+        .gold .nose-bridge,
+        .gold .glasses-arm {
+            background: #ccc;
+        }
+
+        /* Diamond (glasses-free) */
+        .diamond .glasses-indicator {
+            height: 100px;
+        }
+
+        .diamond .eyes-container {
+            position: relative;
+            width: 120px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .diamond .eye {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            animation: twinkle 3s infinite;
+        }
+
+        .diamond .eye-left {
+            left: 15px;
+        }
+
+        .diamond .eye-right {
+            right: 15px;
+        }
+
+        .diamond .pupil {
+            width: 15px;
+            height: 15px;
+            background: #090718;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .diamond .eye::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            top: 8px;
+            left: 8px;
+            opacity: 0.7;
+        }
+
+        .diamond .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        .diamond .sparkle-1 { top: 15px; left: 50px; animation-delay: 0s; }
+        .diamond .sparkle-2 { top: 40px; right: 30px; animation-delay: 0.5s; }
+        .diamond .sparkle-3 { bottom: 20px; left: 40px; animation-delay: 1s; }
+        
+        /* Custom Cinema */
+        .custom .glasses-indicator {
+            height: 100px;
+        }
+        
+        .custom .cinema-icon {
+            position: relative;
+            width: 120px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .custom .screen {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            background: #0a0a2a;
+            border: 2px solid #4d4dff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .custom .screen-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0000ff, #00ffff, #0000ff);
             opacity: 0.6;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-            font-weight: 300;
+            animation: screenGlow 3s infinite alternate;
+        }
+        
+        .custom .seats {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .custom .seat {
+            width: 15px;
+            height: 15px;
+            background: #444;
+            border-radius: 3px;
+        }
+        
+        .custom .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+        
+        .custom .sparkle-1 { top: 15px; left: 30px; animation-delay: 0s; }
+        .custom .sparkle-2 { top: 30px; right: 40px; animation-delay: 0.5s; }
+        .custom .sparkle-3 { bottom: 20px; left: 50px; animation-delay: 1s; }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .package-features {
-            list-style: none;
-            margin-bottom: 2rem;
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        @keyframes screenGlow {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.8; }
         }
 
-        .package-features li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--accent-gray);
-            font-size: 0.95rem;
-            opacity: 0.8;
+        .package-details {
+            text-align: left;
+            margin: 25px 0;
+            color: var(--silver);
         }
 
-        .package-features li:last-child {
+        .detail-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .detail-item:last-child {
             border-bottom: none;
         }
 
-        .footer {
-            background: var(--off-black);
-            color: var(--off-white);
-            padding: 4rem 2rem 2rem;
-            text-align: center;
+        .detail-label {
+            font-weight: 600;
+            opacity: 0.8;
         }
 
-        body.dark-theme .footer {
-            background: var(--off-black);
-            color: var(--off-white);
+        .detail-value {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .package-audience {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border: var(--border);
+        }
+
+        .package-audience h4 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .package-benefits {
+            text-align: left;
+            margin: 20px 0 30px;
+        }
+
+        .package-benefits h4 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .benefit-list {
+            list-style: none;
+        }
+
+        .benefit-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--silver);
+        }
+
+        .benefit-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Call to Action */
+        .cta {
+            text-align: center;
+            padding: 100px 0;
+            background: var(--darker);
+            border-top: var(--border);
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--light);
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--silver);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 60px 0 30px;
+            border-top: var(--border);
         }
 
         .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
-        .footer-logo {
-            height: 50px;
-            width: auto;
-            margin-bottom: 2rem;
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--accent);
         }
 
-        body.dark-theme .footer-logo {
-            filter: invert(1);
+        .footer-links {
+            list-style: none;
         }
 
-        .footer-tagline {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.7;
-            font-weight: 300;
+        .footer-links li {
+            margin-bottom: 15px;
         }
 
-        .footer-legal {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(250, 250, 248, 0.1);
-            font-size: 0.85rem;
-            opacity: 0.5;
+        .footer-links a {
+            color: var(--silver);
+            text-decoration: none;
+            transition: var(--transition);
         }
 
-        .dimension-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--off-black), transparent);
-            margin: 8rem 0;
-            opacity: 0.1;
+        .footer-links a:hover {
+            color: var(--accent);
         }
 
-        /* Media queries for responsive behavior */
-        @media (max-width: 768px) {
-            .section {
-                padding: 4rem 1.5rem;
-            }
-
-            .package-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                min-height: 80vh;
-            }
-
-            .asymmetric-card,
-            .asymmetric-card.offset {
-                grid-template-columns: 1fr;
-                direction: ltr;
-                gap: 2rem;
-            }
-
-            .feature-image-placeholder {
-                aspect-ratio: 16/9;
-            }
-
-            .nav-menu {
-                max-width: 100%;
-            }
-
-            .navbar {
-                padding: 0.5rem 1.5rem;
-            }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        /* Fixed: Expanded navigation for larger screens */
-        @media (min-width: 1024px) {
-            .hamburger {
-                display: none;
-            }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            transition: var(--transition);
+            font-size: 18px;
+            border: var(--border);
+        }
 
-            .expanded-nav {
-                display: flex;
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: var(--border);
+            opacity: 0.6;
+            color: var(--silver);
+        }
+
+        /* Hamburger menu styles - FIXED */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--darker);
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 80px 30px 30px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            border-left: var(--border);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 20px;
+            transition: var(--transition);
+            display: block;
+            padding: 10px 0;
+            border-bottom: var(--border);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .tech-card {
+                flex-direction: column;
             }
             
-            .nav-controls {
-                gap: 1rem;
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
+            /* Disable parallax on mobile */
+            .hero, .custom-cinema {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.3rem;
+            }
+            
+            .tech-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .glasses-indicator {
+                transform: scale(0.8);
+            }
+            
+            /* Adjust header for mobile */
+            header {
+                height: 60px;
+            }
+            
+            .logo img {
+                height: 30px;
+            }
+            
+            nav a {
+                font-size: 12px;
+            }
+            
+            .hero {
+                padding-top: 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: row;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .glasses-indicator {
+                transform: scale(0.7);
+            }
+            
+            /* Further mobile adjustments */
+            header {
+                height: 60px;
+            }
+            
+            .logo img {
+                height: 20px;
+            }
+            
+            .hero {
+                padding-top: 60px;
+            }
+        }
+        
+        /* CSS for the logo */
+        .logo-container {
+            display: inline-block;
+            max-width: 100px;
+            position: relative;
+        }
+
+        .logo {
+            width: 40%;
+            height: auto;
+            display: block;
+        }
+
+        /* Package animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .package-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .package-card:nth-child(1) { animation-delay: 0.1s; }
+        .package-card:nth-child(2) { animation-delay: 0.2s; }
+        .package-card:nth-child(3) { animation-delay: 0.3s; }
+        .package-card:nth-child(4) { animation-delay: 0.4s; }
+        .package-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--darker);
+            width: 90%;
+            max-width: 900px;
+            border: var(--border);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: translateY(30px);
+            transition: var(--transition);
+            padding: 40px;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--silver);
+            font-size: 28px;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        
+        .modal-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .modal-video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 30px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-video-container iframe,
+        .modal-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .package-modal-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            color: var(--light);
+        }
+        
+        .package-modal-price {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-family: 'Oswald', sans-serif;
+            color: var(--accent);
+        }
+        
+        .package-modal-description {
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--silver);
+        }
+        
+        .modal-subscribe-btn {
+            display: block;
+            margin: 0 auto;
+            background: var(--accent);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            max-width: 300px;
+        }
+        
+        .modal-subscribe-btn:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 8px 20px rgba(0, 112, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .diamond-custom {
+            font-size: 1.5rem;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Custom Cinema Section */
+        .custom-cinema {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.95)), 
+                        url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            background-attachment: fixed; /* Parallax effect */
+            background-position: center;
+        }
+        
+        .cinema-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cinema-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .price-range {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .cinema-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 0;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(0, 0, 0, 0.8);
+            border-color: rgba(255, 215, 0, 0.7);
+        }
+        
+        .feature-card h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: var(--silver);
+        }
+        
+        /* Contact Form Styles */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 0;
+            border: var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--silver);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: var(--border);
+            color: var(--light);
+            font-family: 'Roboto Condensed', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background: var(--accent-dark);
+        }
+        
+        /* Skeleton Loader */
+        .skeleton-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(30, 30, 30, 0.8), rgba(50, 50, 50, 0.8), rgba(30, 30, 30, 0.8));
+            background-size: 200% 100%;
+            animation: skeletonShimmer 1.5s infinite linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .skeleton-loader .icon {
+            font-size: 40px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes skeletonShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Analytics notification */
+        .analytics-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 112, 255, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 3000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+        
+        .analytics-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* NEW: Cart styles */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--light);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100%;
+            background: var(--darker);
+            z-index: 2000;
+            transition: var(--transition);
+            padding: 30px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            border-left: var(--border);
+            overflow-y: auto;
+        }
+        
+        .cart-panel.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: var(--border);
+        }
+        
+        .cart-title {
+            font-size: 1.8rem;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .close-cart {
+            background: transparent;
+            border: none;
+            color: var(--silver);
+            font-size: 28px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-cart:hover {
+            color: var(--accent);
+        }
+        
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: var(--border);
+        }
+        
+        .cart-item-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: var(--border);
+        }
+        
+        .cart-item-icon img {
+            max-width: 40px;
+            max-height: 40px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .cart-item-method {
+            font-size: 0.9rem;
+            color: var(--silver);
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .remove-item {
+            background: transparent;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+        
+        .remove-item:hover {
+            color: var(--accent);
+        }
+        
+        .cart-summary {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border: var(--border);
+            margin-bottom: 30px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-label {
+            color: var(--silver);
+        }
+        
+        .summary-value {
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: var(--border);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .cart-button {
+            padding: 15px;
+            border: none;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .continue-shopping {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        
+        .continue-shopping:hover {
+            background: rgba(0, 112, 255, 0.1);
+        }
+        
+        .checkout-button {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
+        }
+        
+        .checkout-button:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 8px 20px rgba(0, 112, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--silver);
+        }
+        
+        .empty-cart-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+        
+        /* Payment Page Styles */
+        .payment-page {
+            display: none;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .payment-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .payment-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .payment-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--darker);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+        }
+        
+        .step.active .step-number {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .step-label {
+            font-size: 0.9rem;
+            color: var(--silver);
+        }
+        
+        .step.active .step-label {
+            color: var(--light);
+        }
+        
+        .payment-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: var(--border);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .order-summary {
+            margin-bottom: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .payment-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .payment-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--silver);
+        }
+        
+        .payment-form .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: var(--border);
+            color: var(--light);
+            font-family: 'Roboto Condensed', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .payment-form .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .card-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .expiry-cvv {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .payment-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .back-to-cart {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 12px 25px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .back-to-cart:hover {
+            background: rgba(0, 112, 255, 0.1);
+        }
+        
+        .pay-now {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 50px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
+        }
+        
+        .pay-now:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 8px 20px rgba(0, 112, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .confirmation {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .confirmation-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .confirmation p {
+            color: var(--silver);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Add to cart button in modal */
+        .modal-add-to-cart {
+            display: block;
+            margin: 20px auto;
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .modal-add-to-cart:hover {
+            background: #218838;
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        /* View details link */
+        .view-details {
+            display: block;
+            margin-top: 15px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .view-details:hover {
+            text-decoration: underline;
+        }
+        
+        /* NEW: Scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.2s ease-out;
+        }
+        
+         /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(20px);
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-top:hover {
+            background: var(--accent-dark);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 112, 255, 0.4);
+        }
+        
+        .scroll-top i {
+            color: var(--light);
+            font-size: 24px;
+            transition: var(--transition);
+        }
+        
+        .scroll-top:hover i {
+            transform: translateY(-3px);
+        }
+        
+        /* Demo content to show scrolling */
+        .content-section {
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .content-section h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+        
+        .content-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--silver);
+            line-height: 1.8;
+        }
+        
+        .spacer {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+        }
+        
+        .spacer h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            text-align: center;
+            color: var(--light);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Animation for arrow */
+        @keyframes pulse {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .scroll-top:hover i {
+            animation: pulse 1.2s infinite;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .scroll-top i {
+                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <img src="https://c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" alt="HoloRes Logo" class="logo-img">
-        
-        <!-- Expanded navigation for larger screens -->
-        <div class="expanded-nav">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#features">Technology</a></li>
-                <li><a href="#packages">Solutions</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-        
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
-                <svg class="theme-icon sun-icon" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="4"/>
-                    <line x1="12" y1="2" x2="12" y2="4"/>
-                    <line x1="12" y1="20" x2="12" y2="22"/>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                    <line x1="2" y1="12" x2="4" y2="12"/>
-                    <line x1="20" y1="12" x2="22" y2="12"/>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                </svg>
-                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" style="display: none;">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
-            </button>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img 
+                src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" 
+                alt="HoloRes Logo" 
+                class="logo"
+            >
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#custom">Custom</a></li>
+                        <li><a href="#showcase">Showcase</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-right">
+                    <!-- Cart Icon -->
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                    
+                    <button class="hamburger" id="hamburger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Mobile navigation menu -->
-    <div class="nav-menu" id="navMenu">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-btn" id="closeMenu">&times;</button>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#features">Technology</a></li>
-            <li><a href="#packages">Solutions</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#technology">Technology</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#custom">Custom</a></li>
+            <li><a href="#showcase">Showcase</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
+    <div class="overlay" id="overlay"></div>
 
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1>The Future is<br><strong>Multidimensional Media</strong></h1>
-            <p class="tagline">
-                No glasses. No gimmicks. Just pure depth and presence.<br>
-                Transform 2D imagery into immersive, lifelike 3D holographic experiences.
-            </p>
-            <a href="#packages" class="cta-button">Explore Solutions</a>
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h2 class="cart-title">Your Cart</h2>
+            <button class="close-cart" id="closeCart">&times;</button>
         </div>
-    </section>
-
-    <div class="dimension-line"></div>
-
-    <section class="section features" id="features">
-        <h2 class="section-title">Technology That Feels Alive</h2>
-        <div class="asymmetric-grid">
-            <div class="asymmetric-card">
-                <div class="feature-image-placeholder">
-                    <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1761127551670x988210656133586400/Optical-principle-of-the-201-inch-holographic-display-prototype-Sizes-and-distances-are.png" alt="Optical Physics">
-                </div>
-                <div class="feature-content">
-                    <h3 class="feature-title">Optical Physics</h3>
-                    <p class="feature-text">
-                        Advanced autostereoscopic rendering that creates true dimensional depth without requiring special eyewear or devices.
-                    </p>
-                    <a href="#" class="learn-more">Learn More →</a>
-                </div>
-            </div>
-            <div class="asymmetric-card offset">
-                <div class="feature-image-placeholder">
-                    <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1761136004832x383864490278200900/image.webp" alt="AI Depth Reconstruction">
-                </div>
-                <div class="feature-content">
-                    <h3 class="feature-title">AI Depth Reconstruction</h3>
-                    <p class="feature-text">
-                        Intelligent systems that analyze and reconstruct spatial information, breathing dimensional life into flat imagery.
-                    </p>
-                    <a href="#" class="learn-more">Learn More →</a>
-                </div>
-            </div>
-            <div class="asymmetric-card">
-                <div class="feature-image-placeholder">
-                    <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1761135718571x827914144491197300/fbbhde.png" alt="Proprietary Rendering">
-                </div>
-                <div class="feature-content">
-                    <h3 class="feature-title">Proprietary Rendering</h3>
-                    <p class="feature-text">
-                        Custom-built rendering engines optimized for presence, clarity, and the seamless illusion of three-dimensional space.
-                    </p>
-                    <a href="#" class="learn-more">Learn More →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="dimension-line"></div>
-
-    <section class="section packages" id="packages">
-        <h2 class="section-title">Solutions for Every Vision</h2>
         
-        <div class="package-grid">
-            <div class="package">
-                <h3 class="package-name">Stereo Packages</h3>
-                <p class="package-desc">
-                    Feature-based tools for independent creators and studios seeking cinematic stereoscopic control.
-                </p>
-                <ul class="package-features">
-                    <li>Full creative control</li>
-                    <li>Cinematic stereoscopic rendering</li>
-                    <li>Studio-grade output quality</li>
-                    <li>Flexible production pipeline</li>
-                </ul>
-                <a href="#" class="learn-more">Learn More →</a>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added dynamically -->
+            <div class="empty-cart">
+                <div class="empty-cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <p>Your cart is empty</p>
             </div>
-
-            <div class="package">
-                <h3 class="package-name">Auto Stereo Packages</h3>
-                <p class="package-desc">
-                    Performance-based tiers (Pro, Deluxe, Ultra) for professionals demanding precision and power.
-                </p>
-                <ul class="package-features">
-                    <li>Automated depth processing</li>
-                    <li>Pro / Deluxe / Ultra tiers</li>
-                    <li>Seamless autostereoscopic rendering</li>
-                    <li>Professional-grade precision</li>
-                </ul>
-                <a href="#" class="learn-more">Learn More →</a>
+        </div>
+        
+        <div class="cart-summary" id="cartSummary" style="display: none;">
+            <div class="summary-item">
+                <span class="summary-label">Subtotal</span>
+                <span class="summary-value" id="cartSubtotal">$0.00</span>
             </div>
+            <div class="summary-item">
+                <span class="summary-label">Tax (10%)</span>
+                <span class="summary-value" id="cartTax">$0.00</span>
+            </div>
+            <div class="summary-total">
+                <span class="summary-label">Total</span>
+                <span class="summary-value" id="cartTotal">$0.00</span>
+            </div>
+        </div>
+        
+        <div class="cart-actions">
+            <button class="cart-button continue-shopping" id="continueShopping">Continue Shopping</button>
+            <button class="cart-button checkout-button" id="checkoutButton">Proceed to Checkout</button>
+        </div>
+    </div>
 
-            <div class="package">
-                <h3 class="package-name">Holo Packages</h3>
-                <p class="package-desc">
-                    Enterprise-scale systems for museums, resorts, retail, and scientific visualization. Fully customizable.
-                </p>
-                <ul class="package-features">
-                    <li>Enterprise-scale deployment</li>
-                    <li>Custom integration solutions</li>
-                    <li>Real-time holographic displays</li>
-                    <li>White-glove support</li>
-                </ul>
-                <a href="#" class="learn-more">Learn More →</a>
+    <!-- Payment Page (Hidden by default) -->
+    <div class="payment-page" id="paymentPage">
+        <div class="payment-header">
+            <h2>Complete Your Purchase</h2>
+            <p>Securely complete your payment to access your 3D package</p>
+        </div>
+        
+        <div class="payment-steps">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Cart</div>
+            </div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <div class="step-label">Payment</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-label">Confirmation</div>
+            </div>
+        </div>
+        
+        <div class="payment-section">
+            <h3 class="section-title">Order Summary</h3>
+            <div class="order-summary" id="orderSummary">
+                <!-- Order items will be added dynamically -->
+            </div>
+            
+            <div class="summary-item">
+                <span class="summary-label">Subtotal</span>
+                <span class="summary-value" id="orderSubtotal">$0.00</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Tax (10%)</span>
+                <span class="summary-value" id="orderTax">$0.00</span>
+            </div>
+            <div class="summary-total">
+                <span class="summary-label">Total</span>
+                <span class="summary-value" id="orderTotal">$0.00</span>
+            </div>
+        </div>
+        
+        <div class="payment-section">
+            <h3 class="section-title">Payment Details</h3>
+            <form class="payment-form" id="paymentForm">
+                <div class="form-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <input type="text" id="cardName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" required>
+                </div>
+                
+                <div class="card-details">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" class="form-control" placeholder="123" required>
+                    </div>
+                </div>
+                
+                <div class="payment-actions">
+                    <button type="button" class="back-to-cart" id="backToCart">Back to Cart</button>
+                    <button type="submit" class="pay-now">Pay Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Confirmation Page (Hidden by default) -->
+    <div class="payment-page" id="confirmationPage">
+        <div class="confirmation">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p>Thank you for your purchase. Your order has been processed successfully. You'll receive a confirmation email with your package details shortly.</p>
+            <a href="#packages" class="cta-button">Browse More Packages</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Break The Barrier.</h2>
+                <p>From indie filmmakers to premium cinemas, we make 3D accessible at every level.</p>
+                <a href="#packages" class="cta-button">Explore Packages</a>
             </div>
         </div>
     </section>
 
-    <div class="dimension-line"></div>
+    <!-- Technology Section -->
+    <section id="technology">
+        <div class="container">
+            <div class="section-title scroll-animate">
+                <h2>Advanced 3D Technologies</h2>
+                <p>Discover the spectrum of stereoscopic experiences we offer, from accessible anaglyph to cutting-edge glasses-free solutions</p>
+            </div>
+            
+            <div class="tech-container">
+                <div class="tech-card scroll-animate">
+                    <div class="tech-image">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750799433369x575911008776092800/Screenshot%202025-06-24%20at%2023.09.10.png" alt="Anaglyph 3D Technology">
+                    </div>
+                    <div class="tech-info">
+                        <h3>Anaglyph 3D</h3>
+                        <p>The most accessible form of stereoscopic 3D, using color filters to separate images for each eye. Perfect for mass distribution and viewers with basic red-blue or green-magenta glasses.</p>
+                        <div class="tech-features">
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-glasses"></i></div>
+                                <div>Basic color-filter glasses required</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                                <div>Works on all devices and screens</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                                <div>Mass audience accessibility</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-film"></i></div>
+                                <div>Ideal for indie films and home use</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card scroll-animate">
+                    <div class="tech-image">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750809993390x948566714095084200/Screenshot%202025-06-25%20at%2001.38.14.png" alt="Polarized 3D Technology">
+                    </div>
+                    <div class="tech-info">
+                        <h3>Polarized 3D</h3>
+                        <p>Professional-grade stereoscopic experience using polarized light to separate images for each eye. Delivers superior image quality and depth perception for premium viewing experiences.</p>
+                        <div class="tech-features">
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-video"></i></div>
+                                <div>Requires 3D projectors or displays</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-theater-masks"></i></div>
+                                <div>Cinema-quality viewing experience</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                                <div>Enhanced depth and visual impact</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                                <div>Industry standard for professional 3D</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card scroll-animate">
+                    <div class="tech-image">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750800139836x277339989620230880/Screenshot%202025-06-24%20at%2023.21.40.png" alt="Autostereoscopic Technology">
+                    </div>
+                    <div class="tech-info">
+                        <h3>Autostereoscopic 3D</h3>
+                        <p>The peak of 3D viewing, absolutely no glasses required! Using parallax barrier or lenticular lens technology to deliver a seamless, immersive experience directly to your eyes.</p>
+                        <div class="tech-features">
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                                <div>Completely glasses-free experience</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                                <div>Requires specialized displays</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-crown"></i></div>
+                                <div>Premium cutting-edge technology</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                                <div>Ultimate immersive experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <img src="https://c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" alt="HoloRes Logo" class="footer-logo">
-            <p class="footer-tagline">
-                Where art, science, and perception converge.<br>
-                Building the foundation for dimensional media.
-            </p>
-            <a href="#" class="cta-button" style="background: var(--off-white); color: var(--off-black); margin-top: 2rem;">
-                Get in Touch
-            </a>
-            <div class="footer-legal">
-                © 2025 HoloRes. All rights reserved.
+    <!-- Packages Section -->
+    <section id="packages" class="packages">
+        <div class="container">
+            <div class="section-title scroll-animate">
+                <h2>3D Conversion Packages</h2>
+                <p>Choose the perfect solution for your project, from accessible entry-level to premium cinematic experiences</p>
+            </div>
+            
+            <div class="package-cards">
+                <!-- Basic Package -->
+                <div class="package-card basic scroll-animate">
+                    <div class="package-icon">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791348508x695473950413478800/jioj.svg" alt="Red/Blue Glasses">
+                    </div>
+                    <h3>Indie</h3>
+                    <div class="package-method">Red/Blue Anaglyph</div>
+                    
+                    <!-- Glasses Indicator -->
+                    <div class="glasses-indicator">
+                        <div class="glasses-container">
+                            <div class="glasses-frame"></div>
+                            <div class="glasses-lens lens-left"></div>
+                            <div class="glasses-lens lens-right"></div>
+                            <div class="nose-bridge"></div>
+                            <div class="glasses-arm arm-left"></div>
+                            <div class="glasses-arm arm-right"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Resolution:</span>
+                            <span class="detail-value">720p & 1080p</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Compatibility:</span>
+                            <span class="detail-value">All Devices</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Glasses:</span>
+                            <span class="detail-value">Red/Blue Anaglyph</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-audience">
+                        <h4>Designed For:</h4>
+                        <p>Indie filmmakers, small productions, home users just getting started with 3D content.</p>
+                    </div>
+                    
+                    <div class="package-benefits">
+                        <h4>Benefits</h4>
+                        <ul class="benefit-list">
+                            <li>Super accessible with low barrier to entry</li>
+                            <li>Great for mobile and desktop devices</li>
+                            <li>Quick setup with minimal tech requirements</li>
+                            <li>Mass audience reach</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="cta-button add-to-cart" data-package="basic" data-price="199.99">Add to Cart</button>
+                    <a href="#" class="view-details modal-open" data-package="basic">View Details</a>
+                </div>
+                
+                <!-- Silver Package -->
+                <div class="package-card silver scroll-animate">
+                    <div class="package-icon">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750792841655x218099711945581860/fsbgdf.svg" alt="Green/Magenta Glasses">
+                    </div>
+                    <h3>Director</h3>
+                    <div class="package-method">Green/Magenta Anaglyph</div>
+                    
+                    <!-- Glasses Indicator -->
+                    <div class="glasses-indicator">
+                        <div class="glasses-container">
+                            <div class="glasses-frame"></div>
+                            <div class="glasses-lens lens-left"></div>
+                            <div class="glasses-lens lens-right"></div>
+                            <div class="nose-bridge"></div>
+                            <div class="glasses-arm arm-left"></div>
+                            <div class="glasses-arm arm-right"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Resolution:</span>
+                            <span class="detail-value">1440p</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Compatibility:</span>
+                            <span class="detail-value">All Devices</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Glasses:</span>
+                            <span class="detail-value">Green/Magenta</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-audience">
+                        <h4>Designed For:</h4>
+                        <p>Intermediate filmmakers, small studios, content creators who want better quality without heavy investment.</p>
+                    </div>
+                    
+                    <div class="package-benefits">
+                        <h4>Benefits</h4>
+                        <ul class="benefit-list">
+                            <li>Better visual quality than red-blue anaglyph</li>
+                            <li>Higher resolution offers better clarity</li>
+                            <li>Accessible across most devices</li>
+                            <li>Cost-effective professional quality</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="cta-button add-to-cart" data-package="silver" data-price="299.99">Add to Cart</button>
+                    <a href="#" class="view-details modal-open" data-package="silver">View Details</a>
+                </div>
+                
+                <!-- Gold Package -->
+                <div class="package-card gold scroll-animate">
+                    <div class="package-icon">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791267708x538562025467006460/hjnk.svg" alt="Polarized Glasses">
+                    </div>
+                    <h3>Studio</h3>
+                    <div class="package-method">Polarized 3D</div>
+                    
+                    <!-- Glasses Indicator -->
+                    <div class="glasses-indicator">
+                        <div class="glasses-container">
+                            <div class="glasses-frame"></div>
+                            <div class="glasses-lens lens-left"></div>
+                            <div class="glasses-lens lens-right"></div>
+                            <div class="nose-bridge"></div>
+                            <div class="glasses-arm arm-left"></div>
+                            <div class="glasses-arm arm-right"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Resolution:</span>
+                            <span class="detail-value">4K</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Compatibility:</span>
+                            <span class="detail-value">3D Projectors</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Glasses:</span>
+                            <span class="detail-value">Polarized</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-audience">
+                        <h4>Designed For:</h4>
+                        <p>Professional filmmakers, film festivals, cinemas, larger studios pushing 3D content to the next level.</p>
+                    </div>
+                    
+                    <div class="package-benefits">
+                        <h4>Benefits</h4>
+                        <ul class="benefit-list">
+                            <li>Premium 4K resolution quality</li>
+                            <li>Tailored for immersive experiences</li>
+                            <li>Industry-standard for cinemas and theaters</li>
+                            <li>Superior depth and visual impact</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="cta-button add-to-cart" data-package="gold" data-price="799.99">Add to Cart</button>
+                    <a href="#" class="view-details modal-open" data-package="gold">View Details</a>
+                </div>
+                
+                <!-- Diamond Package -->
+                <div class="package-card diamond scroll-animate">
+                    <div class="package-icon">
+                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791817546x681765754051015400/gvghv.svg" alt="Glasses-Free Technology">
+                    </div>
+                    <h3>HoloRes</h3>
+                    <div class="package-method">Parallax Barrier</div>
+                    
+                    <!-- Glasses-Free Eyes Indicator -->
+                    <div class="glasses-indicator">
+                        <div class="eyes-container">
+                            <div class="eye eye-left">
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="eye eye-right">
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="sparkle sparkle-1"></div>
+                            <div class="sparkle sparkle-2"></div>
+                            <div class="sparkle sparkle-3"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Resolution:</span>
+                            <span class="detail-value">8K</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Compatibility:</span>
+                            <span class="detail-value">Specialized Devices</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Glasses:</span>
+                            <span class="detail-value">None Required</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-audience">
+                        <h4>Designed For:</h4>
+                        <p>Cutting-edge studios, high-end creators, premium cinemas, and technology enthusiasts.</p>
+                    </div>
+                    
+                    <div class="package-benefits">
+                        <h4>Benefits</h4>
+                        <ul class="benefit-list">
+                            <li>Ultimate glasses-free 3D experience</li>
+                            <li>8K ultra-high definition resolution</li>
+                            <li>Future of 3D viewing technology</li>
+                            <li>Premium immersive experiences</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="cta-button add-to-cart" data-package="diamond" data-price="1499.99">Add to Cart</button>
+                    <a href="#" class="view-details modal-open" data-package="diamond">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Custom Cinema Section -->
+    <section id="custom" class="custom-cinema">
+        <div class="container">
+            <div class="cinema-content">
+                <h2 class="scroll-animate">H o l o R e s Transform</h2>
+                <p class="scroll-animate">Transform any space into a premium 3D experience with our custom cinema solutions. From boutique home theaters to commercial multiplexes, we create fully immersive environments tailored to your vision.</p>
+                
+                <div class="cinema-features">
+                    <div class="feature-card scroll-animate">
+                        <h3>Premium Experience</h3>
+                        <p>State-of-the-art stereoscopic technology with unparalleled visual quality and comfort.</p>
+                    </div>
+                    <div class="feature-card scroll-animate">
+                        <h3>Tailored Solutions</h3>
+                        <p>Custom design for any space; from intimate home theaters to large commercial venues.</p>
+                    </div>
+                    <div class="feature-card scroll-animate">
+                        <h3>Future-Proof Tech</h3>
+                        <p>Cutting-edge systems designed to evolve with advancing technology standards.</p>
+                    </div>
+                    <div class="feature-card scroll-animate">
+                        <h3>End-to-End Service</h3>
+                        <p>From design consultation to installation and ongoing support; we handle everything.</p>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="cta-button scroll-animate">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="scroll-animate">Ready to Reinvent Your Content?</h2>
+            <p class="scroll-animate">Experience the future of stereoscopic technology with H o l o R e s. Our advanced conversion process makes cinematic 3D accessible through a single upload.</p>
+            <a href="#packages" class="cta-button scroll-animate">Start Your 3D Journey</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column scroll-animate">
+                   <img 
+                src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" 
+                alt="HoloRes Logo" 
+                class="logo"
+            >
+                    <p>Making 3D accessible through cutting-edge stereoscopic technology. Cinematic experiences at every level.</p>
+                    <div class="social-links">
+                        <a href="#" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="#" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column scroll-animate">
+                    <h3>Technology</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Stereoscopic Conversion</a></li>
+                        <li><a href="#">Autostereoscopic Displays</a></li>
+                        <li><a href="#">3D Media Export</a></li>
+                        <li><a href="#">Cinematic Experience</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column scroll-animate">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Form Column -->
+                <div class="footer-column scroll-animate">
+                    <h3>Contact Us</h3>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 HoloRes. All rights reserved. Powered by LumenOS.</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        const themeToggle = document.getElementById('themeToggle');
-        const sunIcon = themeToggle.querySelector('.sun-icon');
-        const moonIcon = themeToggle.querySelector('.moon-icon');
-
-        // Theme toggle functionality
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-theme');
+    <!-- Subscription Modal -->
+    <div class="modal-overlay" id="subscriptionModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
             
-            if (document.body.classList.contains('dark-theme')) {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
+            <div class="modal-video-container">
+                <!-- Skeleton loader for video -->
+                <div class="skeleton-loader" id="skeletonLoader">
+                    <i class="fas fa-spinner fa-spin icon"></i>
+                </div>
+                <iframe id="packageVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onload="hideSkeletonLoader()"></iframe>
+            </div>
+            
+            <h2 class="package-modal-title" id="modalTitle">Package Title</h2>
+            <div class="package-modal-description" id="modalDescription">
+                Experience the future of stereoscopic viewing with this premium package
+            </div>
+            <div class="package-modal-price" id="modalPrice">
+                Subscribe now for $29.99/month
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-add-to-cart" id="modalAddToCart">Add to Cart</button>
+                <button class="modal-subscribe-btn" id="modalSubscribe">Subscribe Now</button>
+            </div>
+        </div>
+    </div>
+    
+     <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- Analytics Notification -->
+    <div class="analytics-notification" id="analyticsNotification">
+        Event tracked: Modal opened
+    </div>
+
+    <script>
+        // Cart functionality
+        const cart = {
+            items: [],
+            
+            addItem: function(packageName, packageMethod, price, icon) {
+                // Check if item already in cart
+                const existingItem = this.items.find(item => item.name === packageName);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    this.items.push({
+                        name: packageName,
+                        method: packageMethod,
+                        price: price,
+                        icon: icon,
+                        quantity: 1
+                    });
+                }
+                
+                this.saveToStorage();
+                this.updateCartDisplay();
+                showNotification('Added to cart!');
+            },
+            
+            removeItem: function(itemName) {
+                this.items = this.items.filter(item => item.name !== itemName);
+                this.saveToStorage();
+                this.updateCartDisplay();
+            },
+            
+            clearCart: function() {
+                this.items = [];
+                this.saveToStorage();
+                this.updateCartDisplay();
+            },
+            
+            getSubtotal: function() {
+                return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            },
+            
+            getTax: function() {
+                return this.getSubtotal() * 0.1; // 10% tax
+            },
+            
+            getTotal: function() {
+                return this.getSubtotal() + this.getTax();
+            },
+            
+            saveToStorage: function() {
+                localStorage.setItem('cart', JSON.stringify(this.items));
+            },
+            
+            loadFromStorage: function() {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    this.items = JSON.parse(savedCart);
+                }
+                this.updateCartDisplay();
+            },
+            
+            updateCartDisplay: function() {
+                const cartCount = document.querySelector('.cart-count');
+                const cartItemsContainer = document.getElementById('cartItems');
+                const cartSummary = document.getElementById('cartSummary');
+                
+                cartCount.textContent = this.items.reduce((total, item) => total + item.quantity, 0);
+                
+                // Clear cart items container
+                cartItemsContainer.innerHTML = '';
+                
+                if (this.items.length === 0) {
+                    cartItemsContainer.innerHTML = `
+                        <div class="empty-cart">
+                            <div class="empty-cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <p>Your cart is empty</p>
+                        </div>
+                    `;
+                    cartSummary.style.display = 'none';
+                    return;
+                }
+                
+                // Add items to cart
+                this.items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <div class="cart-item-icon">
+                            <img src="${item.icon}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-method">${item.method}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}/month</div>
+                        </div>
+                        <button class="remove-item" data-name="${item.name}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+                
+                // Update summary
+                document.getElementById('cartSubtotal').textContent = `$${this.getSubtotal().toFixed(2)}`;
+                document.getElementById('cartTax').textContent = `$${this.getTax().toFixed(2)}`;
+                document.getElementById('cartTotal').textContent = `$${this.getTotal().toFixed(2)}`;
+                cartSummary.style.display = 'block';
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', () => {
+                        this.removeItem(button.dataset.name);
+                    });
+                });
+            },
+            
+            displayOrderSummary: function() {
+                const orderSummary = document.getElementById('orderSummary');
+                orderSummary.innerHTML = '';
+                
+                this.items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'order-item';
+                    itemElement.innerHTML = `
+                        <span>${item.name} (${item.method}) x ${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    orderSummary.appendChild(itemElement);
+                });
+                
+                document.getElementById('orderSubtotal').textContent = `$${this.getSubtotal().toFixed(2)}`;
+                document.getElementById('orderTax').textContent = `$${this.getTax().toFixed(2)}`;
+                document.getElementById('orderTotal').textContent = `$${this.getTotal().toFixed(2)}`;
             }
-        });
-
-        // Navigation functionality
-        hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking on links
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+        };
+        
+        // Package icons
+        const packageIcons = {
+            basic: "//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791348508x695473950413478800/jioj.svg",
+            silver: "//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750792841655x218099711945581860/fsbgdf.svg",
+            gold: "//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791267708x538562025467006460/hjnk.svg",
+            diamond: "//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791817546x681765754051015400/gvghv.svg"
+        };
+        
+        // Package methods
+        const packageMethods = {
+            basic: "Red/Blue Anaglyph",
+            silver: "Green/Magenta Anaglyph",
+            gold: "Polarized 3D",
+            diamond: "Parallax Barrier"
+        };
+        
+        // Package names
+        const packageNames = {
+            basic: "Indie Package",
+            silver: "Director Package",
+            gold: "Studio Package",
+            diamond: "HoloRes Package"
+        };
+        
+        // Package prices
+        const packagePrices = {
+            basic: 199.99,
+            silver: 299.99,
+            gold: 799.99,
+            diamond: 1499.99
+        };
+        
+        // Notification function
+        function showNotification(message) {
+            const notification = document.getElementById('analyticsNotification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Scroll animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
             });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+            
+            // Observe all scroll-animate elements
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Header hide/show on scroll
+        function setupHeaderBehavior() {
+            let lastScrollPosition = 0;
+            const header = document.getElementById('mainHeader');
+            
+            window.addEventListener('scroll', () => {
+                const currentScrollPosition = window.pageYOffset;
+                
+                if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+                    // Scrolling down
+                    header.classList.add('header-hidden');
+                } else {
+                    // Scrolling up
+                    header.classList.remove('header-hidden');
+                }
+                
+                lastScrollPosition = currentScrollPosition;
+            });
+        }
+        
+        // Scroll progress indicator
+        function setupScrollProgress() {
+            const progressBar = document.getElementById('scrollProgress');
+            
+            window.addEventListener('scroll', () => {
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (window.scrollY / scrollHeight) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+        }
+        
+        // Cart UI functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart
+            cart.loadFromStorage();
+            
+            // Initialize immersive scrolling features
+            setupScrollAnimations();
+            setupHeaderBehavior();
+            setupScrollProgress();
+            
+            // Hamburger menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            
+            hamburger.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeMenu.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            overlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Cart icon click
+            document.getElementById('cartIcon').addEventListener('click', function() {
+                document.getElementById('cartPanel').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close cart
+            document.getElementById('closeCart').addEventListener('click', function() {
+                document.getElementById('cartPanel').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Continue shopping
+            document.getElementById('continueShopping').addEventListener('click', function() {
+                document.getElementById('cartPanel').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Checkout button
+            document.getElementById('checkoutButton').addEventListener('click', function() {
+                if (cart.items.length === 0) {
+                    showNotification('Your cart is empty!');
+                    return;
+                }
+                
+                document.getElementById('cartPanel').classList.remove('active');
+                document.getElementById('paymentPage').style.display = 'block';
+                document.body.style.overflow = 'auto';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update order summary
+                cart.displayOrderSummary();
+            });
+            
+            // Back to cart from payment
+            document.getElementById('backToCart').addEventListener('click', function() {
+                document.getElementById('paymentPage').style.display = 'none';
+                document.getElementById('cartPanel').classList.add('active');
+            });
+            
+            // Payment form submission
+            document.getElementById('paymentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Process payment (simulated)
+                setTimeout(function() {
+                    document.getElementById('paymentPage').style.display = 'none';
+                    document.getElementById('confirmationPage').style.display = 'block';
+                    
+                    // Clear cart after successful payment
+                    cart.clearCart();
+                }, 1000);
+            });
+            
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const packageType = this.dataset.package;
+                    const packagePrice = parseFloat(this.dataset.price);
+                    
+                    cart.addItem(
+                        packageNames[packageType],
+                        packageMethods[packageType],
+                        packagePrice,
+                        packageIcons[packageType]
+                    );
+                });
+            });
+            
+            // Modal open buttons
+            const openModalButtons = document.querySelectorAll('.modal-open');
+            const modalOverlay = document.getElementById('subscriptionModal');
+            const modalClose = document.getElementById('modalClose');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalPrice = document.getElementById('modalPrice');
+            const modalVideo = document.getElementById('packageVideo');
+            const modalAddToCart = document.getElementById('modalAddToCart');
+            const modalSubscribe = document.getElementById('modalSubscribe');
+            const skeletonLoader = document.getElementById('skeletonLoader');
+            
+            // Package data for modal
+            const packageData = {
+                basic: {
+                    title: "Indie Package",
+                    description: "Perfect for indie filmmakers and home users. Accessible 3D with red/blue anaglyph technology.",
+                    price: "$199.99/month",
+                    video: "https://www.youtube.com/embed/7It9GB0lNwI",
+                    redirect: "https://payment.example.com/basic"
+                },
+                silver: {
+                    title: "Director Package",
+                    description: "Enhanced quality with green/magenta anaglyph. Ideal for intermediate creators and small studios.",
+                    price: "$299.99/month",
+                    video: "https://www.youtube.com/embed/8Qn_spdM5Zg",
+                    redirect: "https://payment.example.com/silver"
+                },
+                gold: {
+                    title: "Studio Package",
+                    description: "Professional-grade polarized 3D for cinemas and film festivals. Industry-standard quality.",
+                    price: "$799.99/month",
+                    video: "https://www.youtube.com/embed/9zeiZcfqm24",
+                    redirect: "https://payment.example.com/gold"
+                },
+                diamond: {
+                    title: "HoloRes Package",
+                    description: "The ultimate glasses-free 3D experience. Cutting-edge technology for premium creators.",
+                    price: "$1499.99/month",
+                    video: "https://www.youtube.com/embed/7Z3Dnun0bPY",
+                    redirect: "https://payment.example.com/diamond"
+                }
+            };
+            
+            // Function to hide skeleton loader
+            function hideSkeletonLoader() {
+                skeletonLoader.style.display = 'none';
             }
+            
+            // Open modal with package data
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const packageType = this.dataset.package;
+                    const package = packageData[packageType];
+                    
+                    // Set modal content
+                    modalTitle.textContent = package.title;
+                    modalDescription.textContent = package.description;
+                    modalPrice.textContent = package.price;
+                    
+                    // Show skeleton loader
+                    skeletonLoader.style.display = 'flex';
+                    
+                    // Set video
+                    modalVideo.src = package.video;
+                    
+                    // Set add to cart action
+                    modalAddToCart.onclick = function() {
+                        cart.addItem(
+                            package.title,
+                            packageMethods[packageType],
+                            packagePrices[packageType],
+                            packageIcons[packageType]
+                        );
+                        modalOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        showNotification('Added to cart!');
+                    };
+                    
+                    // Set subscribe button action
+                    modalSubscribe.onclick = function() {
+                        window.location.href = package.redirect;
+                    };
+                    
+                    // Show modal
+                    modalOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close modal
+            modalClose.addEventListener('click', () => {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside content
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Close modal with ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                    modalOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                // In a real implementation, you would send this data to a server
+                console.log('Contact Form Submitted:', { name, email, message });
+                
+                // Show success message
+                alert('Thank you for your message! We will get back to you soon.');
+                
+                // Reset form
+                contactForm.reset();
+            });
+            
+            // Initialize analytics (simulated)
+            showNotification('Page loaded');
+        });
+        
+        // Scroll to top functionality
+        const scrollTopButton = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopButton.classList.add('active');
+            } else {
+                scrollTopButton.classList.remove('active');
+            }
+        });
+        
+        scrollTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
