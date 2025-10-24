@@ -3,22 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H o l o R e s | Embrace The Depth</title>
+    <title>H o l o R e s | Break The Barrier - Premium 3D Solutions</title>
+    
+    <!-- Open Graph Meta Tags for LinkedIn -->
+    <meta property="og:title" content="H o l o R e s | Break The Barrier - Premium 3D Solutions">
+    <meta property="og:description" content="From indie filmmakers to premium cinemas, we make 3D accessible at every level. Discover our stereoscopic technology solutions.">
+    <meta property="og:image" content="https://c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg">
+    <meta property="og:url" content="https://holores.co.za">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="H o l o R e s | Break The Barrier">
+    <meta name="twitter:description" content="Professional 3D conversion services for filmmakers and cinemas">
+    <meta name="twitter:image" content="https://c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Original CSS variables and base styles */
-        :root {
-            --primary: #000000;
-            --secondary: #333333;
-            --accent: #0070ff;
-            --accent-dark: #0051b8;
-            --dark: #121212;
-            --darker: #0a0a0a;
-            --light: #ffffff;
-            --silver: #e0e0e0;
-            --gold: #a0a0a0;
-            --diamond: #f0f0f0;
+        /* CSS variables and base styles */
+         :root {
+            --primary: 
+#000000;
+            --secondary: 
+#333333;
+           --accent: #0070ff;
+    --accent-dark: #0051b8;
+            --dark: 
+#121212;
+            --darker: 
+#0a0a0a;
+            --light: 
+#ffffff;
+            --silver: 
+#e0e0e0;
+            --gold: 
+#a0a0a0;
+            --diamond: 
+#f0f0f0;
             --transition: all 0.4s ease;
             --border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -35,7 +57,6 @@
             overflow-x: hidden;
             line-height: 1.6;
             font-family: 'Montserrat', sans-serif;
-            /* Enable smooth scrolling */
             scroll-behavior: smooth;
         }
 
@@ -72,7 +93,7 @@
             padding: 0 20px;
         }
 
-        /* Header Styles - FIXED ALIGNMENT */
+         /* Header Styles - FIXED ALIGNMENT */
          /* FIXED: Header Styles with proper alignment */
         header {
             background: rgba(10, 10, 10, 0.4);
@@ -191,7 +212,27 @@
             gap: 20px;
         }
 
-        /* Hero Section - Updated with parallax effect */
+        /* Logo styling */
+        .logo-container {
+            display: inline-block;
+            max-width: 100px;
+            position: relative;
+        }
+
+        .logo {
+            width: 40%;
+            height: auto;
+            display: block;
+        }
+
+        /* Header right section */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -200,8 +241,8 @@
             overflow: hidden;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
                         url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1750878326918x191441407176639940/Bring%20back%20cinema.png') no-repeat center center/cover;
-            padding-top: 60px; /* Account for fixed header */
-            background-attachment: fixed; /* Parallax effect */
+            padding-top: 60px;
+            background-attachment: fixed;
             background-position: center;
         }
 
@@ -251,7 +292,7 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
             letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: var(--border);
         }
 
         .cta-button:hover {
@@ -268,7 +309,7 @@
             overflow: hidden;
         }
 
-        /* NEW: Parallax background layers */
+        /* Parallax background layers */
         .parallax-layer {
             position: absolute;
             top: 0;
@@ -280,7 +321,7 @@
 
         .layer-1 {
             background: url('//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750800139836x277339989620230880/Screenshot%202025-06-24%20at%2023.21.40.png') center center/cover;
-            opacity: 0.03;
+            opacity: 0.73;
             z-index: -1;
         }
 
@@ -321,7 +362,7 @@
             color: var(--silver);
         }
 
-        /* NEW: Scroll animation classes */
+        /* Scroll animation classes */
         .scroll-animate {
             opacity: 0;
             transform: translateY(30px);
@@ -411,9 +452,204 @@
             margin-top: 5px;
         }
 
+        /* Enhanced Package Comparison Section */
+        .package-comparison {
+            background: var(--dark);
+            padding: 100px 0;
+        }
+
+        .comparison-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 200px repeat(4, 1fr);
+            min-width: 1000px;
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0;
+            overflow: hidden;
+            border: var(--border);
+        }
+
+        .comparison-header {
+            background: rgba(0, 112, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .comparison-cell {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            min-height: 100px;
+        }
+
+        .feature-cell {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+        }
+
+        .package-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .package-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .package-method {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .visual-comparison {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            margin: 15px 0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            border: var(--border);
+        }
+
+        .visual-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .comparison-highlight {
+            position: relative;
+            z-index: 1;
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(0, 112, 255, 0.2);
+            border: 1px solid var(--accent);
+        }
+
+        .comparison-highlight::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.7rem;
+            border-radius: 3px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .tech-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        /* Mobile Comparison Table */
+        .mobile-comparison {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .mobile-package-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            overflow: hidden;
+            border: var(--border);
+        }
+
+        .mobile-package-header {
+            padding: 15px;
+            text-align: center;
+            background: rgba(0, 112, 255, 0.1);
+            border-bottom: var(--border);
+        }
+
+        .mobile-package-title {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+
+        .mobile-package-method {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .mobile-package-features {
+            padding: 15px;
+        }
+
+        .mobile-feature-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-feature-name {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .mobile-feature-value {
+            text-align: right;
+        }
+
+        .mobile-visual-comparison {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            margin: 10px 0;
+            border-radius: 4px;
+            position: relative;
+            border: var(--border);
+        }
+
         /* Packages Section */
         .packages {
-            background: var(--dark);
+            background: var(--darker);
             position: relative;
             overflow: hidden;
         }
@@ -967,7 +1203,7 @@
             color: var(--silver);
         }
 
-        /* Hamburger menu styles - FIXED */
+        /* Hamburger menu styles */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -1044,7 +1280,6 @@
                 font-size: 3.5rem;
             }
             
-            /* Disable parallax on mobile */
             .hero, .custom-cinema {
                 background-attachment: scroll;
             }
@@ -1075,7 +1310,6 @@
                 transform: scale(0.8);
             }
             
-            /* Adjust header for mobile */
             header {
                 height: 60px;
             }
@@ -1090,6 +1324,14 @@
             
             .hero {
                 padding-top: 60px;
+            }
+            
+            .comparison-grid {
+                display: none;
+            }
+            
+            .mobile-comparison {
+                display: flex;
             }
         }
 
@@ -1110,7 +1352,6 @@
                 transform: scale(0.7);
             }
             
-            /* Further mobile adjustments */
             header {
                 height: 60px;
             }
@@ -1122,21 +1363,33 @@
             .hero {
                 padding-top: 60px;
             }
+            
+            .mobile-package-header {
+                padding: 12px;
+            }
+            
+            .mobile-package-title {
+                font-size: 1.1rem;
+            }
+            
+            .mobile-package-method {
+                font-size: 0.8rem;
+            }
+            
+            .mobile-package-features {
+                padding: 10px;
+            }
+            
+            .mobile-feature-item {
+                padding: 10px 0;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-visual-comparison {
+                height: 120px;
+            }
         }
         
-        /* CSS for the logo */
-        .logo-container {
-            display: inline-block;
-            max-width: 100px;
-            position: relative;
-        }
-
-        .logo {
-            width: 40%;
-            height: auto;
-            display: block;
-        }
-
         /* Package animations */
         @keyframes fadeInUp {
             from {
@@ -1224,7 +1477,7 @@
             overflow: hidden;
             margin-bottom: 30px;
             background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: var(--border);
         }
         
         .modal-video-container iframe,
@@ -1276,7 +1529,7 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
             letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: var(--border);
             text-align: center;
             max-width: 300px;
         }
@@ -1301,7 +1554,7 @@
             padding: 120px 0;
             text-align: center;
             position: relative;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed;
             background-position: center;
         }
         
@@ -1677,7 +1930,15 @@
             color: var(--gold);
         }
         
-        /* Payment Page Styles */
+        /* Payment Page Styles - Hidden from crawlers */
+        .crawler-protection {
+            position: absolute;
+            left: -9999px;
+            opacity: 0.001;
+            height: 0;
+            overflow: hidden;
+        }
+        
         .payment-page {
             display: none;
             max-width: 800px;
@@ -1883,7 +2144,7 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
             letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: var(--border);
         }
         
         .modal-add-to-cart:hover {
@@ -1943,7 +2204,7 @@
             visibility: hidden;
             z-index: 999;
             box-shadow: 0 5px 15px rgba(0, 112, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: var(--border);
             transform: translateY(20px);
         }
         
@@ -1969,46 +2230,6 @@
             transform: translateY(-3px);
         }
         
-        /* Demo content to show scrolling */
-        .content-section {
-            padding: 100px 20px;
-            text-align: center;
-        }
-        
-        .content-section h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 3rem;
-            margin-bottom: 30px;
-            color: var(--accent);
-        }
-        
-        .content-section p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            color: var(--silver);
-            line-height: 1.8;
-        }
-        
-        .spacer {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
-        }
-        
-        .spacer h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 4rem;
-            text-align: center;
-            color: var(--light);
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Animation for arrow */
         @keyframes pulse {
             0% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
@@ -2052,6 +2273,7 @@
                 <nav>
                     <ul>
                         <li><a href="#technology">Technology</a></li>
+                        <li><a href="#comparison">Comparison</a></li>
                         <li><a href="#packages">Packages</a></li>
                         <li><a href="#custom">Custom</a></li>
                         <li><a href="#showcase">Showcase</a></li>
@@ -2079,6 +2301,7 @@
         <button class="close-btn" id="closeMenu">&times;</button>
         <ul>
             <li><a href="#technology">Technology</a></li>
+            <li><a href="#comparison">Comparison</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#custom">Custom</a></li>
             <li><a href="#showcase">Showcase</a></li>
@@ -2086,6 +2309,95 @@
         </ul>
     </div>
     <div class="overlay" id="overlay"></div>
+        <!-- Payment Pages - Hidden from crawlers -->
+    <div class="crawler-protection">
+        <!-- Payment Page -->
+        <div class="payment-page" id="paymentPage">
+            <div class="payment-header">
+                <h2>Complete Your Purchase</h2>
+                <p>Securely complete your payment to access your 3D package</p>
+            </div>
+            
+            <div class="payment-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Cart</div>
+                </div>
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+            
+            <div class="payment-section">
+                <h3 class="section-title">Order Summary</h3>
+                <div class="order-summary" id="orderSummary">
+                    <!-- Order items will be added dynamically -->
+                </div>
+                
+                <div class="summary-item">
+                    <span class="summary-label">Subtotal</span>
+                    <span class="summary-value" id="orderSubtotal">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Tax (10%)</span>
+                    <span class="summary-value" id="orderTax">$0.00</span>
+                </div>
+                <div class="summary-total">
+                    <span class="summary-label">Total</span>
+                    <span class="summary-value" id="orderTotal">$0.00</span>
+                </div>
+            </div>
+            
+            <div class="payment-section">
+                <h3 class="section-title">Payment Details</h3>
+                <form class="payment-form" id="paymentForm">
+                    <div class="form-group">
+                        <label for="cardName">Cardholder Name</label>
+                        <input type="text" id="cardName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    
+                    <div class="card-details">
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" class="form-control" placeholder="123" required>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button type="button" class="back-to-cart" id="backToCart">Back to Cart</button>
+                        <button type="submit" class="pay-now">Pay Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Confirmation Page -->
+        <div class="payment-page" id="confirmationPage">
+            <div class="confirmation">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Payment Successful!</h2>
+                <p>Thank you for your purchase. Your order has been processed successfully. You'll receive a confirmation email with your package details shortly.</p>
+                <a href="#packages" class="cta-button">Browse More Packages</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Cart Panel -->
     <div class="cart-panel" id="cartPanel">
@@ -2125,99 +2437,12 @@
         </div>
     </div>
 
-    <!-- Payment Page (Hidden by default) -->
-    <div class="payment-page" id="paymentPage">
-        <div class="payment-header">
-            <h2>Complete Your Purchase</h2>
-            <p>Securely complete your payment to access your 3D package</p>
-        </div>
-        
-        <div class="payment-steps">
-            <div class="step active">
-                <div class="step-number">1</div>
-                <div class="step-label">Cart</div>
-            </div>
-            <div class="step active">
-                <div class="step-number">2</div>
-                <div class="step-label">Payment</div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-label">Confirmation</div>
-            </div>
-        </div>
-        
-        <div class="payment-section">
-            <h3 class="section-title">Order Summary</h3>
-            <div class="order-summary" id="orderSummary">
-                <!-- Order items will be added dynamically -->
-            </div>
-            
-            <div class="summary-item">
-                <span class="summary-label">Subtotal</span>
-                <span class="summary-value" id="orderSubtotal">$0.00</span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">Tax (10%)</span>
-                <span class="summary-value" id="orderTax">$0.00</span>
-            </div>
-            <div class="summary-total">
-                <span class="summary-label">Total</span>
-                <span class="summary-value" id="orderTotal">$0.00</span>
-            </div>
-        </div>
-        
-        <div class="payment-section">
-            <h3 class="section-title">Payment Details</h3>
-            <form class="payment-form" id="paymentForm">
-                <div class="form-group">
-                    <label for="cardName">Cardholder Name</label>
-                    <input type="text" id="cardName" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="cardNumber">Card Number</label>
-                    <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" required>
-                </div>
-                
-                <div class="card-details">
-                    <div class="form-group">
-                        <label for="expiryDate">Expiry Date</label>
-                        <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <input type="text" id="cvv" class="form-control" placeholder="123" required>
-                    </div>
-                </div>
-                
-                <div class="payment-actions">
-                    <button type="button" class="back-to-cart" id="backToCart">Back to Cart</button>
-                    <button type="submit" class="pay-now">Pay Now</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Confirmation Page (Hidden by default) -->
-    <div class="payment-page" id="confirmationPage">
-        <div class="confirmation">
-            <div class="confirmation-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2>Payment Successful!</h2>
-            <p>Thank you for your purchase. Your order has been processed successfully. You'll receive a confirmation email with your package details shortly.</p>
-            <a href="#packages" class="cta-button">Browse More Packages</a>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h2>Break The Barrier.</h2>
-                <p>From indie filmmakers to premium cinemas, we make 3D accessible at every level.</p>
+                <p>For the filmmaker who wants to give an old classic a 3D release, for the marketer who wants to make a product video pop, for the family who wants to relive a vacation in 3D, there is no other viable choice.</p>
                 <a href="#packages" class="cta-button">Explore Packages</a>
             </div>
         </div>
@@ -2234,7 +2459,7 @@
             <div class="tech-container">
                 <div class="tech-card scroll-animate">
                     <div class="tech-image">
-                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750799433369x575911008776092800/Screenshot%202025-06-24%20at%2023.09.10.png" alt="Anaglyph 3D Technology">
+                        <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png" alt="Anaglyph 3D Technology">
                     </div>
                     <div class="tech-info">
                         <h3>Anaglyph 3D</h3>
@@ -2290,7 +2515,7 @@
                 
                 <div class="tech-card scroll-animate">
                     <div class="tech-image">
-                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750800139836x277339989620230880/Screenshot%202025-06-24%20at%2023.21.40.png" alt="Autostereoscopic Technology">
+                        <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1751417849218x577710928100491900/Screenshot%202025-07-02%20at%2002.54.45.png" alt="Autostereoscopic Technology">
                     </div>
                     <div class="tech-info">
                         <h3>Autostereoscopic 3D</h3>
@@ -2315,6 +2540,322 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Enhanced Package Comparison Section -->
+    <section id="comparison" class="package-comparison">
+        <div class="container">
+            <div class="section-title scroll-animate">
+                <h2>Package Comparison</h2>
+                <p>See the differences in visual quality and technology at a glance</p>
+            </div>
+            
+            <div class="comparison-container">
+                <div class="comparison-grid">
+                    <!-- Header Row -->
+                    <div class="comparison-header feature-cell">Features</div>
+                    <div class="comparison-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791348508x695473950413478800/jioj.svg" alt="Indie" width="40">
+                        </div>
+                        <div class="package-title">Indie</div>
+                        <div class="package-method">Red/Blue Anaglyph</div>
+                    </div>
+                    <div class="comparison-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750792841655x218099711945581860/fsbgdf.svg" alt="Director" width="40">
+                        </div>
+                        <div class="package-title">Director</div>
+                        <div class="package-method">Green/Magenta</div>
+                    </div>
+                    <div class="comparison-header comparison-highlight">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791267708x538562025467006460/hjnk.svg" alt="Studio" width="40">
+                        </div>
+                        <div class="package-title">Studio</div>
+                        <div class="package-method">Polarized 3D</div>
+                    </div>
+                    <div class="comparison-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791817546x681765754051015400/gvghv.svg" alt="HoloRes" width="40">
+                        </div>
+                        <div class="package-title">HoloRes</div>
+                        <div class="package-method">Glasses-Free</div>
+                    </div>
+                    
+                    <!-- Visual Comparison Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="feature-name">Visual Quality</div>
+                        <div class="feature-desc">Side-by-side comparison</div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png');">
+                            <div class="visual-label">Red/Blue Filter Effect</div>
+                        </div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png');">
+                            <div class="visual-label">Improved Color Accuracy</div>
+                        </div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png');">
+                            <div class="visual-label">Cinematic Depth & Clarity</div>
+                        </div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291518169x240852100583814240/Screenshot%202025-07-12%20at%2005.23.36.png');">
+                            <div class="visual-label">Immersive Glasses-Free</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resolution Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="tech-icon"><i class="fas fa-expand"></i></div>
+                        <div class="feature-name">Resolution</div>
+                        <div class="feature-desc">Output quality</div>
+                    </div>
+                    <div class="comparison-cell">720p & 1080p</div>
+                    <div class="comparison-cell">1440p</div>
+                    <div class="comparison-cell">4K</div>
+                    <div class="comparison-cell">8K</div>
+                    
+                    <!-- Technology Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="tech-icon"><i class="fas fa-vr-cardboard"></i></div>
+                        <div class="feature-name">Technology</div>
+                        <div class="feature-desc">Underlying method</div>
+                    </div>
+                    <div class="comparison-cell">Anaglyph (Color Filter)</div>
+                    <div class="comparison-cell">Anaglyph (Enhanced)</div>
+                    <div class="comparison-cell">Polarized Light</div>
+                    <div class="comparison-cell">Autostereoscopic</div>
+                    
+                    <!-- Glasses Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="tech-icon"><i class="fas fa-glasses"></i></div>
+                        <div class="feature-name">Glasses Required</div>
+                        <div class="feature-desc">Viewing equipment</div>
+                    </div>
+                    <div class="comparison-cell">Red/Blue</div>
+                    <div class="comparison-cell">Green/Magenta</div>
+                    <div class="comparison-cell">Polarized</div>
+                    <div class="comparison-cell">None</div>
+                    
+                    <!-- Depth Effect Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="tech-icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="feature-name">Depth Effect</div>
+                        <div class="feature-desc">3D immersion level</div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="depth-bar" style="width: 40%; background: #666; height: 10px;"></div>
+                        <div>Basic</div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="depth-bar" style="width: 60%; background: #999; height: 10px;"></div>
+                        <div>Moderate</div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="depth-bar" style="width: 85%; background: #ccc; height: 10px;"></div>
+                        <div>Strong</div>
+                    </div>
+                    <div class="comparison-cell">
+                        <div class="depth-bar" style="width: 100%; background: #fff; height: 10px;"></div>
+                        <div>Immersive</div>
+                    </div>
+                    
+                    <!-- Best For Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="tech-icon"><i class="fas fa-user-friends"></i></div>
+                        <div class="feature-name">Best For</div>
+                        <div class="feature-desc">Ideal audience</div>
+                    </div>
+                    <div class="comparison-cell">Indie creators<br>Home viewing</div>
+                    <div class="comparison-cell">Serious filmmakers<br>Film festivals</div>
+                    <div class="comparison-cell">Professional studios<br>Cinemas</div>
+                    <div class="comparison-cell">Premium experiences<br>Future tech</div>
+                    
+                    <!-- Price Row -->
+                    <div class="comparison-cell feature-cell">
+                        <div class="tech-icon"><i class="fas fa-tag"></i></div>
+                        <div class="feature-name">Price</div>
+                        <div class="feature-desc">Monthly subscription</div>
+                    </div>
+                    <div class="comparison-cell">$199.99</div>
+                    <div class="comparison-cell">$299.99</div>
+                    <div class="comparison-cell">$799.99</div>
+                    <div class="comparison-cell">$1499.99</div>
+                </div>
+            </div>
+            
+            <!-- Mobile Comparison Table -->
+            <div class="mobile-comparison">
+                <!-- Indie Package -->
+                <div class="mobile-package-card">
+                    <div class="mobile-package-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791348508x695473950413478800/jioj.svg" alt="Indie" width="40">
+                        </div>
+                        <div class="mobile-package-title">Indie</div>
+                        <div class="mobile-package-method">Red/Blue Anaglyph</div>
+                    </div>
+                    <div class="mobile-package-features">
+                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png');">
+                            <div class="visual-label">Red/Blue Filter Effect</div>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Resolution</span>
+                            <span class="mobile-feature-value">720p & 1080p</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Technology</span>
+                            <span class="mobile-feature-value">Anaglyph (Color Filter)</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Glasses</span>
+                            <span class="mobile-feature-value">Red/Blue</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Depth Effect</span>
+                            <span class="mobile-feature-value">Basic</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Best For</span>
+                            <span class="mobile-feature-value">Indie creators, Home viewing</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Price</span>
+                            <span class="mobile-feature-value">$199.99/month</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Director Package -->
+                <div class="mobile-package-card">
+                    <div class="mobile-package-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750792841655x218099711945581860/fsbgdf.svg" alt="Director" width="40">
+                        </div>
+                        <div class="mobile-package-title">Director</div>
+                        <div class="mobile-package-method">Green/Magenta Anaglyph</div>
+                    </div>
+                    <div class="mobile-package-features">
+                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png');">
+                            <div class="visual-label">Improved Color Accuracy</div>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Resolution</span>
+                            <span class="mobile-feature-value">1440p</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Technology</span>
+                            <span class="mobile-feature-value">Anaglyph (Enhanced)</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Glasses</span>
+                            <span class="mobile-feature-value">Green/Magenta</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Depth Effect</span>
+                            <span class="mobile-feature-value">Moderate</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Best For</span>
+                            <span class="mobile-feature-value">Serious filmmakers, Film festivals</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Price</span>
+                            <span class="mobile-feature-value">$299.99/month</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Studio Package -->
+                <div class="mobile-package-card">
+                    <div class="mobile-package-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791267708x538562025467006460/hjnk.svg" alt="Studio" width="40">
+                        </div>
+                        <div class="mobile-package-title">Studio</div>
+                        <div class="mobile-package-method">Polarized 3D</div>
+                    </div>
+                    <div class="mobile-package-features">
+                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png');">
+                            <div class="visual-label">Cinematic Depth & Clarity</div>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Resolution</span>
+                            <span class="mobile-feature-value">4K</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Technology</span>
+                            <span class="mobile-feature-value">Polarized Light</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Glasses</span>
+                            <span class="mobile-feature-value">Polarized</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Depth Effect</span>
+                            <span class="mobile-feature-value">Strong</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Best For</span>
+                            <span class="mobile-feature-value">Professional studios, Cinemas</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Price</span>
+                            <span class="mobile-feature-value">$799.99/month</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HoloRes Package -->
+                <div class="mobile-package-card">
+                    <div class="mobile-package-header">
+                        <div class="package-icon">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750791817546x681765754051015400/gvghv.svg" alt="HoloRes" width="40">
+                        </div>
+                        <div class="mobile-package-title">HoloRes</div>
+                        <div class="mobile-package-method">Glasses-Free</div>
+                    </div>
+                    <div class="mobile-package-features">
+                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291518169x240852100583814240/Screenshot%202025-07-12%20at%2005.23.36.png');">
+                            <div class="visual-label">Immersive Glasses-Free</div>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Resolution</span>
+                            <span class="mobile-feature-value">8K</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Technology</span>
+                            <span class="mobile-feature-value">Autostereoscopic</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Glasses</span>
+                            <span class="mobile-feature-value">None</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Depth Effect</span>
+                            <span class="mobile-feature-value">Immersive</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Best For</span>
+                            <span class="mobile-feature-value">Premium experiences, Future tech</span>
+                        </div>
+                        <div class="mobile-feature-item">
+                            <span class="mobile-feature-name">Price</span>
+                            <span class="mobile-feature-value">$1499.99/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#packages" class="cta-button scroll-animate">View Package Details</a>
             </div>
         </div>
     </section>
@@ -2550,33 +3091,41 @@
         </div>
     </section>
     
-    <!-- Custom Cinema Section -->
+     <!-- Custom Cinema Section -->
     <section id="custom" class="custom-cinema">
         <div class="container">
-            <div class="cinema-content">
-                <h2 class="scroll-animate">H o l o R e s Transform</h2>
-                <p class="scroll-animate">Transform any space into a premium 3D experience with our custom cinema solutions. From boutique home theaters to commercial multiplexes, we create fully immersive environments tailored to your vision.</p>
-                
-                <div class="cinema-features">
-                    <div class="feature-card scroll-animate">
-                        <h3>Premium Experience</h3>
-                        <p>State-of-the-art stereoscopic technology with unparalleled visual quality and comfort.</p>
-                    </div>
-                    <div class="feature-card scroll-animate">
-                        <h3>Tailored Solutions</h3>
-                        <p>Custom design for any space; from intimate home theaters to large commercial venues.</p>
-                    </div>
-                    <div class="feature-card scroll-animate">
-                        <h3>Future-Proof Tech</h3>
-                        <p>Cutting-edge systems designed to evolve with advancing technology standards.</p>
-                    </div>
-                    <div class="feature-card scroll-animate">
-                        <h3>End-to-End Service</h3>
-                        <p>From design consultation to installation and ongoing support; we handle everything.</p>
-                    </div>
+            <div class="section-title scroll-animate">
+                <h2>Custom Cinema Solutions</h2>
+                <p>Transform any space into a premium 3D experience with our custom cinema solutions</p>
+            </div>
+            
+            <div class="tech-card scroll-animate">
+                <div class="tech-image">
+                    <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Custom Cinema Solution">
                 </div>
-                
-                <a href="#contact" class="cta-button scroll-animate">Request Consultation</a>
+                <div class="tech-info">
+                    <h3>Premium Experience Transformation</h3>
+                    <p>From boutique home theaters to commercial multiplexes, we create fully immersive environments tailored to your vision. Our custom solutions include:</p>
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-crown"></i></div>
+                            <div>Premium stereoscopic technology</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-ruler-combined"></i></div>
+                            <div>Custom design for any space</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                            <div>Future-proof technology</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                            <div>End-to-end service & support</div>
+                        </div>
+                    </div>
+                    <a href="#contactForm" class="cta-button">Request Consultation</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2695,6 +3244,8 @@
     <div class="analytics-notification" id="analyticsNotification">
         Event tracked: Modal opened
     </div>
+
+
 
     <script>
         // Cart functionality
@@ -2927,6 +3478,21 @@
             });
         }
         
+        // Handle crawler protection
+        function handleCrawlerProtection() {
+            // Only apply protection to non-user agents
+            if (!navigator.userAgent.match(/(bot|crawler|spider|facebookexternalhit|linkedinbot)/i)) {
+                // Remove crawler protection class for real users
+                const crawlerProtection = document.querySelector('.crawler-protection');
+                if (crawlerProtection) {
+                    crawlerProtection.classList.remove('crawler-protection');
+                    crawlerProtection.style.position = 'static';
+                    crawlerProtection.style.opacity = '1';
+                    crawlerProtection.style.height = 'auto';
+                }
+            }
+        }
+        
         // Cart UI functionality
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize cart
@@ -2936,6 +3502,9 @@
             setupScrollAnimations();
             setupHeaderBehavior();
             setupScrollProgress();
+            
+            // Handle crawler protection
+            handleCrawlerProtection();
             
             // Hamburger menu functionality
             const hamburger = document.getElementById('hamburger');
@@ -3050,29 +3619,29 @@
                     title: "Indie Package",
                     description: "Perfect for indie filmmakers and home users. Accessible 3D with red/blue anaglyph technology.",
                     price: "$199.99/month",
-                    video: "https://www.youtube.com/embed/7It9GB0lNwI",
-                    redirect: "https://payment.example.com/basic"
+                    video: "https://www.youtube.com/embed/DiQezJjWODw?si=NmjwmvchlpHCfDg7",
+                    redirect: "https://holores.co.za/basic"
                 },
                 silver: {
                     title: "Director Package",
                     description: "Enhanced quality with green/magenta anaglyph. Ideal for intermediate creators and small studios.",
                     price: "$299.99/month",
-                    video: "https://www.youtube.com/embed/8Qn_spdM5Zg",
-                    redirect: "https://payment.example.com/silver"
+                    video: "https://www.youtube.com/embed/QalbbipAW2w?si=lo31HKIZNuFnU8kf",
+                    redirect: "https://holores.co.za/silver"
                 },
                 gold: {
                     title: "Studio Package",
                     description: "Professional-grade polarized 3D for cinemas and film festivals. Industry-standard quality.",
                     price: "$799.99/month",
-                    video: "https://www.youtube.com/embed/9zeiZcfqm24",
-                    redirect: "https://payment.example.com/gold"
+                    video: "https://www.youtube.com/embed/itmef8BsNlQ?si=OxWd4Na5lHq2Er9k",
+                    redirect: "https://holores.co.za/gold"
                 },
                 diamond: {
                     title: "HoloRes Package",
                     description: "The ultimate glasses-free 3D experience. Cutting-edge technology for premium creators.",
                     price: "$1499.99/month",
-                    video: "https://www.youtube.com/embed/7Z3Dnun0bPY",
-                    redirect: "https://payment.example.com/diamond"
+                    video: "https://www.youtube.com/embed/tbgBZZlYubc?si=Ps5J_CrU52ebBxwp",
+                    redirect: "https://holores.co.za/diamond"
                 }
             };
             
@@ -3083,7 +3652,8 @@
             
             // Open modal with package data
             openModalButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
                     const packageType = this.dataset.package;
                     const package = packageData[packageType];
                     
@@ -3166,6 +3736,27 @@
             
             // Initialize analytics (simulated)
             showNotification('Page loaded');
+            
+            // Highlight package when hovering over comparison row
+            const comparisonCells = document.querySelectorAll('.comparison-cell:not(.feature-cell)');
+            comparisonCells.forEach(cell => {
+                cell.addEventListener('mouseenter', function() {
+                    const index = Array.from(this.parentNode.children).indexOf(this);
+                    const headerRow = document.querySelector('.comparison-grid').children[index];
+                    if (headerRow.classList.contains('comparison-header')) {
+                        headerRow.classList.add('comparison-highlight');
+                    }
+                });
+                
+                cell.addEventListener('mouseleave', function() {
+                    const index = Array.from(this.parentNode.children).indexOf(this);
+                    const headerRow = document.querySelector('.comparison-grid').children[index];
+                    if (headerRow.classList.contains('comparison-header') && 
+                        !headerRow.classList.contains('comparison-highlight')) {
+                        headerRow.classList.remove('comparison-highlight');
+                    }
+                });
+            });
         });
         
         // Scroll to top functionality
