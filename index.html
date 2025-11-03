@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -94,6 +94,8 @@
             font-weight: 500;
             transition: color 0.3s;
             font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            padding: 5px 0;
         }
 
         .nav-links a:hover {
@@ -110,6 +112,9 @@
             flex-direction: column;
             cursor: pointer;
             z-index: 1001;
+            padding: 10px;
+            background: none;
+            border: none;
         }
 
         .hamburger span {
@@ -232,6 +237,10 @@
             display: inline-block;
             border-radius: 2px;
             font-family: 'Oswald', sans-serif;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-primary {
@@ -294,6 +303,9 @@
             transition: all 0.3s;
             backdrop-filter: blur(10px);
             font-family: 'Oswald', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .carousel-arrow:hover {
@@ -505,6 +517,7 @@
             width: 100%;
             justify-content: center;
             font-family: 'Oswald', sans-serif;
+            min-height: 60px;
         }
 
         .paypal-button:hover {
@@ -608,6 +621,7 @@
             flex: 0 0 40%;
             height: 400px;
             overflow: hidden;
+            position: relative;
         }
 
         .tech-image img {
@@ -664,6 +678,7 @@
             justify-content: center;
             color: #f5f5f0;
             font-size: 18px;
+            flex-shrink: 0;
         }
 
         /* Package Comparison Section */
@@ -794,6 +809,7 @@
             justify-content: center;
             color: #f5f5f0;
             font-size: 18px;
+            flex-shrink: 0;
         }
 
         .visual-comparison {
@@ -839,6 +855,10 @@
             text-decoration: none;
             display: block;
             font-family: 'Oswald', sans-serif;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .comparison-cta:hover {
@@ -1219,8 +1239,8 @@
             background: rgba(0, 0, 0, 0.3);
             color: #fff;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             border-radius: 2px;
             font-size: 16px;
             cursor: pointer;
@@ -1327,6 +1347,10 @@
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Oswald', sans-serif;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .package-cta:hover {
@@ -1523,6 +1547,44 @@
             transform: translateY(0);
         }
 
+        /* Lazy Loading Styles */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--elegant-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Touch-friendly improvements */
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Improved Mobile Responsiveness */
         @media (max-width: 1024px) {
             .tech-card {
                 flex-direction: column;
@@ -1555,7 +1617,7 @@
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 70%;
+                width: 80%;
                 height: 100vh;
                 background: #f5f5f0;
                 flex-direction: column;
@@ -1564,10 +1626,11 @@
                 gap: 30px;
                 transition: right 0.5s ease;
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 999;
             }
 
             nav.submerged .nav-links {
-                background: rgba(0, 0, 0, 0.9);
+                background: rgba(0, 0, 0, 0.95);
             }
 
             .nav-links.active {
@@ -1594,6 +1657,7 @@
             .carousel-arrow {
                 width: 50px;
                 height: 50px;
+                font-size: 20px;
             }
 
             .carousel-arrow.left { left: 20px; }
@@ -1648,6 +1712,89 @@
             .package-modal-body {
                 padding: 20px;
             }
+
+            .section-title,
+            .showcase-title {
+                font-size: 36px;
+            }
+
+            .tech-info h3 {
+                font-size: 28px;
+            }
+
+            .package-name {
+                font-size: 28px;
+            }
+
+            .package-price {
+                font-size: 36px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .comparison-handle:after {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+
+            .carousel-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .carousel-dot.active {
+                width: 30px;
+            }
+
+            .package-image-arrow {
+                width: 35px;
+                height: 35px;
+            }
+
+            .package-content {
+                padding: 25px;
+            }
+
+            .tech-info {
+                padding: 25px;
+            }
+
+            .tech-image {
+                height: 250px;
+            }
+
+            .comparison-slider {
+                height: 200px;
+            }
+
+            .comparison-label {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -1664,11 +1811,11 @@
             <li><a href="#packages">Packages</a></li>
             <li><a href="#support">Support</a></li>
         </ul>
-        <div class="hamburger">
+        <button class="hamburger touch-target" aria-label="Toggle navigation menu">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Carousel -->
@@ -1707,13 +1854,13 @@
                 </div>
             </div>
 
-            <button class="carousel-arrow left" onclick="changeSlide(-1)">‹</button>
-            <button class="carousel-arrow right" onclick="changeSlide(1)">›</button>
+            <button class="carousel-arrow left touch-target" onclick="changeSlide(-1)" aria-label="Previous slide">‹</button>
+            <button class="carousel-arrow right touch-target" onclick="changeSlide(1)" aria-label="Next slide">›</button>
 
             <div class="carousel-nav">
-                <span class="carousel-dot active" onclick="goToSlide(0)"></span>
-                <span class="carousel-dot" onclick="goToSlide(1)"></span>
-                <span class="carousel-dot" onclick="goToSlide(2)"></span>
+                <span class="carousel-dot active" onclick="goToSlide(0)" aria-label="Go to slide 1"></span>
+                <span class="carousel-dot" onclick="goToSlide(1)" aria-label="Go to slide 2"></span>
+                <span class="carousel-dot" onclick="goToSlide(2)" aria-label="Go to slide 3"></span>
             </div>
         </div>
     </section>
@@ -1723,7 +1870,7 @@
         <div class="package-modal-content">
             <div class="package-modal-header">
                 <h2 class="package-modal-title" id="packageModalTitle">Select Your Package</h2>
-                <button class="package-modal-close" id="packageModalClose">&times;</button>
+                <button class="package-modal-close touch-target" id="packageModalClose" aria-label="Close package selection modal">&times;</button>
             </div>
             <div class="package-modal-body">
                 <div class="package-modal-description" id="packageModalDescription">
@@ -1739,7 +1886,7 @@
                 </div>
                 
                 <div class="paypal-button-container">
-                    <button class="paypal-button" id="paypalButton">
+                    <button class="paypal-button touch-target" id="paypalButton">
                         <i class="fab fa-paypal"></i>
                         Subscribe with PayPal
                     </button>
@@ -1759,7 +1906,7 @@
                 <div class="comparison-slider" id="comparisonSlider">
                     <div class="comparison-image before-image" id="beforeImage"></div>
                     <div class="comparison-image after-image"></div>
-                    <div class="comparison-handle" id="comparisonHandle"></div>
+                    <div class="comparison-handle touch-target" id="comparisonHandle"></div>
                     <div class="comparison-labels">
                         <div class="comparison-label">Before</div>
                         <div class="comparison-label">After</div>
@@ -1785,7 +1932,8 @@
             <div class="tech-container">
                 <div class="tech-card scroll-animate">
                     <div class="tech-image">
-                        <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png" alt="Anaglyph 3D Technology">
+                        <div class="loading-spinner"></div>
+                        <img class="lazy-load" data-src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png" alt="Anaglyph 3D Technology">
                     </div>
                     <div class="tech-info">
                         <h3>Anaglyph 3D</h3>
@@ -1813,7 +1961,8 @@
                 
                 <div class="tech-card scroll-animate">
                     <div class="tech-image">
-                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750809993390x948566714095084200/Screenshot%202025-06-25%20at%2001.38.14.png" alt="Polarized 3D Technology">
+                        <div class="loading-spinner"></div>
+                        <img class="lazy-load" data-src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750809993390x948566714095084200/Screenshot%202025-06-25%20at%2001.38.14.png" alt="Polarized 3D Technology">
                     </div>
                     <div class="tech-info">
                         <h3>Polarized 3D</h3>
@@ -1841,7 +1990,8 @@
                 
                 <div class="tech-card scroll-animate">
                     <div class="tech-image">
-                        <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1751417849218x577710928100491900/Screenshot%202025-07-02%20at%2002.54.45.png" alt="Autostereoscopic Technology">
+                        <div class="loading-spinner"></div>
+                        <img class="lazy-load" data-src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1751417849218x577710928100491900/Screenshot%202025-07-02%20at%2002.54.45.png" alt="Autostereoscopic Technology">
                     </div>
                     <div class="tech-info">
                         <h3>Autostereoscopic 3D</h3>
@@ -1917,22 +2067,22 @@
                         <div class="feature-desc">Side-by-side comparison</div>
                     </div>
                     <div class="comparison-cell">
-                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png');">
+                        <div class="visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png">
                             <div class="visual-label">Red/Blue Filter Effect</div>
                         </div>
                     </div>
                     <div class="comparison-cell">
-                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png');">
+                        <div class="visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png">
                             <div class="visual-label">Improved Color Accuracy</div>
                         </div>
                     </div>
                     <div class="comparison-cell">
-                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png');">
+                        <div class="visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png">
                             <div class="visual-label">Cinematic Depth & Clarity</div>
                         </div>
                     </div>
                     <div class="comparison-cell">
-                        <div class="visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291518169x240852100583814240/Screenshot%202025-07-12%20at%2005.23.36.png');">
+                        <div class="visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291518169x240852100583814240/Screenshot%202025-07-12%20at%2005.23.36.png">
                             <div class="visual-label">Immersive Glasses-Free</div>
                         </div>
                     </div>
@@ -2021,16 +2171,16 @@
                         <div class="feature-desc">Choose your experience</div>
                     </div>
                     <div class="comparison-cell">
-                        <button class="comparison-cta" onclick="openPackageModal('indie')">Start with Indie</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('indie')">Start with Indie</button>
                     </div>
                     <div class="comparison-cell">
-                        <button class="comparison-cta" onclick="openPackageModal('director')">Upgrade to Director</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('director')">Upgrade to Director</button>
                     </div>
                     <div class="comparison-cell">
-                        <button class="comparison-cta" onclick="openPackageModal('studio')">Go Professional</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('studio')">Go Professional</button>
                     </div>
                     <div class="comparison-cell">
-                        <button class="comparison-cta" onclick="openPackageModal('holores')">Experience Premium</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('holores')">Experience Premium</button>
                     </div>
                 </div>
             </div>
@@ -2047,7 +2197,7 @@
                         <div class="mobile-package-method">Red/Blue Anaglyph</div>
                     </div>
                     <div class="mobile-package-features">
-                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png');">
+                        <div class="mobile-visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png">
                             <div class="visual-label">Red/Blue Filter Effect</div>
                         </div>
                         <div class="mobile-feature-item">
@@ -2074,7 +2224,7 @@
                             <span class="mobile-feature-name">Price</span>
                             <span class="mobile-feature-value">$199.99/month</span>
                         </div>
-                        <button class="comparison-cta" onclick="openPackageModal('indie')">Start with Indie</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('indie')">Start with Indie</button>
                     </div>
                 </div>
                 
@@ -2088,7 +2238,7 @@
                         <div class="mobile-package-method">Green/Magenta Anaglyph</div>
                     </div>
                     <div class="mobile-package-features">
-                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png');">
+                        <div class="mobile-visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png">
                             <div class="visual-label">Improved Color Accuracy</div>
                         </div>
                         <div class="mobile-feature-item">
@@ -2115,7 +2265,7 @@
                             <span class="mobile-feature-name">Price</span>
                             <span class="mobile-feature-value">$299.99/month</span>
                         </div>
-                        <button class="comparison-cta" onclick="openPackageModal('director')">Upgrade to Director</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('director')">Upgrade to Director</button>
                     </div>
                 </div>
                 
@@ -2129,7 +2279,7 @@
                         <div class="mobile-package-method">Polarized 3D</div>
                     </div>
                     <div class="mobile-package-features">
-                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png');">
+                        <div class="mobile-visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png">
                             <div class="visual-label">Cinematic Depth & Clarity</div>
                         </div>
                         <div class="mobile-feature-item">
@@ -2156,7 +2306,7 @@
                             <span class="mobile-feature-name">Price</span>
                             <span class="mobile-feature-value">$799.99/month</span>
                         </div>
-                        <button class="comparison-cta" onclick="openPackageModal('studio')">Go Professional</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('studio')">Go Professional</button>
                     </div>
                 </div>
                 
@@ -2170,7 +2320,7 @@
                         <div class="mobile-package-method">Glasses-Free</div>
                     </div>
                     <div class="mobile-package-features">
-                        <div class="mobile-visual-comparison" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291518169x240852100583814240/Screenshot%202025-07-12%20at%2005.23.36.png');">
+                        <div class="mobile-visual-comparison lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291518169x240852100583814240/Screenshot%202025-07-12%20at%2005.23.36.png">
                             <div class="visual-label">Immersive Glasses-Free</div>
                         </div>
                         <div class="mobile-feature-item">
@@ -2197,7 +2347,7 @@
                             <span class="mobile-feature-name">Price</span>
                             <span class="mobile-feature-value">$1499.99/month</span>
                         </div>
-                        <button class="comparison-cta" onclick="openPackageModal('holores')">Experience Premium</button>
+                        <button class="comparison-cta touch-target" onclick="openPackageModal('holores')">Experience Premium</button>
                     </div>
                 </div>
             </div>
@@ -2208,8 +2358,8 @@
                     <h3 class="comparison-cta-title">Ready to Transform Your Content?</h3>
                     <p class="comparison-cta-description">Join thousands of creators who have elevated their work with HoloRes technology. Choose the package that fits your needs and start creating immersive 3D experiences today.</p>
                     <div class="comparison-cta-buttons">
-                        <a href="#packages" class="btn btn-primary">Explore All Packages</a>
-                        <a href="#" class="btn btn-secondary">Schedule a Demo</a>
+                        <a href="#packages" class="btn btn-primary touch-target">Explore All Packages</a>
+                        <a href="#" class="btn btn-secondary touch-target">Schedule a Demo</a>
                     </div>
                 </div>
             </div>
@@ -2224,16 +2374,16 @@
             <div class="package-card slide-in-left">
                 <div class="package-image" onclick="openModal(0)">
                     <div class="package-image-slider">
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762168077759x128873424724326610/2.png')"></div>
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762168424241x902814942612353500/3.png')"></div>
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762168487397x180773508063264200/4.png')"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762168077759x128873424724326610/2.png"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762168424241x902814942612353500/3.png"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762168487397x180773508063264200/4.png"></div>
                     </div>
-                    <button class="package-image-arrow left" onclick="changePackageImage(-1, this)">‹</button>
-                    <button class="package-image-arrow right" onclick="changePackageImage(1, this)">›</button>
+                    <button class="package-image-arrow left touch-target" onclick="changePackageImage(-1, this)" aria-label="Previous image">‹</button>
+                    <button class="package-image-arrow right touch-target" onclick="changePackageImage(1, this)" aria-label="Next image">›</button>
                     <div class="package-image-nav">
-                        <span class="package-image-dot active" onclick="goToPackageImage(0, this)"></span>
-                        <span class="package-image-dot" onclick="goToPackageImage(1, this)"></span>
-                        <span class="package-image-dot" onclick="goToPackageImage(2, this)"></span>
+                        <span class="package-image-dot active" onclick="goToPackageImage(0, this)" aria-label="Go to image 1"></span>
+                        <span class="package-image-dot" onclick="goToPackageImage(1, this)" aria-label="Go to image 2"></span>
+                        <span class="package-image-dot" onclick="goToPackageImage(2, this)" aria-label="Go to image 3"></span>
                     </div>
                 </div>
                 <div class="package-content">
@@ -2252,7 +2402,7 @@
                         <li>x1 Encrypted QR Code Scan Account Activation</li>
                     </ul>
                     <p class="compatibility">Compatible with all devices</p>
-                    <button class="package-cta" onclick="openPackageModal('indie')">Get Started</button>
+                    <button class="package-cta touch-target" onclick="openPackageModal('indie')">Get Started</button>
                 </div>
             </div>
 
@@ -2260,16 +2410,16 @@
             <div class="package-card scale-in">
                 <div class="package-image" onclick="openModal(1)">
                     <div class="package-image-slider">
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169104098x704422820363752560/5.png')"></div>
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169222134x510517006843636000/6.png')"></div>
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169623834x316581311390909500/7.png')"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169104098x704422820363752560/5.png"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169222134x510517006843636000/6.png"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169623834x316581311390909500/7.png"></div>
                     </div>
-                    <button class="package-image-arrow left" onclick="changePackageImage(-1, this)">‹</button>
-                    <button class="package-image-arrow right" onclick="changePackageImage(1, this)">›</button>
+                    <button class="package-image-arrow left touch-target" onclick="changePackageImage(-1, this)" aria-label="Previous image">‹</button>
+                    <button class="package-image-arrow right touch-target" onclick="changePackageImage(1, this)" aria-label="Next image">›</button>
                     <div class="package-image-nav">
-                        <span class="package-image-dot active" onclick="goToPackageImage(0, this)"></span>
-                        <span class="package-image-dot" onclick="goToPackageImage(1, this)"></span>
-                        <span class="package-image-dot" onclick="goToPackageImage(2, this)"></span>
+                        <span class="package-image-dot active" onclick="goToPackageImage(0, this)" aria-label="Go to image 1"></span>
+                        <span class="package-image-dot" onclick="goToPackageImage(1, this)" aria-label="Go to image 2"></span>
+                        <span class="package-image-dot" onclick="goToPackageImage(2, this)" aria-label="Go to image 3"></span>
                     </div>
                 </div>
                 <div class="package-content">
@@ -2288,7 +2438,7 @@
                         <li>x1 Encrypted QR Code Scan Account Activation</li>
                     </ul>
                     <p class="compatibility">Compatible with all devices</p>
-                    <button class="package-cta" onclick="openPackageModal('director')">Get Started</button>
+                    <button class="package-cta touch-target" onclick="openPackageModal('director')">Get Started</button>
                 </div>
             </div>
 
@@ -2296,16 +2446,16 @@
             <div class="package-card slide-in-right">
                 <div class="package-image" onclick="openModal(2)">
                     <div class="package-image-slider">
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169478800x489337904934455940/8.png')"></div>
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762170302713x864693043488812700/9.png')"></div>
-                        <div class="package-image-slide" style="background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762170375593x126232604462677360/10.png')"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762169478800x489337904934455940/8.png"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762170302713x864693043488812700/9.png"></div>
+                        <div class="package-image-slide lazy-load" data-bg="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1762170375593x126232604462677360/10.png"></div>
                     </div>
-                    <button class="package-image-arrow left" onclick="changePackageImage(-1, this)">‹</button>
-                    <button class="package-image-arrow right" onclick="changePackageImage(1, this)">›</button>
+                    <button class="package-image-arrow left touch-target" onclick="changePackageImage(-1, this)" aria-label="Previous image">‹</button>
+                    <button class="package-image-arrow right touch-target" onclick="changePackageImage(1, this)" aria-label="Next image">›</button>
                     <div class="package-image-nav">
-                        <span class="package-image-dot active" onclick="goToPackageImage(0, this)"></span>
-                        <span class="package-image-dot" onclick="goToPackageImage(1, this)"></span>
-                        <span class="package-image-dot" onclick="goToPackageImage(2, this)"></span>
+                        <span class="package-image-dot active" onclick="goToPackageImage(0, this)" aria-label="Go to image 1"></span>
+                        <span class="package-image-dot" onclick="goToPackageImage(1, this)" aria-label="Go to image 2"></span>
+                        <span class="package-image-dot" onclick="goToPackageImage(2, this)" aria-label="Go to image 3"></span>
                     </div>
                 </div>
                 <div class="package-content">
@@ -2324,7 +2474,7 @@
                         <li>x1 Encrypted QR Code Scan Account Activation</li>
                     </ul>
                     <p class="compatibility">Only suitable for 3D Projectors</p>
-                    <button class="package-cta" onclick="openPackageModal('studio')">Get Started</button>
+                    <button class="package-cta touch-target" onclick="openPackageModal('studio')">Get Started</button>
                 </div>
             </div>
         </div>
@@ -2333,12 +2483,12 @@
     <!-- Fullscreen Modal -->
     <div class="modal" id="imageModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <button class="modal-close touch-target" onclick="closeModal()" aria-label="Close image modal">&times;</button>
             <img class="modal-image" id="modalImage" src="" alt="Package Image">
             <div class="modal-nav">
-                <button class="modal-arrow left" onclick="changeModalImage(-1)">‹</button>
+                <button class="modal-arrow left touch-target" onclick="changeModalImage(-1)" aria-label="Previous image">‹</button>
                 <div class="modal-dots" id="modalDots"></div>
-                <button class="modal-arrow right" onclick="changeModalImage(1)">›</button>
+                <button class="modal-arrow right touch-target" onclick="changeModalImage(1)" aria-label="Next image">›</button>
             </div>
             <div class="modal-info" id="modalInfo"></div>
         </div>
@@ -2350,6 +2500,51 @@
     </footer>
 
     <script>
+        // Lazy Loading Implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lazy load images with Intersection Observer
+            const lazyImages = document.querySelectorAll('img.lazy-load, .lazy-load[data-bg]');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const element = entry.target;
+                            
+                            if (element.tagName === 'IMG') {
+                                // For img elements
+                                element.src = element.dataset.src;
+                                element.classList.add('loaded');
+                                element.parentNode.querySelector('.loading-spinner')?.remove();
+                            } else {
+                                // For elements with background images
+                                element.style.backgroundImage = `url('${element.dataset.bg}')`;
+                                element.classList.add('loaded');
+                            }
+                            
+                            imageObserver.unobserve(element);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px 0px',
+                    threshold: 0.1
+                });
+
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                lazyImages.forEach(img => {
+                    if (img.tagName === 'IMG') {
+                        img.src = img.dataset.src;
+                    } else {
+                        img.style.backgroundImage = `url('${img.dataset.bg}')`;
+                    }
+                    img.classList.add('loaded');
+                    img.parentNode.querySelector('.loading-spinner')?.remove();
+                });
+            }
+        });
+
         // Package data for the modal
         const packages = {
             indie: {
@@ -2573,10 +2768,23 @@
         }
 
         // Auto-advance carousel
-        setInterval(() => {
+        let carouselInterval = setInterval(() => {
             currentSlide++;
             showSlide(currentSlide);
         }, 5000);
+
+        // Pause carousel on hover
+        const carousel = document.querySelector('.carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(() => {
+                currentSlide++;
+                showSlide(currentSlide);
+            }, 5000);
+        });
 
         // Package image carousel functionality
         function changePackageImage(direction, button) {
@@ -2823,6 +3031,9 @@
             document.removeEventListener('mouseup', stopDragging);
             document.removeEventListener('touchend', stopDragging);
         }
+
+        // Mobile touch improvements
+        document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
 </html>
