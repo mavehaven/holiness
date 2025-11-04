@@ -6,6 +6,7 @@
     <title>HoloRes - Premium 3D Experiences</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         * {
     margin: 0;
@@ -224,6 +225,9 @@ nav.submerged .nav-links a:hover {
     display: flex;
     gap: 20px;
     justify-content: center;
+    margin-top: 20px;
+    position: relative;
+    z-index: 20;
 }
 
 .btn {
@@ -288,17 +292,18 @@ nav.submerged .nav-links a:hover {
     width: 40px;
 }
 
+/* Updated Carousel Arrows - Smaller and positioned to avoid button conflicts */
 .carousel-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background: rgba(245, 245, 240, 0.1);
     border: 1px solid rgba(245, 245, 240, 0.2);
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     border-radius: 2px;
     color: #f5f5f0;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     transition: all 0.3s;
     backdrop-filter: blur(10px);
@@ -306,6 +311,7 @@ nav.submerged .nav-links a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 15;
 }
 
 .carousel-arrow:hover {
@@ -313,8 +319,15 @@ nav.submerged .nav-links a:hover {
     border-color: rgba(245, 245, 240, 0.4);
 }
 
-.carousel-arrow.left { left: 40px; }
-.carousel-arrow.right { right: 40px; }
+.carousel-arrow.left { 
+    left: 30px; 
+    top: calc(50% + 50px); /* Shift down to avoid button conflict */
+}
+
+.carousel-arrow.right { 
+    right: 30px; 
+    top: calc(50% + 50px); /* Shift down to avoid button conflict */
+}
 
 /* Package Selection Modal */
 .package-modal {
@@ -496,6 +509,79 @@ nav.submerged .nav-links a:hover {
     font-family: 'Oswald', sans-serif;
 }
 
+/* Shipping Form Styles */
+.shipping-form-container {
+    margin: 30px 0;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.shipping-form-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-family: 'Oswald', sans-serif;
+}
+
+.shipping-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+    font-family: 'Oswald', sans-serif;
+}
+
+.form-group input, 
+.form-group select {
+    padding: 12px 15px;
+    border: 1px solid #d4d4d0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    font-family: 'Oswald', sans-serif;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+    outline: none;
+    border-color: var(--elegant-blue);
+    box-shadow: 0 0 0 2px rgba(26, 117, 255, 0.1);
+}
+
+.form-group input.error, 
+.form-group select.error {
+    border-color: #dc3545;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+    font-family: 'Oswald', sans-serif;
+}
+
+.error-message.show {
+    display: block;
+}
+
 .paypal-button-container {
     margin-top: 30px;
     text-align: center;
@@ -526,6 +612,11 @@ nav.submerged .nav-links a:hover {
 
 .paypal-button i {
     font-size: 24px;
+}
+
+.paypal-button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
 }
 
 .package-modal-footer {
@@ -1635,6 +1726,10 @@ footer p {
     .hamburger {
         display: flex;
     }
+    
+    .shipping-form {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (min-width: 1025px) {
@@ -1666,13 +1761,20 @@ footer p {
     }
 
     .carousel-arrow {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
 
-    .carousel-arrow.left { left: 20px; }
-    .carousel-arrow.right { right: 20px; }
+    .carousel-arrow.left { 
+        left: 15px; 
+        top: calc(50% + 40px);
+    }
+    
+    .carousel-arrow.right { 
+        right: 15px; 
+        top: calc(50% + 40px);
+    }
 
     .modal-arrow {
         width: 40px;
@@ -2041,10 +2143,72 @@ footer p {
                     <!-- Subscription options will be populated by JavaScript -->
                 </div>
                 
+                <!-- Shipping Form -->
+                <div class="shipping-form-container">
+                    <h3 class="shipping-form-title">Shipping Information</h3>
+                    <form class="shipping-form" id="shippingForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                            <div class="error-message" id="fullNameError">Please enter your full name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="error-message" id="emailError">Please enter a valid email address</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address1">Address Line 1 *</label>
+                            <input type="text" id="address1" name="address1" required>
+                            <div class="error-message" id="address1Error">Please enter your address</div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address2">Address Line 2</label>
+                            <input type="text" id="address2" name="address2">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required>
+                            <div class="error-message" id="cityError">Please enter your city</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State/Province *</label>
+                            <input type="text" id="state" name="state" required>
+                            <div class="error-message" id="stateError">Please enter your state/province</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP/Postal Code *</label>
+                            <input type="text" id="zip" name="zip" required>
+                            <div class="error-message" id="zipError">Please enter your ZIP/postal code</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                                <!-- Add more countries as needed -->
+                            </select>
+                            <div class="error-message" id="countryError">Please select your country</div>
+                        </div>
+                    </form>
+                </div>
+                
                 <div class="paypal-button-container">
-                    <button class="paypal-button touch-target" id="paypalButton">
+                    <button class="paypal-button touch-target" id="paypalButton" disabled>
                         <i class="fab fa-paypal"></i>
-                        Subscribe with PayPal
+                        Complete Purchase with PayPal
                     </button>
                 </div>
             </div>
@@ -2702,6 +2866,12 @@ footer p {
     </footer>
 
     <script>
+        // Initialize EmailJS
+        (function() {
+            // Replace these with your actual EmailJS credentials
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+
         // Enhanced Lazy Loading Implementation
         document.addEventListener('DOMContentLoaded', function() {
             // Lazy load images with Intersection Observer
@@ -2759,7 +2929,100 @@ footer p {
             // Load all package images immediately (since they're above the fold)
             const packageImages = document.querySelectorAll('.package-image-slide.lazy-load');
             packageImages.forEach(img => loadImage(img));
+            
+            // Initialize form validation
+            initializeFormValidation();
         });
+
+        // Form validation
+        function initializeFormValidation() {
+            const form = document.getElementById('shippingForm');
+            const inputs = form.querySelectorAll('input, select');
+            const paypalButton = document.getElementById('paypalButton');
+            
+            // Add event listeners for real-time validation
+            inputs.forEach(input => {
+                input.addEventListener('blur', validateField);
+                input.addEventListener('input', function() {
+                    // Remove error styling when user starts typing
+                    if (this.classList.contains('error')) {
+                        this.classList.remove('error');
+                        const errorElement = document.getElementById(this.id + 'Error');
+                        if (errorElement) errorElement.classList.remove('show');
+                    }
+                    
+                    // Check if all required fields are filled
+                    checkFormValidity();
+                });
+            });
+            
+            // Add event listener for country select
+            const countrySelect = document.getElementById('country');
+            countrySelect.addEventListener('change', function() {
+                validateField.call(this);
+                checkFormValidity();
+            });
+        }
+        
+        function validateField() {
+            const field = this;
+            const value = field.value.trim();
+            const errorElement = document.getElementById(field.id + 'Error');
+            
+            // Reset error state
+            field.classList.remove('error');
+            if (errorElement) errorElement.classList.remove('show');
+            
+            // Validate based on field type
+            let isValid = true;
+            
+            if (field.hasAttribute('required') && !value) {
+                isValid = false;
+            } else if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    isValid = false;
+                }
+            } else if (field.type === 'tel' && value) {
+                const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                if (!phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''))) {
+                    isValid = false;
+                }
+            }
+            
+            // Show error if invalid
+            if (!isValid) {
+                field.classList.add('error');
+                if (errorElement) errorElement.classList.add('show');
+            }
+            
+            return isValid;
+        }
+        
+        function validateForm() {
+            const form = document.getElementById('shippingForm');
+            const inputs = form.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!validateField.call(input)) {
+                    isValid = false;
+                }
+            });
+            
+            return isValid;
+        }
+        
+        function checkFormValidity() {
+            const paypalButton = document.getElementById('paypalButton');
+            const isValid = validateForm();
+            
+            if (isValid) {
+                paypalButton.disabled = false;
+            } else {
+                paypalButton.disabled = true;
+            }
+        }
 
         // Package data for the modal
         const packages = {
@@ -2860,6 +3123,10 @@ footer p {
             // Update subscription options
             updateSubscriptionOptions();
             
+            // Reset form and disable PayPal button until form is valid
+            document.getElementById('shippingForm').reset();
+            paypalButton.disabled = true;
+            
             // Show modal
             packageModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2919,28 +3186,63 @@ footer p {
             
             paypalButton.innerHTML = `
                 <i class="fab fa-paypal"></i>
-                Subscribe for $${price.toFixed(2)}/${period}
+                Complete Purchase for $${price.toFixed(2)}/${period}
             `;
-            
-            // Update PayPal button action
-            paypalButton.onclick = () => processPayment();
         }
 
         function processPayment() {
             if (!selectedPackage) return;
             
+            // Validate form before proceeding
+            if (!validateForm()) {
+                alert('Please fill out all required shipping information correctly.');
+                return;
+            }
+            
             const paypalId = selectedSubscription === 'monthly' ? 
                 selectedPackage.monthlyPaypalId : selectedPackage.yearlyPaypalId;
             
-            // In a real implementation, this would redirect to PayPal
-            // For demo purposes, we'll just show an alert
-            alert(`Redirecting to PayPal to process your ${selectedPackage.name} ${selectedSubscription} subscription...`);
+            // Collect shipping form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value,
+                country: document.getElementById('country').value,
+                package: selectedPackage.name,
+                subscription: selectedSubscription,
+                price: selectedSubscription === 'monthly' ? selectedPackage.monthlyPrice : selectedPackage.yearlyPrice
+            };
             
-            // Simulate successful payment
-            setTimeout(() => {
-                alert(`Thank you for subscribing to ${selectedPackage.name}! Your account will be activated shortly.`);
-                closePackageModal();
-            }, 1000);
+            // Send email using EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
+                .then(function(response) {
+                    console.log('Email sent successfully!', response.status, response.text);
+                    
+                    // In a real implementation, this would redirect to PayPal
+                    // For demo purposes, we'll just show an alert
+                    alert(`Thank you for your order! Shipping information has been received. Redirecting to PayPal to process your ${selectedPackage.name} ${selectedSubscription} subscription...`);
+                    
+                    // Simulate successful payment
+                    setTimeout(() => {
+                        alert(`Thank you for subscribing to ${selectedPackage.name}! Your order has been confirmed and will be shipped to ${formData.fullName} at ${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip}.`);
+                        closePackageModal();
+                    }, 1000);
+                }, function(error) {
+                    console.error('Email failed to send:', error);
+                    // Fallback - proceed with payment even if email fails
+                    alert(`Email service temporarily unavailable. Proceeding with payment...`);
+                    
+                    // In a real implementation, this would redirect to PayPal
+                    setTimeout(() => {
+                        alert(`Thank you for subscribing to ${selectedPackage.name}! Your account will be activated shortly.`);
+                        closePackageModal();
+                    }, 1000);
+                });
         }
 
         function closePackageModal() {
@@ -2956,6 +3258,9 @@ footer p {
                 closePackageModal();
             }
         });
+        
+        // Update PayPal button to use the new processPayment function
+        paypalButton.onclick = processPayment;
 
         // Main carousel functionality
         let currentSlide = 0;
