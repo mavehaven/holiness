@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoloRes - Support Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Email.js SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --elegant-blue: #1a75ff;
+            --blue-dark: #0052cc;
+            --blue-light: #4d94ff;
+            --success-green: #28a745;
+            --error-red: #dc3545;
+            --discount-orange: #ff6b00;
+            --gray-light: #f5f5f0;
+            --gray-medium: #e5e5e0;
+            --gray-dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Oswald', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--gray-dark);
+            overflow-x: hidden;
+            background: var(--gray-light);
+            scroll-behavior: smooth;
+            line-height: 1.4;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            background: rgba(245, 245, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-medium);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 8px 30px;
+            background: rgba(245, 245, 240, 0.98);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            height: 32px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            filter: invert(1);
+            transition: filter 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            padding: 4px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--elegant-blue);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--gray-dark);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: rgba(245, 245, 240, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 18px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-medium);
+            transition: color 0.3s;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--elegant-blue);
+        }
+
+        /* Support Hero Section */
+        .support-hero {
+            padding: 150px 30px 70px;
+            background: var(--gray-dark);
+            color: var(--gray-light);
+            text-align: center;
+        }
+
+        .support-hero h1 {
+            font-size: 56px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .support-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.8;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            font-family: 'Oswald', sans-serif;
+            background: var(--gray-light);
+            color: var(--gray-dark);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--elegant-blue);
+            border: none;
+            color: var(--gray-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-button:hover {
+            background: var(--blue-dark);
+        }
+
+        /* Help Categories */
+        .help-categories {
+            padding: 70px 30px;
+            background: var(--gray-light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--gray-dark);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: #fafaf8;
+            border: 1px solid var(--gray-medium);
+            border-radius: 2px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--elegant-blue);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--gray-light);
+            font-size: 28px;
+        }
+
+        .category-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--gray-dark);
+        }
+
+        .category-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 70px 30px;
+            background: var(--gray-dark);
+            color: var(--gray-light);
+        }
+
+        .faq-section .section-title {
+            color: var(--gray-light);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #2a2a2a;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .faq-question:hover {
+            background: #333;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Information */
+        .contact-section {
+            padding: 70px 30px;
+            background: var(--gray-light);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--elegant-blue);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-light);
+            font-size: 20px;
+        }
+
+        .contact-details h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: #666;
+        }
+
+        .contact-form {
+            background: #fafaf8;
+            padding: 30px;
+            border: 1px solid var(--gray-medium);
+            border-radius: 2px;
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--gray-dark);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-medium);
+            border-radius: 2px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--elegant-blue);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background: var(--elegant-blue);
+            color: var(--gray-light);
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Oswald', sans-serif;
+            position: relative;
+        }
+
+        .submit-button:hover {
+            background: var(--blue-dark);
+        }
+
+        .submit-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Form status messages */
+        .form-status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 2px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-status.success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+            border: 1px solid var(--success-green);
+        }
+
+        .form-status.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error-red);
+            border: 1px solid var(--error-red);
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--elegant-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-light);
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .chatbot-toggle:hover {
+            background: var(--blue-dark);
+            transform: scale(1.05);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--gray-light);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--gray-medium);
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--elegant-blue);
+            color: var(--gray-light);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            font-size: 18px;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--gray-light);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            background: #e5e5e0;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background: var(--elegant-blue);
+            color: var(--gray-light);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid var(--gray-medium);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--gray-medium);
+            border-radius: 20px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+        }
+
+        .chatbot-send {
+            background: var(--elegant-blue);
+            border: none;
+            color: var(--gray-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .chatbot-send:hover {
+            background: var(--blue-dark);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            padding: 50px 30px;
+            background: var(--gray-dark);
+            color: var(--gray-light);
+        }
+
+        .actions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .action-card {
+            background: #2a2a2a;
+            border-radius: 2px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            background: #333;
+        }
+
+        .action-card i {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--elegant-blue);
+        }
+
+        .action-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .modal-content {
+            background: var(--gray-light);
+            width: 100%;
+            max-width: 800px;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: var(--elegant-blue);
+            color: var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--gray-light);
+            font-size: 24px;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-body h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--gray-dark);
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+        }
+
+        .setup-steps {
+            margin: 20px 0;
+        }
+
+        .setup-step {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--gray-medium);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--elegant-blue);
+            color: var(--gray-light);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-dark);
+            color: var(--gray-light);
+            padding: 40px 30px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .support-hero h1 {
+                font-size: 42px;
+            }
+            
+            .support-hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .support-hero {
+                padding: 120px 15px 50px;
+            }
+            
+            .support-hero h1 {
+                font-size: 32px;
+            }
+            
+            .help-categories, .faq-section, .contact-section, .quick-actions {
+                padding: 50px 15px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .chatbot-window {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="logo">
+            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750780466922x524140529408189760/H%20o%20l%20o%20R%20e%20s%20%20Logo%20%28white%29.svg" alt="HoloRes Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#technology">Technology</a></li>
+            <li><a href="index.html#packages">Packages</a></li>
+            <li><a href="support.html" class="active">Support</a></li>
+            <li><a href="index.html#comparison">Comparison</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#technology">Technology</a></li>
+            <li><a href="index.html#packages">Packages</a></li>
+            <li><a href="support.html" class="active">Support</a></li>
+            <li><a href="index.html#comparison">Comparison</a></li>
+        </ul>
+    </div>
+
+    <!-- Support Hero Section -->
+    <section class="support-hero">
+        <h1>Support Center</h1>
+        <p>Find answers to common questions, contact our support team, or chat with our AI assistant for immediate help.</p>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search for help articles...">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Help Categories -->
+    <section class="help-categories">
+        <h2 class="section-title">How Can We Help You?</h2>
+        <div class="categories-grid">
+            <div class="category-card" onclick="openModal('account-modal')">
+                <div class="category-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3>Account & Billing</h3>
+                <p>Manage your account, update payment methods, and understand billing.</p>
+            </div>
+            <div class="category-card" onclick="openModal('technical-modal')">
+                <div class="category-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Technical Support</h3>
+                <p>Troubleshoot technical issues with your HoloRes experience.</p>
+            </div>
+            <div class="category-card" onclick="openModal('setup-modal')">
+                <div class="category-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Setup & Installation</h3>
+                <p>Get your HoloRes system up and running smoothly.</p>
+            </div>
+            <div class="category-card" onclick="openModal('shipping-modal')">
+                <div class="category-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Shipping & Delivery</h3>
+                <p>Track your order and understand delivery timelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="actions-container">
+            <div class="action-card" onclick="openModal('returns-modal')">
+                <i class="fas fa-undo-alt"></i>
+                <h3>Returns & Refunds</h3>
+                <p>Initiate a return or request a refund</p>
+            </div>
+            <div class="action-card" onclick="openModal('warranty-modal')">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Warranty Claims</h3>
+                <p>Check your warranty status and file a claim</p>
+            </div>
+            <div class="action-card" onclick="openModal('troubleshoot-modal')">
+                <i class="fas fa-question-circle"></i>
+                <h3>Troubleshooting Guide</h3>
+                <p>Step-by-step solutions to common issues</p>
+            </div>
+            <div class="action-card" onclick="openModal('community-modal')">
+                <i class="fas fa-users"></i>
+                <h3>Community Forum</h3>
+                <p>Connect with other HoloRes users</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I set up my HoloRes glasses?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Setting up your HoloRes glasses is simple. First, ensure your device is compatible with the specific 3D technology of your package. For Anaglyph glasses, simply put them on and play content through our streaming service. For polarized glasses, you'll need a compatible 3D display or projector. Autostereoscopic technology requires specialized displays that we can help you source.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What is the difference between the packages?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Our packages differ in the 3D technology used and the quality of experience:</p>
+                    <ul>
+                        <li><strong>Indie:</strong> Uses Anaglyph technology with color-filter glasses, perfect for home viewing.</li>
+                        <li><strong>Director:</strong> Enhanced Anaglyph with better color accuracy and moderate depth.</li>
+                        <li><strong>Studio:</strong> Professional polarized 3D for cinema-quality experiences.</li>
+                        <li><strong>HoloRes Premium:</strong> Cutting-edge glasses-free autostereoscopic technology.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I cancel my subscription?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can cancel your subscription at any time through your PayPal account. Log in to PayPal, go to your automatic payments, find HoloRes, and cancel the subscription. If you need assistance, our support team can help guide you through the process.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What devices are compatible with HoloRes?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Compatibility varies by package:</p>
+                    <ul>
+                        <li><strong>Indie & Director:</strong> Compatible with all devices including smartphones, tablets, computers, and TVs.</li>
+                        <li><strong>Studio:</strong> Requires 3D-capable projectors or displays with polarized technology.</li>
+                        <li><strong>HoloRes Premium:</strong> Requires specialized autostereoscopic displays.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How long does shipping take?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Standard shipping takes 5-7 business days within the US and 10-14 business days internationally. Express shipping (2-3 business days) is available for an additional fee. You'll receive a tracking number once your order ships.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-section">
+        <h2 class="section-title">Contact Our Support Team</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Phone Support</h3>
+                        <p>+1 (469) 338-6282</p>
+                        <p>Mon-Fri: 9AM-9PM EST</p>
+                        <p>Sat-Sun: 10AM-6PM EST</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email Support</h3>
+                        <p>support@holores.co.za</p>
+                        <p>Typically respond within 4 hours</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Live Chat</h3>
+                        <p>Available 24/7 through our chatbot</p>
+                        <p>Human agents available during business hours</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Corporate Office</h3>
+                        <p>541 Rooigras Street</p>
+                        <p>Waterkloof Glen, 0181</p>
+                        <p>Pretoria</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="support-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="billing">Billing Issue</option>
+                            <option value="shipping">Shipping Question</option>
+                            <option value="returns">Returns & Refunds</option>
+                            <option value="general">General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button" id="submit-button">
+                        <span id="button-text">Send Message</span>
+                    </button>
+                    <div id="form-status" class="form-status"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>HoloRes Assistant</h3>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    Hello! I'm the HoloRes Assistant. How can I help you today?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message...">
+                <button class="chatbot-send" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="account-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Account & Billing Support</h2>
+                <button class="modal-close" onclick="closeModal('account-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Managing Your Account</h3>
+                <p>To update your account information, log in to your HoloRes dashboard where you can:</p>
+                <ul>
+                    <li>Change your personal information</li>
+                    <li>Update your password</li>
+                    <li>Manage your subscription preferences</li>
+                    <li>View your order history</li>
+                </ul>
+                
+                <h3>Billing Questions</h3>
+                <p>For billing-related issues:</p>
+                <ul>
+                    <li>View and download invoices from your account dashboard</li>
+                    <li>Update payment methods through PayPal</li>
+                    <li>Contact support for billing disputes or questions about charges</li>
+                </ul>
+                
+                <h3>Subscription Management</h3>
+                <p>You can upgrade, downgrade, or cancel your subscription at any time. Changes to your subscription will take effect at the start of your next billing cycle.</p>
+                
+                <p>If you need further assistance with your account or billing, please contact our support team at <strong>support@holores.co.za</strong> or call <strong>+1 (469) 338-6282</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="technical-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Technical Support</h2>
+                <button class="modal-close" onclick="closeModal('technical-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Common Technical Issues</h3>
+                <p>If you're experiencing issues with your HoloRes experience, try these troubleshooting steps first:</p>
+                <ul>
+                    <li><strong>Poor 3D effect:</strong> Ensure you're using the correct glasses for your package and that they're properly calibrated</li>
+                    <li><strong>Blurry images:</strong> Check your display resolution settings and ensure content is playing at the recommended quality</li>
+                    <li><strong>No 3D effect:</strong> Verify that you're playing compatible 3D content through our streaming service</li>
+                    <li><strong>Connectivity issues:</strong> Restart your device and router, then try again</li>
+                </ul>
+                
+                <h3>Advanced Troubleshooting</h3>
+                <p>For more complex technical issues:</p>
+                <ul>
+                    <li>Update your device's graphics drivers</li>
+                    <li>Check for firmware updates for your display/projector</li>
+                    <li>Ensure your internet connection meets our minimum requirements (10 Mbps for HD, 25 Mbps for 4K)</li>
+                    <li>Try using a different browser or device to isolate the issue</li>
+                </ul>
+                
+                <h3>Contact Technical Support</h3>
+                <p>If you've tried these steps and are still experiencing issues, our technical support team is available to help:</p>
+                <p><strong>Phone:</strong> +1 (469) 338-6282 (select option 2 for technical support)</p>
+                <p><strong>Email:</strong> tech@holores.co.za</p>
+                <p>When contacting support, please have your HoloRes account information and details about your setup ready.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup & Installation Modal -->
+    <div class="modal" id="setup-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Setup & Installation Guide</h2>
+                <button class="modal-close" onclick="closeModal('setup-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Getting Started with Your HoloRes System</h3>
+                <p>Follow these step-by-step instructions to set up your HoloRes experience based on your package:</p>
+                
+                <div class="setup-steps">
+                    <div class="setup-step">
+                        <h4><span class="step-number">1</span> Unbox Your Package</h4>
+                        <p>Carefully unbox your HoloRes package and ensure all components are present:</p>
+                        <ul>
+                            <li>Hologlyph glasses (quantity varies by package)</li>
+                            <li>Calibration image card</li>
+                            <li>Encrypted QR code for account activation</li>
+                            <li>User manual and setup guide</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="setup-step">
+                        <h4><span class="step-number">2</span> Activate Your Account</h4>
+                        <p>Scan the encrypted QR code using your smartphone or enter the activation code on our website to create your HoloRes account.</p>
+                    </div>
+                    
+                    <div class="setup-step">
+                        <h4><span class="step-number">3</span> Calibrate Your Glasses</h4>
+                        <p>Follow the calibration process specific to your package:</p>
+                        <ul>
+                            <li><strong>Indie & Director:</strong> Display the calibration image on your screen and adjust the glasses until the image appears clear and properly aligned</li>
+                            <li><strong>Studio:</strong> Use the specialized calibration tool included with polarized glasses for optimal 3D effect</li>
+                            <li><strong>HoloRes Premium:</strong> No calibration needed for autostereoscopic displays</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="setup-step">
+                        <h4><span class="step-number">4</span> Set Up Your Display</h4>
+                        <p>Configure your display device according to your package requirements:</p>
+                        <ul>
+                            <li><strong>Indie & Director:</strong> Works with any standard display - no special configuration needed</li>
+                            <li><strong>Studio:</strong> Enable 3D mode on your compatible projector or display</li>
+                            <li><strong>HoloRes Premium:</strong> Connect your autostereoscopic display following manufacturer instructions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="setup-step">
+                        <h4><span class="step-number">5</span> Access Content</h4>
+                        <p>Log in to your HoloRes account and start exploring our 3D content library. Download the HoloRes app for the best experience on mobile devices.</p>
+                    </div>
+                </div>
+                
+                <h3>Package-Specific Setup Videos</h3>
+                <p>Watch our detailed setup videos for your specific package:</p>
+                <ul>
+                    <li><a href="#">Indie Package Setup Guide</a></li>
+                    <li><a href="#">Director Package Setup Guide</a></li>
+                    <li><a href="#">Studio Package Setup Guide</a></li>
+                    <li><a href="#">HoloRes Premium Setup Guide</a></li>
+                </ul>
+                
+                <h3>Need Help with Setup?</h3>
+                <p>If you encounter any issues during setup, our support team is ready to assist:</p>
+                <p><strong>Phone:</strong> +1 (469) 338-6282 (select option 3 for setup assistance)</p>
+                <p><strong>Email:</strong> setup@holores.co.za</p>
+                <p><strong>Live Video Support:</strong> Available for complex setup issues - schedule a session through your account dashboard</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shipping & Delivery Modal -->
+    <div class="modal" id="shipping-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Shipping & Delivery Information</h2>
+                <button class="modal-close" onclick="closeModal('shipping-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Shipping Options & Timelines</h3>
+                <p>We offer multiple shipping options to get your HoloRes package to you as quickly as possible:</p>
+                <ul>
+                    <li><strong>Standard Shipping:</strong> 5-7 business days (US), 10-14 business days (International) - FREE</li>
+                    <li><strong>Express Shipping:</strong> 2-3 business days - $24.99</li>
+                    <li><strong>Overnight Shipping:</strong> Next business day - $49.99 (Available for orders placed before 2 PM EST)</li>
+                </ul>
+                
+                <h3>Tracking Your Order</h3>
+                <p>Once your order ships, you'll receive a tracking number via email. You can also check your order status by logging into your HoloRes account.</p>
+                
+                <h3>International Shipping</h3>
+                <p>We ship to over 50 countries worldwide. International orders may be subject to customs fees and import taxes, which are the responsibility of the recipient.</p>
+                
+                <h3>Shipping Restrictions</h3>
+                <p>Due to the specialized nature of our technology, we cannot ship to PO boxes or military addresses. A signature is required for delivery.</p>
+                
+                <h3>Need Help with Shipping?</h3>
+                <p>If you have questions about your order's shipping status or need to make changes to your delivery address, contact our shipping department:</p>
+                <p><strong>Email:</strong> shipping@holores.co.za</p>
+                <p><strong>Phone:</strong> +1 (469) 338-6282 (select option 4 for shipping inquiries)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Returns & Refunds Modal -->
+    <div class="modal" id="returns-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Returns & Refunds</h2>
+                <button class="modal-close" onclick="closeModal('returns-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Return Policy</h3>
+                <p>We offer a 30-day return policy from the date of delivery. To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging.</p>
+                
+                <h3>How to Initiate a Return</h3>
+                <ol>
+                    <li>Log in to your HoloRes account and go to "Order History"</li>
+                    <li>Select the item(s) you wish to return</li>
+                    <li>Print the provided return label and shipping instructions</li>
+                    <li>Package your items securely and attach the return label</li>
+                    <li>Drop off at any authorized shipping location</li>
+                </ol>
+                
+                <h3>Refunds</h3>
+                <p>Once we receive your return, we will inspect it and notify you that we've received your returned item. We will immediately notify you of the status of your refund after inspecting the item.</p>
+                <p>If your return is approved, we will initiate a refund to your original payment method. You will receive the credit within 5-10 business days, depending on your card issuer's policies.</p>
+                
+                <h3>Exchanges</h3>
+                <p>We only replace items if they are defective or damaged. If you need to exchange it for the same item, contact us at returns@holores.co.za.</p>
+                
+                <h3>Need Help with Returns?</h3>
+                <p>Contact our returns department for assistance:</p>
+                <p><strong>Email:</strong> returns@holores.co.za</p>
+                <p><strong>Phone:</strong> +1 (469) 338-6282 (select option 5 for returns)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 HoloRes. Premium 3D Experiences. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize EmailJS with your public key
+        (function() {
+            // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+
+        // Nav scroll effect
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile nav when clicking on a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // FAQ toggle functionality
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            answer.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Chatbot functionality
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            chatbotWindow.classList.toggle('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.textContent = message;
+            messagesContainer.appendChild(userMessage);
+            
+            // Clear input
+            input.value = '';
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Simulate bot response after a short delay
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot-message';
+                botMessage.textContent = botResponse;
+                messagesContainer.appendChild(botMessage);
+                
+                // Scroll to bottom again
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+
+        // Handle Enter key in chatbot
+        document.getElementById('chatbotInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Simple bot responses
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                return "Hello! How can I assist you with HoloRes today?";
+            } else if (lowerMessage.includes('problem') || lowerMessage.includes('issue') || lowerMessage.includes('help')) {
+                return "I'm sorry you're experiencing issues. Could you describe the problem in more detail?";
+            } else if (lowerMessage.includes('billing') || lowerMessage.includes('payment') || lowerMessage.includes('charge')) {
+                return "For billing questions, you can manage your subscription through PayPal or contact our billing department at support@holores.co.za.";
+            } else if (lowerMessage.includes('shipping') || lowerMessage.includes('delivery') || lowerMessage.includes('track')) {
+                return "Standard shipping takes 5-7 business days. You should receive a tracking number via email once your order ships.";
+            } else if (lowerMessage.includes('return') || lowerMessage.includes('refund')) {
+                return "Our return policy allows returns within 30 days of purchase. Please contact returns@holores.co.za to initiate a return.";
+            } else if (lowerMessage.includes('setup') || lowerMessage.includes('install')) {
+                return "Setup instructions are included with your package. You can also find detailed guides in the 'Setup & Installation' section of our support page.";
+            } else if (lowerMessage.includes('technical') || lowerMessage.includes('glasses') || lowerMessage.includes('3d')) {
+                return "For technical issues, try recalibrating your glasses and ensuring you're using compatible content. If problems persist, contact tech@holores.co.za.";
+            } else {
+                return "I'm not sure I understand. Could you rephrase your question, or would you like to speak with a human agent?";
+            }
+        }
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Contact form submission with EmailJS
+        document.getElementById('support-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('submit-button');
+            const buttonText = document.getElementById('button-text');
+            const formStatus = document.getElementById('form-status');
+            
+            // Disable the submit button and show loading state
+            submitButton.disabled = true;
+            buttonText.innerHTML = '<span class="loading-spinner"></span> Sending...';
+            
+            // Send the form using EmailJS
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(function() {
+                    // Show success message
+                    formStatus.textContent = 'Thank you for your message! Our support team will respond within 4 hours.';
+                    formStatus.className = 'form-status success';
+                    formStatus.style.display = 'block';
+                    
+                    // Reset the form
+                    document.getElementById('support-form').reset();
+                    
+                    // Reset button state after a delay
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        buttonText.textContent = 'Send Message';
+                    }, 2000);
+                    
+                    // Hide status message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                }, function(error) {
+                    // Show error message
+                    formStatus.textContent = 'Sorry, there was an error sending your message. Please try again or contact us directly at support@holores.co.za.';
+                    formStatus.className = 'form-status error';
+                    formStatus.style.display = 'block';
+                    
+                    // Reset button state
+                    submitButton.disabled = false;
+                    buttonText.textContent = 'Send Message';
+                    
+                    console.error('EmailJS Error:', error);
+                });
+        });
+    </script>
+</body>
+</html>
