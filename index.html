@@ -732,10 +732,11 @@
             font-family: 'Oswald', sans-serif;
         }
 
-        /* Technology Section - Reduced spacing */
+        /* Technology Section - Asymmetrical Grid Layout */
         #technology {
-            padding: 70px 30px;
+            padding: 70px 0; /* Remove horizontal padding for full width */
             background: #f5f5f0;
+            overflow: hidden;
         }
 
         .section-title {
@@ -748,6 +749,7 @@
             transform: translateY(20px);
             transition: opacity 0.8s ease, transform 0.8s ease;
             font-family: 'Oswald', sans-serif;
+            padding: 0 30px; /* Add padding only to title */
         }
 
         .section-title.visible {
@@ -766,83 +768,103 @@
             font-family: 'Oswald', sans-serif;
         }
 
-        .tech-container {
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
+        /* Asymmetrical Grid Layout */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(400px, auto);
+            gap: 20px;
+            width: 100%;
+            padding: 0 20px;
         }
 
-        .tech-card {
-            display: flex;
-            align-items: center;
-            background: #fafaf8;
-            border: 1px solid #e5e5e0;
-            border-radius: 2px;
+        .tech-grid-item {
+            position: relative;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.8s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 2px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
             opacity: 0;
             transform: translateY(40px);
+            min-height: 400px;
+            display: flex;
+            align-items: flex-end;
         }
 
-        .tech-card.visible {
+        .tech-grid-item.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .tech-card:nth-child(1).visible {
+        /* Grid item positions and sizes */
+        .tech-grid-item:nth-child(1) {
+            grid-column: 1 / span 5;
+            grid-row: 1;
             transition-delay: 0.1s;
         }
 
-        .tech-card:nth-child(2).visible {
+        .tech-grid-item:nth-child(2) {
+            grid-column: 6 / span 7;
+            grid-row: 1;
             transition-delay: 0.2s;
         }
 
-        .tech-card:nth-child(3).visible {
+        .tech-grid-item:nth-child(3) {
+            grid-column: 1 / span 4;
+            grid-row: 2;
             transition-delay: 0.3s;
         }
 
-        .tech-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        .tech-grid-item:nth-child(4) {
+            grid-column: 5 / span 4;
+            grid-row: 2;
+            transition-delay: 0.4s;
         }
 
-        .tech-image {
-            flex: 0 0 40%;
-            height: 350px;
-            overflow: hidden;
+        .tech-grid-item:nth-child(5) {
+            grid-column: 9 / span 4;
+            grid-row: 2;
+            transition-delay: 0.5s;
+        }
+
+        .tech-grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Content overlay */
+        .tech-content {
             position: relative;
-        }
-
-        .tech-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .tech-card:hover .tech-image img {
-            transform: scale(1.05);
-        }
-
-        .tech-info {
-            flex: 1;
+            z-index: 2;
             padding: 30px;
+            color: #f5f5f0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
         }
 
-        .tech-info h3 {
+        .tech-grid-item:hover .tech-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .tech-content h3 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #1a1a1a;
             font-family: 'Oswald', sans-serif;
         }
 
-        .tech-info p {
+        .tech-content p {
             font-size: 16px;
             line-height: 1.5;
-            color: #666;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-family: 'Oswald', sans-serif;
+            opacity: 0.9;
         }
 
         .tech-features {
@@ -868,6 +890,111 @@
             color: #f5f5f0;
             font-size: 16px;
             flex-shrink: 0;
+        }
+
+        /* Background images for each grid item */
+        .tech-grid-item:nth-child(1) {
+            background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png');
+        }
+
+        .tech-grid-item:nth-child(2) {
+            background-image: url('//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750809993390x948566714095084200/Screenshot%202025-06-25%20at%2001.38.14.png');
+        }
+
+        .tech-grid-item:nth-child(3) {
+            background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1751417849218x577710928100491900/Screenshot%202025-07-02%20at%2002.54.45.png');
+        }
+
+        .tech-grid-item:nth-child(4) {
+            background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291329613x622920484967302000/Screenshot%202025-07-12%20at%2005.20.03.png');
+        }
+
+        .tech-grid-item:nth-child(5) {
+            background-image: url('//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291393261x301710419850844200/Screenshot%202025-07-12%20at%2005.21.53.png');
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .tech-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 15px;
+            }
+            
+            .tech-grid-item:nth-child(1) {
+                grid-column: 1 / span 6;
+                grid-row: 1;
+            }
+
+            .tech-grid-item:nth-child(2) {
+                grid-column: 1 / span 6;
+                grid-row: 2;
+            }
+
+            .tech-grid-item:nth-child(3) {
+                grid-column: 1 / span 6;
+                grid-row: 3;
+            }
+
+            .tech-grid-item:nth-child(4) {
+                grid-column: 1 / span 6;
+                grid-row: 4;
+            }
+
+            .tech-grid-item:nth-child(5) {
+                grid-column: 1 / span 6;
+                grid-row: 5;
+            }
+            
+            .tech-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tech-grid {
+                padding: 0 15px;
+                gap: 10px;
+            }
+            
+            .tech-grid-item {
+                min-height: 300px;
+            }
+            
+            .tech-content {
+                padding: 20px;
+            }
+            
+            .tech-content h3 {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                padding: 0 10px;
+            }
+            
+            .tech-grid-item {
+                min-height: 250px;
+            }
+            
+            .tech-content {
+                padding: 15px;
+            }
+            
+            .tech-content h3 {
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+                padding: 0 10px;
+            }
         }
 
         /* Package Comparison Section - Compact */
@@ -2373,99 +2500,144 @@
 
     <!-- Technology Section -->
     <section id="technology">
-        <div class="container">
-            <div class="section-title scroll-animate">
-                <h2>Advanced 3D Technologies</h2>
-                <p>Discover the spectrum of stereoscopic experiences we offer, from accessible anaglyph to cutting-edge glasses-free solutions</p>
+        <div class="section-title scroll-animate">
+            <h2>Advanced 3D Technologies</h2>
+            <p>Discover the spectrum of stereoscopic experiences we offer, from accessible anaglyph to cutting-edge glasses-free solutions</p>
+        </div>
+        
+        <div class="tech-grid">
+            <!-- Anaglyph 3D -->
+            <div class="tech-grid-item scroll-animate">
+                <div class="tech-content">
+                    <h3>Anaglyph 3D</h3>
+                    <p>The most accessible form of stereoscopic 3D, using color filters to separate images for each eye. Perfect for mass distribution and viewers with basic red-blue or green-magenta glasses.</p>
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-glasses"></i></div>
+                            <div>Basic color-filter glasses required</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <div>Works on all devices and screens</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-users"></i></div>
+                            <div>Mass audience accessibility</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-film"></i></div>
+                            <div>Ideal for indie films and home use</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="tech-container">
-                <div class="tech-card scroll-animate">
-                    <div class="tech-image">
-                        <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1752291084387x260902851510676380/Screenshot%202025-07-12%20at%2005.18.10.png" alt="Anaglyph 3D Technology">
-                    </div>
-                    <div class="tech-info">
-                        <h3>Anaglyph 3D</h3>
-                        <p>The most accessible form of stereoscopic 3D, using color filters to separate images for each eye. Perfect for mass distribution and viewers with basic red-blue or green-magenta glasses.</p>
-                        <div class="tech-features">
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-glasses"></i></div>
-                                <div>Basic color-filter glasses required</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                                <div>Works on all devices and screens</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-users"></i></div>
-                                <div>Mass audience accessibility</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-film"></i></div>
-                                <div>Ideal for indie films and home use</div>
-                            </div>
+            <!-- Polarized 3D -->
+            <div class="tech-grid-item scroll-animate">
+                <div class="tech-content">
+                    <h3>Polarized 3D</h3>
+                    <p>Professional-grade stereoscopic experience using polarized light to separate images for each eye. Delivers superior image quality and depth perception for premium viewing experiences.</p>
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-video"></i></div>
+                            <div>Requires 3D projectors or displays</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-theater-masks"></i></div>
+                            <div>Cinema-quality viewing experience</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                            <div>Enhanced depth and visual impact</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                            <div>Industry standard for professional 3D</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="tech-card scroll-animate">
-                    <div class="tech-image">
-                        <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1750809993390x948566714095084200/Screenshot%202025-06-25%20at%2001.38.14.png" alt="Polarized 3D Technology">
-                    </div>
-                    <div class="tech-info">
-                        <h3>Polarized 3D</h3>
-                        <p>Professional-grade stereoscopic experience using polarized light to separate images for each eye. Delivers superior image quality and depth perception for premium viewing experiences.</p>
-                        <div class="tech-features">
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-video"></i></div>
-                                <div>Requires 3D projectors or displays</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-theater-masks"></i></div>
-                                <div>Cinema-quality viewing experience</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-mountain"></i></div>
-                                <div>Enhanced depth and visual impact</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-trophy"></i></div>
-                                <div>Industry standard for professional 3D</div>
-                            </div>
+            </div>
+            
+            <!-- Autostereoscopic 3D -->
+            <div class="tech-grid-item scroll-animate">
+                <div class="tech-content">
+                    <h3>Autostereoscopic 3D</h3>
+                    <p>The peak of 3D viewing, absolutely no glasses required! Using parallax barrier or lenticular lens technology to deliver a seamless, immersive experience directly to your eyes.</p>
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                            <div>Completely glasses-free experience</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                            <div>Requires specialized displays</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-crown"></i></div>
+                            <div>Premium cutting-edge technology</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                            <div>Ultimate immersive experience</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="tech-card scroll-animate">
-                    <div class="tech-image">
-                        <img src="//3f811272e605d0fbd18ff3cfe4226002.cdn.bubble.io/f1751417849218x577710928100491900/Screenshot%202025-07-02%20at%2002.54.45.png" alt="Autostereoscopic Technology">
+            </div>
+            
+            <!-- Enhanced Anaglyph -->
+            <div class="tech-grid-item scroll-animate">
+                <div class="tech-content">
+                    <h3>Enhanced Anaglyph</h3>
+                    <p>Advanced color filtering techniques that improve upon traditional anaglyph methods. Reduced ghosting and enhanced color accuracy for a more comfortable viewing experience.</p>
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                            <div>Improved color accuracy</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-ghost"></i></div>
+                            <div>Reduced ghosting effects</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                            <div>Reduced eye strain</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div>Better depth perception</div>
+                        </div>
                     </div>
-                    <div class="tech-info">
-                        <h3>Autostereoscopic 3D</h3>
-                        <p>The peak of 3D viewing, absolutely no glasses required! Using parallax barrier or lenticular lens technology to deliver a seamless, immersive experience directly to your eyes.</p>
-                        <div class="tech-features">
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-eye"></i></div>
-                                <div>Completely glasses-free experience</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-microchip"></i></div>
-                                <div>Requires specialized displays</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-crown"></i></div>
-                                <div>Premium cutting-edge technology</div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon"><i class="fas fa-gem"></i></div>
-                                <div>Ultimate immersive experience</div>
-                            </div>
+                </div>
+            </div>
+            
+            <!-- Premium Polarized -->
+            <div class="tech-grid-item scroll-animate">
+                <div class="tech-content">
+                    <h3>Premium Polarized</h3>
+                    <p>Our highest-end polarized technology with enhanced light management and reduced crosstalk. Delivers unparalleled clarity and depth for the most demanding professional applications.</p>
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-sun"></i></div>
+                            <div>Enhanced brightness retention</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
+                            <div>Minimal crosstalk</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-expand"></i></div>
+                            <div>Wider viewing angles</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-award"></i></div>
+                            <div>Cinema-grade quality</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     
     <!-- Enhanced Package Comparison Section -->
     <section id="comparison" class="package-comparison">
