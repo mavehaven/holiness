@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partreds Pty (Ltd) - Engineering Excellence in Energy & Construction</title>
+    <title>Patreds Pty (Ltd) - Engineering Excellence in Energy & Construction</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* All previous CSS remains the same */
         * {
             margin: 0;
             padding: 0;
@@ -286,11 +287,10 @@
             border: 1px solid #bfdbfe;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
-            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
             box-shadow: 0 20px 50px rgba(37, 99, 235, 0.1);
             border-radius: 10px;
+            overflow: hidden;
+            position: relative;
         }
 
         .hero-3d-image::before {
@@ -302,6 +302,14 @@
             bottom: 0;
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
             border-radius: 10px;
+            z-index: 1;
+        }
+
+        .hero-3d-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .hero-content {
@@ -511,11 +519,15 @@
             opacity: 0.3;
             transform-style: preserve-3d;
             transition: all 0.3s ease;
-            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');
-            background-size: cover;
-            background-position: center;
             border-radius: 50%;
             box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+            overflow: hidden;
+        }
+
+        .about-card-3d img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .about-card:hover .about-card-3d {
@@ -613,11 +625,9 @@
             transform-style: preserve-3d;
             transition: all 0.6s ease;
             opacity: 0.4;
-            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');
-            background-size: cover;
-            background-position: center;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+            overflow: hidden;
         }
 
         .service-3d-float::after {
@@ -629,6 +639,12 @@
             bottom: 0;
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, transparent 100%);
             border-radius: 10px;
+        }
+
+        .service-3d-float img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .service-card:hover .service-3d-float {
@@ -701,6 +717,128 @@
             color: var(--light);
         }
 
+        /* Get Quote Section */
+        .quote-section {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .quote-content h2 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .quote-content p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .quote-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .quote-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quote-feature i {
+            color: var(--accent);
+            font-size: 1.2em;
+        }
+
+        .quote-form {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            color: var(--dark);
+        }
+
+        .quote-form h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 5px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
         /* Expertise Section */
         .expertise {
             padding: 120px 40px;
@@ -731,9 +869,6 @@
             position: relative;
             transform-style: preserve-3d;
             overflow: hidden;
-            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
             box-shadow: 0 15px 35px rgba(37, 99, 235, 0.1);
             border-radius: 10px;
         }
@@ -747,6 +882,13 @@
             bottom: 0;
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, transparent 100%);
             border-radius: 10px;
+            z-index: 1;
+        }
+
+        .expertise-3d-parallax img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .expertise-intro h2 {
@@ -828,9 +970,6 @@
             perspective: 1000px;
             cursor: pointer;
             overflow: hidden;
-            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
             box-shadow: 0 20px 50px rgba(37, 99, 235, 0.1);
             border-radius: 10px;
         }
@@ -846,6 +985,7 @@
             transform: translateZ(20px);
             transition: all 0.3s ease;
             border-radius: 10px;
+            z-index: 1;
         }
 
         .contact-3d-interactive::after {
@@ -859,10 +999,17 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             border-radius: 10px;
+            z-index: 2;
         }
 
         .contact-3d-interactive:hover::after {
             opacity: 1;
+        }
+
+        .contact-3d-interactive img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .contact-content h2 {
@@ -970,7 +1117,8 @@
             .hero-content,
             .about-grid,
             .expertise-layout,
-            .contact-grid {
+            .contact-grid,
+            .quote-container {
                 grid-template-columns: 1fr;
             }
 
@@ -1031,6 +1179,10 @@
             .service-number {
                 font-size: 3em;
             }
+
+            .quote-content h2 {
+                font-size: 2.5em;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1039,7 +1191,8 @@
             .about,
             .services,
             .expertise,
-            .contact {
+            .contact,
+            .quote-section {
                 padding-left: 20px;
                 padding-right: 20px;
             }
@@ -1107,6 +1260,14 @@
                 gap: 15px;
                 text-align: center;
             }
+
+            .quote-form {
+                padding: 30px 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1158,6 +1319,10 @@
             .contact-3d-interactive {
                 height: 300px;
             }
+
+            .quote-content h2 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -1165,7 +1330,7 @@
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
-        <p>Loading Partreds Pty (Ltd)</p>
+        <p>Loading Patreds Pty (Ltd)</p>
     </div>
 
     <!-- Scroll Progress Bar -->
@@ -1228,7 +1393,7 @@
         <!-- 3D Hero Image -->
         <div class="hero-3d-container" data-parallax="hero">
             <div class="hero-3d-image" id="hero3d">
-                <!-- 3D image added via CSS -->
+                <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762679732255x485688640984793800/PHOTO-2025-11-08-12-31-46%202.jpg" alt="Engineering Excellence">
             </div>
         </div>
     </section>
@@ -1243,19 +1408,25 @@
                         <h3>Our Mission</h3>
                         <p>To develop, build, construct, and supply engineering equipment while maintaining all services in Southern Africa, improving the quality of living for all through integrated solutions and services.</p>
                         <!-- 3D Image -->
-                        <div class="about-card-3d" id="about3d1"></div>
+                        <div class="about-card-3d" id="about3d1">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762679977804x682208072539376600/PHOTO-2025-11-08-12-31-46.jpg" alt="Our Mission">
+                        </div>
                     </div>
                     <div class="about-card" data-parallax="about2">
                         <h3>Our Vision</h3>
                         <p>To remain an industry leader in multi-disciplines within civil engineering, expanding our footprint across the construction economy in South Africa with excellence and innovation.</p>
                         <!-- 3D Image -->
-                        <div class="about-card-3d" id="about3d2"></div>
+                        <div class="about-card-3d" id="about3d2">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762682690095x475299531490252860/PHOTO-2025-11-08-12-31-47%202.jpg" alt="Our Vision">
+                        </div>
                     </div>
                     <div class="about-card" style="grid-column: 1 / -1; border-left-color: #2563eb;" data-parallax="about3">
                         <h3>Who We Are</h3>
                         <p>Founded in 2016 as a Black Owned enterprise, Partreds Pty (Ltd) has established itself as a trusted partner in engineering and construction. Led by Director Mzomhle Patwell Pindela, our team of professionals and artisans delivers quality and value through meticulous planning, attention to detail, and unwavering commitment to safety and compliance standards.</p>
                         <!-- 3D Image -->
-                        <div class="about-card-3d" id="about3d3"></div>
+                        <div class="about-card-3d" id="about3d3">
+                            <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762682728764x378434575220572000/PHOTO-2025-11-08-12-35-35.jpg" alt="Who We Are">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1274,42 +1445,131 @@
                 <h3>Engineering Equipment Supply</h3>
                 <p>Comprehensive supply of pumps, valves, compressors, heat exchangers, and diesel tanks from industry-leading manufacturers including Sasol, Total, and BP.</p>
                 <!-- 3D Floating Image -->
-                <div class="service-3d-float" id="service3d1"></div>
+                <div class="service-3d-float" id="service3d1">
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762683346023x384137141573820860/Civil_Engineering_Lab_Equipment_6ea1bef0-7d3d-4d0a-8e11-41e5e48cd421-449071.jpg.avif" alt="Engineering Equipment Supply">
+                </div>
             </div>
             <div class="service-card" data-parallax="service2">
                 <div class="service-number">02</div>
                 <h3>Tank Installation</h3>
                 <p>Professional installation of underground and aboveground tanks ranging from 9,000Lt to 83,000Lt with full compliance certification and safety documentation.</p>
                 <!-- 3D Floating Image -->
-                <div class="service-3d-float" id="service3d2"></div>
+                <div class="service-3d-float" id="service3d2">
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762683481986x386566584205011200/shopping.jpeg" alt="Tank Installation">
+                </div>
             </div>
             <div class="service-card" data-parallax="service3">
                 <div class="service-number">03</div>
                 <h3>Fuel Filling Stations</h3>
                 <p>Complete installation of filling stations for petroleum, paraffin, and diesel fuel with comprehensive safety compliance and regulatory approval.</p>
                 <!-- 3D Floating Image -->
-                <div class="service-3d-float" id="service3d3"></div>
+                <div class="service-3d-float" id="service3d3">
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762683573357x183881742000666880/LPG-Skid-Mounted-Gas-Station-for-Industrial-Commercial-Use-Automatic-LPG-Filling-Station-ISO-Approved.jpg_300x300.jpg.avif" alt="Fuel Filling Stations">
+                </div>
             </div>
             <div class="service-card" data-parallax="service4">
                 <div class="service-number">04</div>
                 <h3>Petroleum Transportation</h3>
                 <p>Safe and reliable diesel, petroleum, and paraffin transportation services with full documentation, compliance, and bill of lading assurance.</p>
                 <!-- 3D Floating Image -->
-                <div class="service-3d-float" id="service3d4"></div>
+                <div class="service-3d-float" id="service3d4">
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762683706584x478888282210300400/Oil-Transportation-Safety-Issues.jpeg" alt="Petroleum Transportation">
+                </div>
             </div>
             <div class="service-card" data-parallax="service5">
                 <div class="service-number">05</div>
                 <h3>Civil Construction</h3>
                 <p>Road construction and civil engineering projects for residential, commercial, and government sectors with proven delivery excellence.</p>
                 <!-- 3D Floating Image -->
-                <div class="service-3d-float" id="service3d5"></div>
+                <div class="service-3d-float" id="service3d5">
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762683912070x537958737373688500/PHOTO-2025-10-30-12-44-36.jpg" alt="Civil Construction">
+                </div>
             </div>
             <div class="service-card" data-parallax="service6">
                 <div class="service-number">06</div>
                 <h3>Project Management</h3>
                 <p>Full project cycle management from scope of works to handover, ensuring timely delivery within budget and to exacting specifications.</p>
                 <!-- 3D Floating Image -->
-                <div class="service-3d-float" id="service3d6"></div>
+                <div class="service-3d-float" id="service3d6">
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762684049913x517863408106239400/PHOTO-2025-10-30-12-44-35.jpg" alt="Project Management">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Quote Section -->
+    <section class="quote-section" id="quote">
+        <div class="quote-container">
+            <div class="quote-content">
+                <h2>Get a Custom Quote</h2>
+                <p>Ready to start your project? Get a detailed, no-obligation quote for our engineering and construction services tailored to your specific needs.</p>
+                <div class="quote-features">
+                    <div class="quote-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Detailed project assessment</span>
+                    </div>
+                    <div class="quote-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Transparent pricing breakdown</span>
+                    </div>
+                    <div class="quote-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Timeline estimation</span>
+                    </div>
+                    <div class="quote-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No obligation to proceed</span>
+                    </div>
+                </div>
+                <a href="#contact" class="cta-button">Contact Us Directly</a>
+            </div>
+            <div class="quote-form">
+                <h3>Request a Quote</h3>
+                <form id="quoteForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Needed</label>
+                        <select id="service" class="form-control" required>
+                            <option value="">Select a service</option>
+                            <option value="equipment">Engineering Equipment Supply</option>
+                            <option value="tank">Tank Installation</option>
+                            <option value="fuel">Fuel Filling Stations</option>
+                            <option value="transport">Petroleum Transportation</option>
+                            <option value="construction">Civil Construction</option>
+                            <option value="management">Project Management</option>
+                            <option value="multiple">Multiple Services</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Details</label>
+                        <textarea id="message" class="form-control" placeholder="Please describe your project requirements, timeline, and any specific details..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Quote Request</button>
+                </form>
             </div>
         </div>
     </section>
@@ -1320,10 +1580,10 @@
             <div class="expertise-intro">
                 <h2>Areas of Expertise</h2>
                 <p>Our comprehensive capabilities span the entire project lifecycle, from initial assessment and planning through to final handover and compliance certification.</p>
-                <a href="#contact" class="cta-button" style="display: inline-block; margin-top: 20px;">Discuss Your Project</a>
+                <a href="#quote" class="cta-button" style="display: inline-block; margin-top: 20px;">Get a Quote</a>
                 <!-- 3D Parallax Image -->
                 <div class="expertise-3d-parallax" id="expertise3d" data-parallax="expertise">
-                    <!-- 3D image added via CSS -->
+                    <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762682690095x475299531490252860/PHOTO-2025-11-08-12-31-47%202.jpg" alt="Areas of Expertise">
                 </div>
             </div>
             <div class="expertise-list">
@@ -1378,7 +1638,7 @@
             </div>
             <!-- 3D Interactive Contact Image -->
             <div class="contact-3d-interactive" id="contact3d" data-parallax="contact">
-                <!-- 3D image added via CSS -->
+                <img src="//c95953e936ea93a4ea36bc48180a0f39.cdn.bubble.io/f1762686103423x950800016254409500/45b7fd4a-bd08-4704-b40a-3766f42c3564.jpg" alt="Contact Us">
             </div>
         </div>
     </section>
@@ -1386,7 +1646,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <p>2025 Partreds Pty (Ltd) | Company Registration: 2016/449514</p>
+            <p>2025 Patreds Pty (Ltd) | Company Registration: 2016/449514</p>
             <p>Black Owned Enterprise | Engineering Excellence Since 2016</p>
         </div>
     </footer>
@@ -1490,6 +1750,32 @@
         document.querySelectorAll('.service-card, .expertise-item, .about-card').forEach(el => {
             observer.observe(el);
         });
+
+        // ===== QUOTE FORM HANDLING =====
+        const quoteForm = document.getElementById('quoteForm');
+        if (quoteForm) {
+            quoteForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    company: document.getElementById('company').value,
+                    service: document.getElementById('service').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // In a real implementation, you would send this data to a server
+                // For now, we'll just show a success message
+                alert('Thank you for your quote request! We will contact you within 24 hours with a detailed proposal.');
+                
+                // Reset form
+                quoteForm.reset();
+            });
+        }
 
         // ===== 3D PARALLAX SCROLL INFRASTRUCTURE =====
         let scrollPosition = 0;
