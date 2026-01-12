@@ -956,6 +956,29 @@
             color: #e74c3c;
         }
 
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--sage);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--cream);
+            color: var(--burgundy);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            box-shadow: 0 0 0 3px rgba(107, 29, 58, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
         .custom-select {
             position: relative;
         }
@@ -1191,17 +1214,6 @@
             font-size: 0.8rem;
         }
 
-        .option-name {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .option-price {
-            color: var(--burgundy);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
         /* Delivery Options */
         .delivery-options {
             display: grid;
@@ -1266,21 +1278,6 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-        }
-
-        .datetime-group input {
-            padding: 1rem;
-            border: 2px solid var(--sage);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Cormorant Garamond', serif;
-            background: var(--cream);
-            color: var(--burgundy);
-        }
-
-        .datetime-group input:focus {
-            outline: none;
-            border-color: var(--burgundy);
         }
 
         /* Form Navigation */
@@ -2179,17 +2176,17 @@
                     <div class="form-group">
                         <label>Flavor Selection</label>
                         <div class="option-grid" id="flavorOptions">
-                            <div class="custom-option" data-value="vanilla">
+                            <div class="custom-option" data-value="vanilla" data-price="0">
                                 <div class="option-check"><i class="fas fa-check"></i></div>
                                 <div class="option-name">Vanilla</div>
                                 <div class="option-price">No additional charge</div>
                             </div>
-                            <div class="custom-option" data-value="chocolate">
+                            <div class="custom-option" data-value="chocolate" data-price="0">
                                 <div class="option-check"><i class="fas fa-check"></i></div>
                                 <div class="option-name">Chocolate</div>
                                 <div class="option-price">No additional charge</div>
                             </div>
-                            <div class="custom-option" data-value="red-velvet">
+                            <div class="custom-option" data-value="red-velvet" data-price="50">
                                 <div class="option-check"><i class="fas fa-check"></i></div>
                                 <div class="option-name">Red Velvet</div>
                                 <div class="option-price">+ R50</div>
@@ -2247,13 +2244,13 @@
                     <div class="form-group">
                         <label>Delivery Method <span class="required">*</span></label>
                         <div class="delivery-options">
-                            <div class="delivery-option selected" data-value="pickup">
+                            <div class="delivery-option selected" data-value="pickup" data-price="0">
                                 <div class="delivery-icon">🏪</div>
                                 <div class="delivery-title">Store Pickup</div>
                                 <div class="delivery-price">R0.00</div>
                                 <div class="delivery-description">Pick up your order from our bakery during business hours</div>
                             </div>
-                            <div class="delivery-option" data-value="delivery">
+                            <div class="delivery-option" data-value="delivery" data-price="50">
                                 <div class="delivery-icon">🚚</div>
                                 <div class="delivery-title">Home Delivery</div>
                                 <div class="delivery-price">+ R50.00</div>
@@ -2467,7 +2464,7 @@
     </footer>
 
     <script>
-        // Product Database
+        // Product Database - Fixed and working
         const products = {
             'celebration-cakes': [
                 { id: 'two-layer-10-buttercream', name: 'Two Layer Cake - 10cm with Buttercream', price: 300, description: 'Perfect for small gatherings' },
@@ -2508,8 +2505,10 @@
             product: null,
             quantity: 1,
             flavor: 'vanilla',
+            flavorPrice: 0,
             addons: [],
             deliveryMethod: 'pickup',
+            deliveryPrice: 0,
             deliveryDetails: {
                 date: '',
                 time: '',
@@ -2576,7 +2575,12 @@
             tomorrow.setDate(tomorrow.getDate() + 1);
             
             // Format dates as YYYY-MM-DD
-            const formatDate = (date) => date.toISOString().split('T')[0];
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
             
             // Set min dates
             document.getElementById('orderDate').min = formatDate(today);
@@ -2601,8 +2605,10 @@
                     options.classList.toggle('active');
                 });
                 
-                options.querySelectorAll('.select-option').forEach(option => {
-                    option.addEventListener('click', () => {
+                // Event delegation for options
+                options.addEventListener('click', (e) => {
+                    const option = e.target.closest('.select-option');
+                    if (option) {
                         const value = option.dataset.value;
                         const text = option.querySelector('.option-name').textContent;
                         
@@ -2617,7 +2623,7 @@
                         } else if (select === productSelect) {
                             handleProductChange(value);
                         }
-                    });
+                    }
                 });
                 
                 // Close dropdown when clicking outside
@@ -2657,7 +2663,9 @@
                 });
             }
             
-            // Reset product preview
+            // Reset product selection
+            productSelect.querySelector('.select-placeholder').textContent = 'Choose a product';
+            productSelect.dataset.value = '';
             productPreview.classList.remove('active');
             orderState.product = null;
             updateSummary();
@@ -2691,9 +2699,7 @@
                 if (orderState.quantity > 1) {
                     orderState.quantity--;
                     quantityDisplay.textContent = orderState.quantity;
-                    if (orderState.product) {
-                        previewProductPrice.textContent = `R${orderState.product.price * orderState.quantity}`;
-                    }
+                    updateProductPreview();
                     updateSummary();
                 }
             });
@@ -2702,12 +2708,17 @@
                 if (orderState.quantity < 50) {
                     orderState.quantity++;
                     quantityDisplay.textContent = orderState.quantity;
-                    if (orderState.product) {
-                        previewProductPrice.textContent = `R${orderState.product.price * orderState.quantity}`;
-                    }
+                    updateProductPreview();
                     updateSummary();
                 }
             });
+        }
+
+        // Update Product Preview
+        function updateProductPreview() {
+            if (orderState.product) {
+                previewProductPrice.textContent = `R${orderState.product.price * orderState.quantity}`;
+            }
         }
 
         // Flavor Selection
@@ -2722,6 +2733,7 @@
                     
                     // Update order state
                     orderState.flavor = option.dataset.value;
+                    orderState.flavorPrice = parseFloat(option.dataset.price) || 0;
                     updateSummary();
                 });
             });
@@ -2740,11 +2752,11 @@
                     const price = parseFloat(option.dataset.price) || 0;
                     
                     if (option.classList.contains('selected')) {
-                        if (!orderState.addons.includes(value)) {
-                            orderState.addons.push(value);
+                        if (!orderState.addons.find(a => a.value === value)) {
+                            orderState.addons.push({ value, price });
                         }
                     } else {
-                        orderState.addons = orderState.addons.filter(addon => addon !== value);
+                        orderState.addons = orderState.addons.filter(addon => addon.value !== value);
                     }
                     
                     updateSummary();
@@ -2764,6 +2776,7 @@
                     
                     // Update order state
                     orderState.deliveryMethod = option.dataset.value;
+                    orderState.deliveryPrice = parseFloat(option.dataset.price) || 0;
                     
                     // Show/hide delivery details
                     if (orderState.deliveryMethod === 'delivery') {
@@ -2833,10 +2846,21 @@
                     
                 case 3:
                     if (orderState.deliveryMethod === 'delivery') {
-                        if (!orderState.deliveryDetails.date || !orderState.deliveryDetails.time || !orderState.deliveryDetails.address.trim()) {
+                        const deliveryDate = document.getElementById('deliveryDate').value;
+                        const deliveryTime = document.getElementById('deliveryTime').value;
+                        const deliveryAddress = document.getElementById('deliveryAddress').value.trim();
+                        
+                        if (!deliveryDate || !deliveryTime || !deliveryAddress) {
                             alert('Please fill in all delivery details.');
                             return false;
                         }
+                        
+                        // Update delivery details
+                        orderState.deliveryDetails = {
+                            date: deliveryDate,
+                            time: deliveryTime,
+                            address: deliveryAddress
+                        };
                     }
                     return true;
                     
@@ -2870,7 +2894,8 @@
                         email: customerEmail,
                         phone: customerPhone,
                         orderDate: orderDate,
-                        notes: additionalNotes.value.trim()
+                        notes: additionalNotes.value.trim(),
+                        specialInstructions: specialInstructions.value.trim()
                     };
                     
                     return true;
@@ -2928,22 +2953,15 @@
                 total = orderState.product.price * orderState.quantity;
                 
                 // Add flavor surcharge
-                if (orderState.flavor === 'red-velvet') {
-                    total += 50;
-                }
+                total += orderState.flavorPrice;
                 
                 // Add addons
                 orderState.addons.forEach(addon => {
-                    const option = Array.from(addonOptions).find(opt => opt.dataset.value === addon);
-                    if (option) {
-                        total += parseFloat(option.dataset.price) || 0;
-                    }
+                    total += addon.price;
                 });
                 
                 // Add delivery fee
-                if (orderState.deliveryMethod === 'delivery') {
-                    total += 50;
-                }
+                total += orderState.deliveryPrice;
                 
                 // Update summary display
                 summaryProduct.textContent = orderState.product.name;
@@ -2953,8 +2971,8 @@
                 // Update addons summary
                 if (orderState.addons.length > 0) {
                     const addonNames = orderState.addons.map(addon => {
-                        const option = Array.from(addonOptions).find(opt => opt.dataset.value === addon);
-                        return option ? option.querySelector('.option-name').textContent : addon;
+                        const option = Array.from(addonOptions).find(opt => opt.dataset.value === addon.value);
+                        return option ? option.querySelector('.option-name').textContent : addon.value;
                     });
                     summaryAddons.textContent = addonNames.join(', ');
                 } else {
@@ -3035,8 +3053,10 @@
             orderState.product = null;
             orderState.quantity = 1;
             orderState.flavor = 'vanilla';
+            orderState.flavorPrice = 0;
             orderState.addons = [];
             orderState.deliveryMethod = 'pickup';
+            orderState.deliveryPrice = 0;
             orderState.deliveryDetails = { date: '', time: '', address: '' };
             orderState.customerDetails = { name: '', email: '', phone: '', orderDate: '', notes: '' };
             orderState.total = 0;
