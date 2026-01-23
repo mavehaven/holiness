@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taste of Mzansi - Order Authentic South African Cuisine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Paystack Inline JS -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burnt-orange: #D4611E;
+            --deep-brown: #4A2C2A;
+            --cream: #F5EBE0;
+            --warm-tan: #E3CDB1;
+            --charcoal: #2C2420;
+            --success-green: #2E7D32;
+            --alert-red: #C62828;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--charcoal);
+            line-height: 1.6;
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(42, 36, 32, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            height: 50px;
+            border-radius: 4px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--burnt-orange);
+        }
+
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            color: var(--cream);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--burnt-orange);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section - REMOVED MENU TABS FROM HERE */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(74, 44, 42, 0.85), rgba(74, 44, 42, 0.9)), 
+                        url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769208336421x147603387137595230/66e81080-2f7d-4a9a-8dac-9f53259d6edb.MP4');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--warm-tan);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--burnt-orange);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #B84F19;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--deep-brown);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            color: var(--charcoal);
+        }
+
+        /* Menu Section - UPDATED WITHOUT TABS */
+        .menu-category {
+            margin: 3rem 0;
+        }
+
+        .menu-category h3 {
+            font-size: 2rem;
+            color: var(--burnt-orange);
+            margin-bottom: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .item-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-content {
+            padding: 1.5rem;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+
+        .menu-item h4 {
+            font-size: 1.4rem;
+            color: var(--deep-brown);
+            margin-bottom: 0.5rem;
+            flex: 1;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--burnt-orange);
+            margin-left: 1rem;
+        }
+
+        .menu-item p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            color: var(--deep-brown);
+            transition: background 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .quantity {
+            padding: 0 1rem;
+            font-weight: bold;
+        }
+
+        .add-to-cart-btn {
+            background: var(--burnt-orange);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #B84F19;
+        }
+
+        .special-note {
+            background: var(--burnt-orange);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            border-radius: 12px;
+            font-size: 1.2rem;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 1100;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            background: var(--charcoal);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 1.5rem;
+            color: var(--cream);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--burnt-orange);
+            font-weight: bold;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .cart-quantity {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+
+        .cart-quantity-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-quantity-value {
+            margin: 0 0.8rem;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--alert-red);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            background: #f9f9f9;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: var(--deep-brown);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--success-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .checkout-btn:hover {
+            background: #1B5E20;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #888;
+        }
+
+        /* Checkout Modal */
+        .checkout-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .checkout-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .checkout-container {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--deep-brown);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .submit-order-btn {
+            background: var(--success-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .submit-order-btn:hover {
+            background: #1B5E20;
+        }
+
+        /* Payment Method Selection */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: var(--burnt-orange);
+        }
+
+        .payment-option.selected {
+            border-color: var(--success-green);
+            background-color: rgba(46, 125, 50, 0.05);
+        }
+
+        .payment-option input {
+            margin-right: 1rem;
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--deep-brown);
+        }
+
+        /* Order Confirmation */
+        .order-confirmation {
+            text-align: center;
+            padding: 3rem 1rem;
+            display: none;
+        }
+
+        .order-confirmation.active {
+            display: block;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--success-green);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--charcoal);
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 60vh;
+                padding-top: 70px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="https://b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769204534045x316673049157571800/TSM.svg" alt="Taste of Mzansi" class="logo">
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <ul id="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#catering">Catering</a></li>
+            <li><a href="#about">About</a></li>
+            <li><div class="cart-icon-container" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart cart-icon"></i>
+                <span class="cart-count">0</span>
+            </div></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Taste of Mzansi</h1>
+            <p class="tagline">A Taste of Home. A Celebration of South Africa.</p>
+            <p style="color: var(--cream); font-size: 1.1rem; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Authentic South African flavours delivered to your door. From comforting desserts to traditional braai favourites, every dish is prepared with love, heritage, and time-honoured recipes.
+            </p>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for your favourite South African dish...">
+                <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <p class="section-intro">
+            Traditional South African favourites, prepared authentically. Order online for delivery or pickup.
+        </p>
+
+        <!-- REMOVED THE TAB BUTTONS SECTION -->
+
+        <!-- Desserts Category -->
+        <div class="menu-category" id="desserts">
+            <h3><i class="fas fa-ice-cream"></i> Desserts</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207220812x702210114397096200/sticky-malva-pudding-custard.jpg.webp');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Malva Pudding</h4>
+                            <span class="price">$8.99</span>
+                        </div>
+                        <p>A warm, spongy baked dessert soaked in a rich caramel sauce. Served with custard or cream.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Malva Pudding', 8.99)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207361467x674713944327943700/South-African-milk-tart-3.jpg.webp');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Milk Tart (Melktert)</h4>
+                            <span class="price">$7.50</span>
+                        </div>
+                        <p>A classic South African custard tart with a delicate cinnamon finish.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Milk Tart', 7.50)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207433313x972908201804337800/Peppermint%20Crisp%20Tart.jpg');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Peppermint Crisp Tart</h4>
+                            <span class="price">$9.25</span>
+                        </div>
+                        <p>A no-bake favourite layered with caramel, cream, and crunchy peppermint chocolate.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Peppermint Crisp Tart', 9.25)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Savoury Category -->
+        <div class="menu-category" id="savoury">
+            <h3><i class="fas fa-utensils"></i> Savoury & Traditional</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207561221x544284889564628860/intro-1693755027.jpg');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Boerewors Rolls (2 rolls)</h4>
+                            <span class="price">$12.99</span>
+                        </div>
+                        <p>Traditional South African farmer's sausage in a fresh roll with chakalaka relish.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Boerewors Rolls', 12.99)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207651640x292939642355420700/istockphoto-1667108432-612x612.jpg');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Biltong Platter</h4>
+                            <span class="price">$16.50</span>
+                        </div>
+                        <p>Selection of air-dried, spiced beef - South Africa's iconic snack. Serves 2-3.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Biltong Platter', 16.50)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207820261x796194297915163900/Boschendalshop_Jul122022_0017copy.jpg.webp');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Bobotie (Serves 2)</h4>
+                            <span class="price">$18.75</span>
+                        </div>
+                        <p>South African minced meat bake with an egg topping, served with yellow rice.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Bobotie', 18.75)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shisa Nyama Category -->
+        <div class="menu-category" id="shisa">
+            <h3><i class="fas fa-fire"></i> Shisa Nyama</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Braai Platter (Serves 4)</h4>
+                            <span class="price">$45.99</span>
+                        </div>
+                        <p>Mixed grill with boerewors, chicken, lamb chops, served with pap, chakalaka and salad.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Braai Platter', 45.99)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769207913336x297765477238995900/pap-en-wors.jpg');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Pap & Wors</h4>
+                            <span class="price">$14.99</span>
+                        </div>
+                        <p>Traditional maize porridge with boerewors and tomato & onion gravy.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Pap & Wors', 14.99)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beverages Category -->
+        <div class="menu-category" id="beverages">
+            <h3><i class="fas fa-glass-cheers"></i> Beverages</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('//b9fe070413d9eb020045866da2feb86e.cdn.bubble.io/f1769208057408x349350294192903000/Healthy_rooibus_tea_traditional_south_africa_antioxidant_beverage_with_spices_on_vintage_wooden_table_in_rustic_style_1000x.jpg.webp');"></div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4>Rooibos Tea</h4>
+                            <span class="price">$3.75</span>
+                        </div>
+                        <p>Authentic South African Rooibos tea, served hot or iced.</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="updateQuantity(this, -1)">-</button>
+                                <span class="quantity">1</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this, 'Rooibos Tea', 3.75)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="special-note">
+            <i class="fas fa-star"></i> Any South African dish you may be craving — just ask. We're happy to prepare it for you. <i class="fas fa-star"></i>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically inserted here -->
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; color: #ccc;"></i>
+                <p>Your cart is empty</p>
+                <p>Add some delicious South African dishes!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()">
+                <i class="fas fa-lock"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <button onclick="closeCheckout()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            
+            <div id="checkoutForm">
+                <form class="checkout-form" id="orderForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="address">Delivery Address</label>
+                            <input type="text" id="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apt">Apt/Suite (Optional)</label>
+                            <input type="text" id="apt">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deliveryTime">Preferred Delivery Time</label>
+                        <select id="deliveryTime" required>
+                            <option value="">Select a time</option>
+                            <option value="asap">As soon as possible</option>
+                            <option value="12-2">12:00 PM - 2:00 PM</option>
+                            <option value="2-4">2:00 PM - 4:00 PM</option>
+                            <option value="4-6">4:00 PM - 6:00 PM</option>
+                            <option value="6-8">6:00 PM - 8:00 PM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="instructions">Delivery Instructions (Optional)</label>
+                        <textarea id="instructions" rows="3" placeholder="e.g., Leave at door, call upon arrival, etc."></textarea>
+                    </div>
+                    
+                    <!-- Paystack Payment Integration -->
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-methods">
+                            <div class="payment-option selected" onclick="selectPaymentMethod('paystack')">
+                                <input type="radio" name="paymentMethod" value="paystack" checked>
+                                <i class="fas fa-credit-card payment-icon"></i>
+                                <div>
+                                    <strong>Pay with Paystack</strong>
+                                    <p style="font-size: 0.9rem; color: #666; margin-top: 0.25rem;">Secure payment via card, bank transfer, or mobile money</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-order-btn">
+                        <i class="fas fa-lock"></i> Pay with Paystack
+                    </button>
+                </form>
+            </div>
+            
+            <div class="order-confirmation" id="orderConfirmation">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Order Confirmed!</h2>
+                <p>Thank you for your order. We've sent a confirmation to your email.</p>
+                <p>Your South African feast will be delivered soon!</p>
+                <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--deep-brown);">
+                    <strong>Order ID:</strong> <span id="orderId">TMSA-</span>
+                </p>
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--success-green);">
+                    <strong>Payment Reference:</strong> <span id="paymentRef"></span>
+                </p>
+                <button class="submit-order-btn" onclick="closeCheckout()" style="margin-top: 2rem;">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="catering" style="background: white;">
+        <h2>Catering Services</h2>
+        <p class="section-intro">
+            Bring the warmth of South African hospitality to your next event
+        </p>
+        <div class="catering-features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0;">
+            <div class="feature" style="text-align: center; padding: 2rem; background: var(--cream); border-radius: 12px;">
+                <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+                <h4 style="color: var(--burnt-orange); margin-bottom: 0.5rem; font-size: 1.3rem;">Private Events</h4>
+                <p>Birthdays, anniversaries, and celebrations</p>
+            </div>
+            <div class="feature" style="text-align: center; padding: 2rem; background: var(--cream); border-radius: 12px;">
+                <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                <h4 style="color: var(--burnt-orange); margin-bottom: 0.5rem; font-size: 1.3rem;">Corporate Gatherings</h4>
+                <p>Office events and team celebrations</p>
+            </div>
+            <div class="feature" style="text-align: center; padding: 2rem; background: var(--cream); border-radius: 12px;">
+                <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;">🏡</div>
+                <h4 style="color: var(--burnt-orange); margin-bottom: 0.5rem; font-size: 1.3rem;">Family Gatherings</h4>
+                <p>Reunions and Sunday lunches</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#contact" class="cta-button" style="display: inline-block; background: var(--burnt-orange); color: white; padding: 1rem 2.5rem; text-decoration: none; font-size: 1.1rem; font-weight: bold; border-radius: 4px; transition: transform 0.3s, background 0.3s;">Request Catering Quote</a>
+        </div>
+    </section>
+
+    <section id="about" style="background: var(--cream);">
+        <h2>Our Story</h2>
+        <div class="about-content" style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.2rem; line-height: 1.9;">
+            <p>
+                Taste of Mzansi was born from a love of home, tradition, and bringing people together through food. Every dish tells a story — of family kitchens, Sunday lunches, celebrations, and South African pride.
+            </p>
+            <div class="heritage-note" style="background: var(--warm-tan); padding: 2rem; margin: 2rem 0; border-left: 4px solid var(--burnt-orange); font-style: italic;">
+                This is more than food — it's culture on a plate.
+            </div>
+            <p>
+                Whether you're craving the warmth of malva pudding, the spice of boerewors, or the joy of a proper shisa nyama, Taste of Mzansi delivers the real thing.
+            </p>
+            <p style="margin-top: 2rem; font-weight: bold;">
+                Cooked the way it's meant to be. Shared the way it always has been.
+            </p>
+        </div>
+        <div class="audience-note" style="background: var(--warm-tan); padding: 1.5rem; text-align: center; font-style: italic; color: var(--deep-brown); margin-top: 2rem;">
+            Perfect for South Africans abroad, adventurous food lovers, and anyone curious about African cuisine.
+        </div>
+    </section>
+
+    <footer style="background: var(--charcoal); color: var(--cream); text-align: center; padding: 2rem;">
+        <p>&copy; 2026 Taste of Mzansi. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-style: italic;">Bringing South African heritage to your table.</p>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; font-size: 1.5rem;">
+            <a href="#" style="color: var(--cream);"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: var(--cream);"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: var(--cream);"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        // DOM elements
+        const cartCountElement = document.querySelector('.cart-count');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const orderConfirmation = document.getElementById('orderConfirmation');
+        const orderIdElement = document.getElementById('orderId');
+        const paymentRefElement = document.getElementById('paymentRef');
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Toggle cart sidebar
+        function toggleCart() {
+            cartSidebar.classList.toggle('active');
+            // Close mobile menu if open
+            document.getElementById('nav-menu').classList.remove('active');
+        }
+
+        // Update quantity in menu items
+        function updateQuantity(button, change) {
+            const quantityElement = button.parentElement.querySelector('.quantity');
+            let quantity = parseInt(quantityElement.textContent);
+            quantity += change;
+            if (quantity < 1) quantity = 1;
+            if (quantity > 10) quantity = 10;
+            quantityElement.textContent = quantity;
+        }
+
+        // Add item to cart
+        function addToCart(button, name, price) {
+            const quantity = parseInt(button.parentElement.querySelector('.quantity').textContent);
+            const itemImage = button.closest('.menu-item').querySelector('.item-image').style.backgroundImage;
+            
+            // Check if item already exists in cart
+            const existingItemIndex = cart.findIndex(item => item.name === name);
+            
+            if (existingItemIndex > -1) {
+                // Update existing item quantity
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                // Add new item to cart
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: quantity,
+                    image: itemImage
+                });
+            }
+            
+            // Update cart count and total
+            updateCart();
+            
+            // Show cart sidebar
+            cartSidebar.classList.add('active');
+            
+            // Reset quantity to 1
+            button.parentElement.querySelector('.quantity').textContent = '1';
+            
+            // Show confirmation
+            showNotification(`${quantity} ${name} added to cart!`);
+        }
+
+        // Update cart display
+        function updateCart() {
+            // Update cart count
+            cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = cartCount;
+            
+            // Update cart total
+            cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+            
+            // Update cart items display
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; color: #ccc;"></i>
+                        <p>Your cart is empty</p>
+                        <p>Add some delicious South African dishes!</p>
+                    </div>
+                `;
+                document.getElementById('checkoutBtn').disabled = true;
+                document.getElementById('checkoutBtn').style.opacity = '0.7';
+                document.getElementById('checkoutBtn').style.cursor = 'not-allowed';
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div class="cart-item-image" style="${item.image}"></div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                            <div class="cart-item-actions">
+                                <div class="cart-quantity">
+                                    <button class="cart-quantity-btn" onclick="updateCartItemQuantity(${index}, -1)">-</button>
+                                    <span class="cart-quantity-value">${item.quantity}</span>
+                                    <button class="cart-quantity-btn" onclick="updateCartItemQuantity(${index}, 1)">+</button>
+                                </div>
+                                <button class="remove-item" onclick="removeCartItem(${index})">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('checkoutBtn').disabled = false;
+                document.getElementById('checkoutBtn').style.opacity = '1';
+                document.getElementById('checkoutBtn').style.cursor = 'pointer';
+            }
+        }
+
+        // Update cart item quantity
+        function updateCartItemQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity < 1) {
+                // Remove item if quantity reaches 0
+                cart.splice(index, 1);
+            }
+            
+            updateCart();
+        }
+
+        // Remove item from cart
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+            showNotification('Item removed from cart');
+        }
+
+        // Open checkout modal
+        function openCheckout() {
+            if (cart.length === 0) return;
+            
+            checkoutModal.classList.add('active');
+            cartSidebar.classList.remove('active');
+            
+            // Reset form and hide confirmation
+            document.getElementById('orderForm').reset();
+            checkoutForm.style.display = 'block';
+            orderConfirmation.classList.remove('active');
+        }
+
+        // Close checkout modal
+        function closeCheckout() {
+            checkoutModal.classList.remove('active');
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            document.querySelector(`input[value="${method}"]`).checked = true;
+        }
+
+        // Paystack Payment Integration
+        function initializePaystackPayment(email, amount, orderData) {
+            // Replace with your actual Paystack public key
+            const paystackPublicKey = 'pk_test_your_public_key_here'; // REPLACE WITH YOUR ACTUAL PAYSTACK PUBLIC KEY
+            
+            // Convert amount to smallest currency unit (kobo for Naira, cents for USD)
+            // Note: Paystack expects amount in kobo for NGN, but we're using USD
+            // For USD, amount should be in cents (multiply by 100)
+            const amountInCents = Math.round(amount * 100);
+            
+            // Generate unique reference
+            const transactionRef = 'TMSA-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            
+            // Configure Paystack
+            const handler = PaystackPop.setup({
+                key: paystackPublicKey,
+                email: email,
+                amount: amountInCents,
+                currency: 'USD', // Change to 'NGN' if using Nigerian Naira
+                ref: transactionRef,
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Customer Name",
+                            variable_name: "customer_name",
+                            value: orderData.name
+                        },
+                        {
+                            display_name: "Order ID",
+                            variable_name: "order_id",
+                            value: orderData.orderId
+                        },
+                        {
+                            display_name: "Delivery Address",
+                            variable_name: "delivery_address",
+                            value: orderData.address
+                        }
+                    ]
+                },
+                callback: function(response) {
+                    // Payment successful
+                    console.log('Payment successful:', response);
+                    
+                    // Store payment reference
+                    localStorage.setItem('lastPaymentRef', response.reference);
+                    
+                    // Show order confirmation
+                    showOrderConfirmation(orderData.orderId, response.reference);
+                    
+                    // Clear cart
+                    cart = [];
+                    updateCart();
+                    
+                    // Close cart sidebar
+                    cartSidebar.classList.remove('active');
+                    
+                    // Show success notification
+                    showNotification('Payment successful! Order confirmed.', 'success');
+                },
+                onClose: function() {
+                    // Payment window closed
+                    showNotification('Payment was not completed. Please try again.', 'warning');
+                }
+            });
+            
+            handler.openIframe();
+        }
+
+        // Submit order with Paystack
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'warning');
+                return;
+            }
+            
+            // Collect form data
+            const orderData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                apt: document.getElementById('apt').value,
+                city: document.getElementById('city').value,
+                zip: document.getElementById('zip').value,
+                deliveryTime: document.getElementById('deliveryTime').value,
+                instructions: document.getElementById('instructions').value,
+                orderId: 'TMSA-' + Date.now().toString().slice(-6),
+                cartItems: cart,
+                total: cartTotal
+            };
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(orderData.email)) {
+                showNotification('Please enter a valid email address', 'warning');
+                return;
+            }
+            
+            // Get selected payment method
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+            
+            if (paymentMethod === 'paystack') {
+                // Initialize Paystack payment
+                initializePaystackPayment(orderData.email, cartTotal, orderData);
+            }
+        });
+
+        // Show order confirmation
+        function showOrderConfirmation(orderId, paymentReference) {
+            orderIdElement.textContent = orderId;
+            paymentRefElement.textContent = paymentReference;
+            
+            // Hide form, show confirmation
+            checkoutForm.style.display = 'none';
+            orderConfirmation.classList.add('active');
+            
+            // Store order in localStorage (simulating database)
+            const order = {
+                id: orderId,
+                paymentRef: paymentReference,
+                date: new Date().toISOString(),
+                items: cart,
+                total: cartTotal,
+                customer: {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value
+                }
+            };
+            
+            // Save order to localStorage
+            const orders = JSON.parse(localStorage.getItem('tasteOfMzansiOrders') || '[]');
+            orders.push(order);
+            localStorage.setItem('tasteOfMzansiOrders', JSON.stringify(orders));
+        }
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm.length < 2) return;
+            
+            // Highlight matching items
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const itemName = item.querySelector('h4').textContent.toLowerCase();
+                const itemDescription = item.querySelector('p').textContent.toLowerCase();
+                
+                if (itemName.includes(searchTerm) || itemDescription.includes(searchTerm)) {
+                    item.style.boxShadow = '0 0 0 3px var(--burnt-orange)';
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    item.style.boxShadow = '';
+                }
+            });
+        });
+
+        // Search button functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            
+            if (searchTerm) {
+                // Find first matching item and scroll to it
+                const items = document.querySelectorAll('.menu-item');
+                for (let item of items) {
+                    const itemName = item.querySelector('h4').textContent.toLowerCase();
+                    const itemDescription = item.querySelector('p').textContent.toLowerCase();
+                    
+                    if (itemName.includes(searchTerm) || itemDescription.includes(searchTerm)) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        item.style.boxShadow = '0 0 0 3px var(--burnt-orange)';
+                        
+                        // Remove highlight after 3 seconds
+                        setTimeout(() => {
+                            item.style.boxShadow = '';
+                        }, 3000);
+                        break;
+                    }
+                }
+            }
+        });
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : 
+                           type === 'warning' ? 'var(--alert-red)' : 'var(--burnt-orange)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 2000;
+                font-weight: bold;
+                transform: translateX(150%);
+                transition: transform 0.3s;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(150%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('nav-menu').classList.remove('active');
+                }
+            });
+        });
+
+        // Add scroll effect to nav
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.padding = '0.7rem 5%';
+                nav.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.padding = '1rem 5%';
+                nav.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Close cart when clicking outside
+        document.addEventListener('click', function(e) {
+            if (cartSidebar.classList.contains('active') && 
+                !cartSidebar.contains(e.target) && 
+                !e.target.closest('.cart-icon-container')) {
+                cartSidebar.classList.remove('active');
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === checkoutModal) {
+                closeCheckout();
+            }
+        });
+
+        // IMPORTANT: Replace with your actual Paystack public key
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('IMPORTANT: Replace the paystackPublicKey variable with your actual Paystack public key.');
+            console.log('Get your key from: https://dashboard.paystack.com/#/settings/developer');
+        });
+
+        // Initialize cart
+        updateCart();
+    </script>
+</body>
+</html>
