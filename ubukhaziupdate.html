@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ----- RESET & VARIABLES (unchanged) ----- */
+    /* ----- RESET & VARIABLES (enhanced) ----- */
     :root {
       --bg: #f5f3ef;
       --bg-alt: #eae7e0;
@@ -34,7 +34,7 @@
       --border-light: rgba(0,0,0,0.06);
       --shadow-sm: 0 12px 28px -8px rgba(0,0,0,0.08);
       --shadow-hover: 0 20px 32px -12px rgba(0,0,0,0.15);
-      --transition: all 0.3s ease;
+      --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --focus-outline: 2px solid var(--accent);
       --focus-offset: 2px;
       --radius-subtle: 4px;
@@ -63,6 +63,22 @@
     :focus-visible {
       outline: var(--focus-outline);
       outline-offset: var(--focus-offset);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-alt);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-light);
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
     }
 
     .skip-link {
@@ -95,6 +111,31 @@
       letter-spacing: 2px;
       color: var(--accent);
       margin-bottom: 1rem;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
     /* ----- HEADER (unchanged) ----- */
@@ -164,6 +205,10 @@
       align-items: center;
       background: none;
       border: none;
+      transition: transform 0.2s ease;
+    }
+    .cart-icon:hover {
+      transform: scale(1.05);
     }
     .cart-icon svg {
       width: 24px;
@@ -192,6 +237,10 @@
       align-items: center;
       justify-content: center;
       padding: 0 4px;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cart-count.bump {
+      transform: scale(1.3);
     }
 
     .menu-toggle {
@@ -257,7 +306,7 @@
       outline: none;
     }
 
-    /* ----- HERO (updated with clarifying line) ----- */
+    /* ----- HERO (with refined overlay) ----- */
     .hero {
       min-height: 100vh;
       padding: 10rem 6rem 2rem;
@@ -278,7 +327,7 @@
       pointer-events: none;
       z-index: 1;
     }
-    .hero-text, .carousel {
+    .hero-text, .carousel-container {
       position: relative;
       z-index: 2;
     }
@@ -329,11 +378,14 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ----- CAROUSEL (hero) — negative space removed ----- */
-    .carousel {
+    /* Carousel container with arrows */
+    .carousel-container {
+      position: relative;
       margin-top: 5rem;
-      margin-left: -6rem;   /* bleed out of hero padding */
+      margin-left: -6rem;
       margin-right: -6rem;
+    }
+    .carousel {
       display: flex;
       gap: 0;
       overflow-x: auto;
@@ -344,21 +396,6 @@
       position: relative;
     }
     .carousel::-webkit-scrollbar { display: none; }
-    .carousel::after {
-      content: '← swipe →';
-      position: absolute;
-      bottom: 20px;
-      right: 30px;
-      background: rgba(0,0,0,0.3);
-      color: white;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      backdrop-filter: blur(4px);
-      pointer-events: none;
-      z-index: 5;
-    }
     .slide {
       flex: 0 0 100vw;
       height: 70vh;
@@ -385,6 +422,59 @@
       font-weight: 600;
       color: #fff;
       text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      color: white;
+      font-size: 2rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .carousel-arrow:hover {
+      background: rgba(255,255,255,0.5);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .carousel-arrow.prev {
+      left: 2rem;
+    }
+    .carousel-arrow.next {
+      right: 2rem;
+    }
+    .carousel-indicators {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.75rem;
+      z-index: 10;
+    }
+    .carousel-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .carousel-indicator.active {
+      background: white;
+      width: 24px;
     }
 
     /* ----- COLLECTION (sticky scroll) ----- */
@@ -418,7 +508,7 @@
     .products {
       flex: 1;
       display: flex;
-      gap: 1.5rem;                /* 🔹 REDUCED from 3.5rem to 1.5rem */
+      gap: 1.5rem;
       flex-wrap: nowrap;
       width: max-content;
       will-change: transform;
@@ -433,9 +523,13 @@
       height: 100%;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      border-radius: var(--radius-subtle);
+      overflow: hidden;
     }
     .product:hover {
       transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
     }
     .product-image,
     .product-image-duo {
@@ -447,6 +541,7 @@
       overflow: hidden;
       background: #d0c8bc;
       border-radius: var(--radius-subtle);
+      position: relative;
     }
     .product-image-duo {
       display: flex;
@@ -458,14 +553,10 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
-    }
-    .product-image-duo img {
-      flex: 1;
-      min-width: 0;
+      transition: transform 0.6s ease;
     }
     .product:hover img {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
     .product h3 {
       font-size: 1.3rem;
@@ -479,6 +570,27 @@
       text-transform: uppercase;
       letter-spacing: 0.6px;
       flex-shrink: 0;
+    }
+    .quick-view {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .product:hover .quick-view {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ----- ABOUT (warm) ----- */
@@ -510,6 +622,10 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.4s;
+    }
+    .about-image:hover img {
+      transform: scale(1.02);
     }
     .signature {
       font-family: 'Playfair Display', serif;
@@ -532,6 +648,7 @@
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
+      position: relative;
     }
     .contact-form input {
       flex: 1 1 260px;
@@ -566,6 +683,7 @@
       background: var(--accent);
       border-color: var(--accent);
       outline: none;
+      transform: translateY(-2px);
     }
     .form-feedback {
       width: 100%;
@@ -609,14 +727,15 @@
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: 500;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
     }
     .back-to-top:hover {
       background: var(--accent);
       color: white;
+      transform: translateY(-2px);
     }
 
-    /* ----- MODAL STYLES (unchanged) ----- */
+    /* ----- MODAL STYLES (enhanced with description sections) ----- */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -636,7 +755,7 @@
     }
     .modal {
       background: var(--bg);
-      max-width: 600px;
+      max-width: 700px;
       width: 90%;
       max-height: 85vh;
       overflow-y: auto;
@@ -751,13 +870,47 @@
 
     .modal h3 {
       font-size: 2rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
     .modal-price {
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--accent);
-      margin: 1rem 0;
+      margin: 0.5rem 0 1rem;
+    }
+    .modal-description {
+      margin: 1.5rem 0;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.5rem;
+    }
+    .modal-description h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 1rem 0 0.5rem;
+      color: var(--ink);
+    }
+    .modal-description p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .modal-description ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+    .modal-description li {
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+      color: var(--muted);
+    }
+    .modal-description li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
     }
     .modal label {
       display: block;
@@ -780,13 +933,14 @@
       width: 100%;
       margin-top: 2rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
       font-weight: 500;
       letter-spacing: 0.5px;
       border-radius: var(--radius-subtle);
     }
     .add-to-cart-btn:hover {
       background: var(--accent);
+      transform: translateY(-2px);
     }
 
     .cart-items {
@@ -799,6 +953,11 @@
       align-items: center;
       padding: 0.8rem 0;
       border-bottom: 1px solid var(--border-light);
+      animation: slideIn 0.2s ease;
+    }
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateX(20px); }
+      100% { opacity: 1; transform: translateX(0); }
     }
     .cart-item-info {
       flex: 2;
@@ -866,7 +1025,7 @@
       padding: 1rem;
       font-size: 1rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
       border-radius: var(--radius-subtle);
     }
     .checkout-btn {
@@ -875,6 +1034,7 @@
     }
     .checkout-btn:hover {
       background: #7b5f3e;
+      transform: translateY(-2px);
     }
     .continue-btn {
       background: var(--border-light);
@@ -882,16 +1042,42 @@
     }
     .continue-btn:hover {
       background: #d0c8bc;
+      transform: translateY(-2px);
     }
 
-    /* responsive (unchanged) */
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-hover);
+      z-index: 1000;
+      animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+      transform-origin: bottom right;
+    }
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(-10px); }
+    }
+
+    /* responsive adjustments */
     @media (max-width: 1024px) {
       header { padding: 1.2rem 4rem; }
       .hero, #about, #contact { padding-left: 4rem; padding-right: 4rem; }
       #collection { padding-left: 4rem; padding-right: 4rem; }
-      .carousel, .products { margin-left: -4rem; margin-right: -4rem; }
+      .carousel-container, .products { margin-left: -4rem; margin-right: -4rem; }
       .products { padding-left: 4rem; }
       .slide { padding-left: 4rem; padding-right: 4rem; }
+      .carousel-arrow.prev { left: 1rem; }
+      .carousel-arrow.next { right: 1rem; }
     }
     @media (max-width: 768px) {
       header { padding: 1rem 2rem; }
@@ -900,10 +1086,12 @@
       .hero { padding: 8rem 2rem 2rem; min-height: auto; }
       .hero-text h1 { max-width: 100%; font-size: 3.2rem; }
       .hero-text p { font-size: 1rem; }
-      .carousel { margin-left: -2rem; margin-right: -2rem; }
+      .carousel-container { margin-left: -2rem; margin-right: -2rem; }
       .slide { height: 60vh; padding: 2rem; }
       .slide span { font-size: 1.6rem; }
-      .carousel::after { content: '← swipe →'; bottom: 10px; right: 16px; }
+      .carousel-arrow { width: 36px; height: 36px; font-size: 1.5rem; }
+      .carousel-arrow.prev { left: 0.5rem; }
+      .carousel-arrow.next { right: 0.5rem; }
       #collection, #about, #contact { padding: 6rem 2rem; }
       #about { grid-template-columns: 1fr; gap: 2rem; }
       .about-image { height: 300px; }
@@ -953,7 +1141,7 @@
   </div>
 
   <main id="main-content">
-    <!-- HERO with clarifying line -->
+    <!-- HERO with carousel navigation -->
     <div class="hero">
       <div class="hero-text">
         <div class="section-subhead" style="color: rgba(255,255,255,0.8);">UbuKhazi</div>
@@ -961,15 +1149,24 @@
         <p>A curated collection of limited‑edition heritage décor crafted by master artisans. Each piece carries stories of African craftsmanship, made to be cherished for generations.</p>
         <a href="#collection" class="hero-cta">EXPLORE THE COLLECTION →</a>
       </div>
-      <div class="carousel" aria-label="Featured pieces carousel" role="region">
-        <div class="slide" style="background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186631737x132117398029088180/WhatsApp%20Image%202026-02-14%20at%2015.38.01.jpeg');" role="img" aria-label="Handwoven lounge chair detail">
-          <span>Handwoven comfort</span>
+      <div class="carousel-container">
+        <div class="carousel" id="heroCarousel" aria-label="Featured pieces carousel" role="region">
+          <div class="slide" style="background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186631737x132117398029088180/WhatsApp%20Image%202026-02-14%20at%2015.38.01.jpeg');" role="img" aria-label="Handwoven lounge chair detail">
+            <span>Handwoven comfort</span>
+          </div>
+          <div class="slide" style="background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186722961x862958808325716500/WhatsApp%20Image%202026-02-14%20at%2015.38.01%20%281%29.jpeg');" role="img" aria-label="Artisan at work">
+            <span>Artisan hands</span>
+          </div>
+          <div class="slide" style="background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186793944x361083167872351400/WhatsApp%20Image%202026-02-14%20at%2015.37.58.jpeg');" role="img" aria-label="Carved vessels collection">
+            <span>Patterns & symbols</span>
+          </div>
         </div>
-        <div class="slide" style="background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186722961x862958808325716500/WhatsApp%20Image%202026-02-14%20at%2015.38.01%20%281%29.jpeg');" role="img" aria-label="Artisan at work">
-          <span>Artisan hands</span>
-        </div>
-        <div class="slide" style="background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186793944x361083167872351400/WhatsApp%20Image%202026-02-14%20at%2015.37.58.jpeg');" role="img" aria-label="Carved vessels collection">
-          <span>Patterns & symbols</span>
+        <button class="carousel-arrow prev" aria-label="Previous slide" id="carouselPrev">‹</button>
+        <button class="carousel-arrow next" aria-label="Next slide" id="carouselNext">›</button>
+        <div class="carousel-indicators" id="carouselIndicators">
+          <button class="carousel-indicator active" data-index="0"></button>
+          <button class="carousel-indicator" data-index="1"></button>
+          <button class="carousel-indicator" data-index="2"></button>
         </div>
       </div>
     </div>
@@ -977,74 +1174,157 @@
     <!-- COLLECTION WRAPPER (sticky) -->
     <div class="collection-wrapper" id="collection-wrapper">
       <section id="collection">
-        <h2>Pieces with purpose</h2>
-        <div class="section-intro">Limited‑edition works made in collaboration with master artisans across Southern Africa. Each object carries cultural meaning, material integrity, and a story worth passing on.</div>
+        <h2 class="reveal">Pieces with purpose</h2>
+        <div class="section-intro reveal">Limited‑edition works made in collaboration with master artisans across Southern Africa. Each object carries cultural meaning, material integrity, and a story worth passing on.</div>
 
         <div class="products" id="products-scroll">
-          <!-- LOUNGE COMBO -->
-          <div class="product" data-id="1" data-name="Lounge Combo" data-price="450" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186631737x132117398029088180/WhatsApp%20Image%202026-02-14%20at%2015.38.01.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186722961x862958808325716500/WhatsApp%20Image%202026-02-14%20at%2015.38.01%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447088072x657499917929070800/WhatsApp%20Image%202026-02-11%20at%2023.33.49.jpeg"]'>
+          <!-- LOUNGE COMBO (original) -->
+          <div class="product reveal" data-id="1" data-name="Lounge Combo" data-price="450" 
+               data-description="A sculptural lounge set featuring a handwoven seat and ottoman. Each piece is meticulously crafted by master artisans using traditional weaving techniques passed down through generations. The organic form and natural fibers create a warm, inviting presence in any living space."
+               data-materials="Natural fibers, sustainably sourced wood frame"
+               data-origin="Southern Africa, collaboration with rural weaving cooperatives"
+               data-dimensions="Seat: 28″W × 32″D × 30″H; Ottoman: 20″W × 20″D × 16″H"
+               data-care="Dust regularly with soft brush. Avoid direct sunlight and moisture. Professional cleaning recommended."
+               data-features='["Handwoven by master artisans", "Sustainable natural fibers", "Limited edition", "Heirloom quality"]'
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186631737x132117398029088180/WhatsApp%20Image%202026-02-14%20at%2015.38.01.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186722961x862958808325716500/WhatsApp%20Image%202026-02-14%20at%2015.38.01%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447088072x657499917929070800/WhatsApp%20Image%202026-02-11%20at%2023.33.49.jpeg"]'>
             <div class="product-image-duo">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186631737x132117398029088180/WhatsApp%20Image%202026-02-14%20at%2015.38.01.jpeg" alt="Lounge combo view 1 - handwoven seat" loading="lazy">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447088072x657499917929070800/WhatsApp%20Image%202026-02-11%20at%2023.33.49.jpeg" alt="Lounge set - new" loading="lazy">
             </div>
+            <span class="badge">Limited edition</span>
+            <span class="quick-view">Quick view</span>
             <h3>Lounge Combo</h3>
-            <p>Handwoven seat + ottoman · limited edition</p>
+            <p>Handwoven seat + ottoman</p>
           </div>
 
-          <!-- ARTISAN LAMP & MIRROR SET -->
-          <div class="product" data-id="2" data-name="Artisan Lamp & Mirror Set" data-price="480" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445541831x476106294915728000/WhatsApp%20Image%202026-02-15%20at%2021.56.15%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186593048x494346909674455300/WhatsApp%20Image%202026-02-15%20at%2021.24.08.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447131031x552144661887167500/WhatsApp%20Image%202026-02-15%20at%2021.24.23%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447393731x212970433318096830/WhatsApp%20Image%202026-02-15%20at%2021.22.53%20%281%29.jpeg"]'>
+          <!-- MIRROR & LAMP COMBO (renamed and updated) -->
+          <div class="product reveal" data-id="2" data-name="Mirror & Lamp Combo" data-price="480" 
+               data-description="A striking heritage duo featuring an intricately crafted mirror and a hand-finished artisan lamp, designed to bring warmth, depth, and cultural elegance to refined living spaces. The mirror's carved frame echoes traditional motifs, while the lamp's sculptural base and heritage-inspired shade cast a warm, ambient glow. Together, they create a cohesive narrative of craftsmanship and legacy."
+               data-materials="Solid wood, natural stone, hand-woven textile shade"
+               data-origin="Crafted in collaboration with master artisans in Zimbabwe and South Africa"
+               data-dimensions="Mirror: 24″ diameter; Lamp: 16″H × 10″W"
+               data-care="Dust with soft dry cloth. Keep shade away from direct sunlight to preserve textile vibrancy. Use recommended bulb wattage."
+               data-features='["Hand-carved wooden frame", "Artisan-crafted lamp base", "Heritage textile shade", "Limited edition duo"]'
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445541831x476106294915728000/WhatsApp%20Image%202026-02-15%20at%2021.56.15%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186593048x494346909674455300/WhatsApp%20Image%202026-02-15%20at%2021.24.08.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447131031x552144661887167500/WhatsApp%20Image%202026-02-15%20at%2021.24.23%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447393731x212970433318096830/WhatsApp%20Image%202026-02-15%20at%2021.22.53%20%281%29.jpeg"]'>
             <div class="product-image">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445541831x476106294915728000/WhatsApp%20Image%202026-02-15%20at%2021.56.15%20%281%29.jpeg" alt="Artisan lamp and mirror - warm tone" loading="lazy">
             </div>
-            <h3>Artisan Lamp & Mirror</h3>
-            <p>Hand‑finished base · heritage shade · limited edition</p>
+            <span class="badge">Limited edition duo</span>
+            <span class="quick-view">Quick view</span>
+            <h3>Mirror & Lamp Combo</h3>
+            <p>Hand‑finished · heritage pair</p>
           </div>
 
-          <!-- CARVED VESSEL — FIXED: now a valid JSON array with a quoted string (singular image) -->
-          <div class="product" data-id="3" data-name="Carved Stone Vessel" data-price="320" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447700517x189429409873266050/WhatsApp%20Image%202026-02-14%20at%2015.37.58%20%283%29.jpeg"]'>
+          <!-- CARVED VESSEL – HAND-CARVED STONE (updated with full description) -->
+          <div class="product reveal" data-id="3" data-name="Carved Vessel – Hand-Carved Stone" data-price="320" 
+               data-description="A timeless statement of artistry and heritage, the Carved Vessel is meticulously sculpted by master artisans from natural stone. Each piece is individually carved, revealing subtle variations in tone, texture, and pattern that make every vessel truly one of a kind. Rooted in tradition yet refined for contemporary interiors, this vessel embodies strength, permanence, and cultural memory. Its sculptural silhouette and detailed hand-carved motifs transform it from a functional object into a collectible work of art — designed to be displayed, cherished, and passed down through generations. Whether styled as a centerpiece, a decorative bowl, or an art object on a console or coffee table, the Carved Vessel adds depth, heritage, and quiet luxury to any space."
+               data-materials="Solid natural stone (serpentine or soapstone)"
+               data-origin="Carved by master artisans in Zimbabwe"
+               data-dimensions="Approx. 8″H × 10″W (varies slightly due to handcrafting)"
+               data-care="Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged exposure to moisture to preserve the integrity of the stone."
+               data-features='["Hand-carved from solid natural stone", "Unique artisanal patterns — no two pieces are identical", "Heirloom-quality craftsmanship", "Sculptural décor suitable for modern and classic interiors", "Ethically made in collaboration with skilled master artisans"]'
+               data-styling="Place as a standalone centerpiece, fill with natural elements, or pair with other heritage décor pieces to create a layered, story-rich interior aesthetic."
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447700517x189429409873266050/WhatsApp%20Image%202026-02-14%20at%2015.37.58%20%283%29.jpeg"]'>
             <div class="product-image">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447700517x189429409873266050/WhatsApp%20Image%202026-02-14%20at%2015.37.58%20%283%29.jpeg" alt="Carved stone vessel" loading="lazy">
             </div>
-            <h3>Carved Stone Vessel</h3>
-            <p>Hand‑carved by master artisans · unique piece</p>
+            <span class="badge">Unique piece</span>
+            <span class="quick-view">Quick view</span>
+            <h3>Carved Vessel</h3>
+            <p>Hand‑carved stone · one of a kind</p>
           </div>
-          
+
           <!-- COASTERS -->
-          <div class="product" data-id="5" data-name="Heritage Coasters (Set of 4)" data-price="95" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771236245578x460693429034130240/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447737297x377741858748748400/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%282%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445774713x936113204651752800/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%284%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771235923110x493692632489920260/WhatsApp%20Image%202026-02-14%20at%2015.38.00.jpeg"]'>
+          <div class="product reveal" data-id="5" data-name="Heritage Coasters (Set of 4)" data-price="95" 
+               data-description="Set of four hand-beaded coasters, each featuring unique geometric patterns inspired by traditional African symbolism. Crafted by master artisans using time-honored beadwork techniques, these coasters add a touch of cultural elegance to any tabletop while protecting surfaces in style."
+               data-materials="Glass beads, natural fiber base"
+               data-origin="Beadwork by Ndebele artisans, South Africa"
+               data-dimensions="4″ diameter each"
+               data-care="Wipe with damp cloth; do not soak. Store flat."
+               data-features='["Hand-beaded by master artisans", "Set of four unique patterns", "Limited edition", "Protective felt backing"]'
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771236245578x460693429034130240/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447737297x377741858748748400/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%282%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445774713x936113204651752800/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%284%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771235923110x493692632489920260/WhatsApp%20Image%202026-02-14%20at%2015.38.00.jpeg"]'>
             <div class="product-image-duo">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771236245578x460693429034130240/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%281%29.jpeg" alt="Coasters furnished" loading="lazy">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445774713x936113204651752800/WhatsApp%20Image%202026-02-15%20at%2022.43.26%20%284%29.jpeg" alt="Coasters white bg" loading="lazy">
             </div>
-            <h3>Heritage Coasters (Set of 4)</h3>
+            <span class="badge">Set of 4</span>
+            <span class="quick-view">Quick view</span>
+            <h3>Heritage Coasters</h3>
             <p>Hand‑beaded fibre · master artisan</p>
           </div>
 
           <!-- FANNY PACK -->
-          <div class="product" data-id="7" data-name="Fanny Pack" data-price="75" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771236061440x637124769555817300/WhatsApp%20Image%202026-02-14%20at%2015.38.04%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771451696844x591571651390756500/Fanny%20Pack.png"]'>
+          <div class="product reveal" data-id="7" data-name="Fanny Pack" data-price="75" 
+               data-description="A contemporary accessory woven with traditional techniques. The Fanny Pack features intricate patterns and adjustable strap, blending cultural heritage with modern functionality. Perfect for festivals, travel, or everyday statement."
+               data-materials="Synthetic fiber, leather trim"
+               data-origin="Handwoven in partnership with rural cooperatives, Kenya"
+               data-dimensions="12″W × 6″H, strap adjustable up to 40″"
+               data-care="Spot clean with mild soap. Air dry."
+               data-features='["Handwoven using traditional looms", "Adjustable leather strap", "Limited edition colorways", "Lightweight and durable"]'
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771236061440x637124769555817300/WhatsApp%20Image%202026-02-14%20at%2015.38.04%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771451696844x591571651390756500/Fanny%20Pack.png"]'>
             <div class="product-image">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771236061440x637124769555817300/WhatsApp%20Image%202026-02-14%20at%2015.38.04%20%281%29.jpeg" alt="Woven fanny pack" loading="lazy">
             </div>
+            <span class="badge">Limited</span>
+            <span class="quick-view">Quick view</span>
             <h3>Fanny Pack</h3>
-            <p>Adjustable woven · limited edition</p>
+            <p>Adjustable woven · statement piece</p>
           </div>
 
           <!-- BOTTLE SET -->
-          <div class="product" data-id="8" data-name="Heritage Bottle Set" data-price="220" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447653431x822829140371168900/WhatsApp%20Image%202026-02-14%20at%2015.38.54%20%283%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186593048x494346909674455300/WhatsApp%20Image%202026-02-15%20at%2021.24.08.jpeg"]'>
+          <div class="product reveal" data-id="8" data-name="Heritage Bottle Set" data-price="220" 
+               data-description="A trio of hand-blown glass bottles inspired by ceremonial vessels. Each bottle is unique, featuring subtle variations in form and color that celebrate the artisan's touch. Ideal for display or everyday use."
+               data-materials="Recycled glass"
+               data-origin="Hand-blown by master glassmakers, South Africa"
+               data-dimensions="Tall: 10″H, Medium: 8″H, Small: 6″H"
+               data-care="Hand wash gently. Avoid abrupt temperature changes."
+               data-features='["Hand-blown from recycled glass", "Set of three unique bottles", "Inspired by traditional ceremonial forms", "Food-safe"]'
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447653431x822829140371168900/WhatsApp%20Image%202026-02-14%20at%2015.38.54%20%283%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186593048x494346909674455300/WhatsApp%20Image%202026-02-15%20at%2021.24.08.jpeg"]'>
             <div class="product-image">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447653431x822829140371168900/WhatsApp%20Image%202026-02-14%20at%2015.38.54%20%283%29.jpeg" alt="Handcrafted bottle set" loading="lazy">
             </div>
+            <span class="badge">Trio</span>
+            <span class="quick-view">Quick view</span>
             <h3>Heritage Bottle Set</h3>
             <p>Hand‑blown glass · ceremonial forms</p>
           </div>
 
           <!-- BEDROOM DÉCOR SET -->
-          <div class="product" data-id="9" data-name="Bedroom Décor Set" data-price="520" data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771235923110x493692632489920260/WhatsApp%20Image%202026-02-14%20at%2015.38.00.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447088072x657499917929070800/WhatsApp%20Image%202026-02-11%20at%2023.33.49.jpeg"]'>
+          <div class="product reveal" data-id="9" data-name="Bedroom Décor Set" data-price="520" 
+               data-description="A curated set of textile and wood accents to transform your bedroom into a serene, culturally rich retreat. Includes a woven wall hanging, carved wooden stool, and two patterned cushions. Each piece is handmade by master artisans using traditional techniques."
+               data-materials="Cotton, wool, sustainably sourced wood"
+               data-origin="Collaboration with artisans across Lesotho and South Africa"
+               data-dimensions="Wall hanging: 36″L; Stool: 12″H × 14″W; Cushions: 18″ square"
+               data-care="Dry clean textiles; wipe wood with dry cloth"
+               data-features='["Handwoven wall hanging", "Carved wooden stool", "Embroidered cushions", "Limited edition set"]'
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771235923110x493692632489920260/WhatsApp%20Image%202026-02-14%20at%2015.38.00.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447088072x657499917929070800/WhatsApp%20Image%202026-02-11%20at%2023.33.49.jpeg"]'>
             <div class="product-image-duo">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771235923110x493692632489920260/WhatsApp%20Image%202026-02-14%20at%2015.38.00.jpeg" alt="Bedroom set view 1" loading="lazy">
               <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447088072x657499917929070800/WhatsApp%20Image%202026-02-11%20at%2023.33.49.jpeg" alt="Bedroom set view 2" loading="lazy">
             </div>
+            <span class="badge">Curated set</span>
+            <span class="quick-view">Quick view</span>
             <h3>Bedroom Décor Set</h3>
             <p>Textile & wood · artisan collaboration</p>
+          </div>
+
+          <!-- NEW: ARTISAN HERITAGE LAMP (standalone) -->
+          <div class="product reveal" data-id="10" data-name="Artisan Heritage Lamp" data-price="280" 
+               data-description="A celebration of cultural storytelling and refined craftsmanship, the Artisan Heritage Lamp blends traditional African-inspired textile artistry with a hand-finished carved base. The richly patterned shade evokes symbolic heritage motifs, while the sculpted base showcases meticulous handwork that honors generations of artisan skill. When illuminated, the lamp casts a warm, ambient glow that brings depth, texture, and meaning into any interior. More than lighting, it is a statement of identity — designed for those who value authenticity, narrative, and soulful luxury in their spaces. This limited-edition piece is both functional and collectible, ideal for living rooms, bedrooms, or curated hospitality settings seeking warmth and cultural elegance."
+               data-materials="Hand-carved stone base, textile shade"
+               data-origin="Crafted in collaboration with master artisans in Zimbabwe"
+               data-dimensions="18″H × 12″W"
+               data-care="Dust with soft cloth; keep shade away from direct sunlight"
+               data-features='["Hand-carved stone base", "Heritage-inspired textile shade", "Limited edition", "Warm ambient lighting"]'
+               data-styling="Perfect for bedside tables, reading corners, or living room consoles where it can serve as both a lighting feature and a cultural focal point."
+               data-images='["//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445541831x476106294915728000/WhatsApp%20Image%202026-02-15%20at%2021.56.15%20%281%29.jpeg","//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771447131031x552144661887167500/WhatsApp%20Image%202026-02-15%20at%2021.24.23%20%281%29.jpeg"]'>
+            <div class="product-image">
+              <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771445541831x476106294915728000/WhatsApp%20Image%202026-02-15%20at%2021.56.15%20%281%29.jpeg" alt="Artisan Heritage Lamp" loading="lazy">
+            </div>
+            <span class="badge">Limited edition</span>
+            <span class="quick-view">Quick view</span>
+            <h3>Artisan Heritage Lamp</h3>
+            <p>Hand‑carved base · heritage shade</p>
           </div>
         </div>
       </section>
@@ -1052,23 +1332,23 @@
 
     <!-- ABOUT -->
     <section id="about">
-      <div class="about-text">
+      <div class="about-text reveal">
         <span class="section-subhead">UbuKhazi</span>
         <h2 style="font-size: 2.6rem; margin-bottom: 0.5rem;">Rooted in tradition, made for today</h2>
         <p>We work closely with master artisans across Southern Africa, learning from techniques passed down through generations. Every piece tells a story of skill, symbol, and place. We carry these traditions forward, with respect and care.</p>
         <p>UbuKhazi means 'opulent'. Our hope is that each piece becomes part of your story, too. A reminder of the hands that made it and the culture it celebrates.</p>
         <div class="signature">With gratitude, from our hands to yours.</div>
       </div>
-      <div class="about-image" id="parallax-image">
+      <div class="about-image reveal" id="parallax-image">
         <img src="//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186631737x132117398029088180/WhatsApp%20Image%202026-02-14%20at%2015.38.01.jpeg" alt="Artisan hands at work in Southern African workshop" loading="lazy">
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
-      <span class="section-subhead">Keep in touch</span>
-      <h2 style="font-size: 2.6rem;">Join our community</h2>
-      <p style="color: var(--muted); max-width: 500px; margin: 1rem auto;">Be the first to hear about new pieces, stories from the workshop, and special events.</p>
+      <span class="section-subhead reveal">Keep in touch</span>
+      <h2 style="font-size: 2.6rem;" class="reveal">Join our community</h2>
+      <p style="color: var(--muted); max-width: 500px; margin: 1rem auto;" class="reveal">Be the first to hear about new pieces, stories from the workshop, and special events.</p>
       <form class="contact-form" id="newsletter-form">
         <input type="email" placeholder="Email address" aria-label="Email address" id="newsletter-email" required>
         <button type="submit" id="subscribe-btn">Subscribe</button>
@@ -1095,6 +1375,10 @@
       <div class="modal-carousel" id="modal-carousel"></div>
       <h3 id="modal-title">Product Name</h3>
       <div class="modal-price" id="modal-price"></div>
+      
+      <!-- Detailed description section (populated by JS) -->
+      <div class="modal-description" id="modal-description"></div>
+
       <label for="modal-quantity">Quantity</label>
       <input type="number" id="modal-quantity" min="1" value="1">
       <button class="add-to-cart-btn" id="add-to-cart-btn">Add to cart</button>
@@ -1116,421 +1400,513 @@
 
   <script>
     (function() {
-      // ---------- UTILITIES (same as before) ----------
-      const throttle = (fn, delay) => {
-        let lastCall = 0;
-        return function(...args) {
-          const now = Date.now();
-          if (now - lastCall >= delay) {
-            lastCall = now;
-            fn.apply(this, args);
-          }
-        };
-      };
-
-      const debounce = (fn, delay) => {
-        let timer;
-        return function(...args) {
-          clearTimeout(timer);
-          timer = setTimeout(() => fn.apply(this, args), delay);
-        };
-      };
-
-      // ---------- MOBILE MENU ----------
-      const toggle = document.querySelector('.menu-toggle');
-      const mobileMenu = document.querySelector('.mobile-menu');
-      const body = document.body;
-      const focusableLinks = mobileMenu.querySelectorAll('a');
-
-      function toggleMenu(force) {
-        const isActive = force !== undefined ? force : !mobileMenu.classList.contains('active');
-        toggle.classList.toggle('active', isActive);
-        mobileMenu.classList.toggle('active', isActive);
-        mobileMenu.setAttribute('aria-hidden', !isActive);
-        body.style.overflow = isActive ? 'hidden' : '';
-        toggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-        if (isActive && focusableLinks.length) focusableLinks[0].focus();
+  // ---------- UTILITIES ----------
+  const throttle = (fn, delay) => {
+    let lastCall = 0;
+    return function(...args) {
+      const now = Date.now();
+      if (now - lastCall >= delay) {
+        lastCall = now;
+        fn.apply(this, args);
       }
-      toggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-      document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.addEventListener('click', (e) => {
+    };
+  };
+
+  const debounce = (fn, delay) => {
+    let timer;
+    return function(...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  };
+
+  // ---------- REVEAL ON SCROLL ----------
+  const revealElements = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px' });
+  revealElements.forEach(el => observer.observe(el));
+
+  // ---------- MOBILE MENU ----------
+  const toggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const body = document.body;
+  const focusableLinks = mobileMenu.querySelectorAll('a');
+
+  function toggleMenu(force) {
+    const isActive = force !== undefined ? force : !mobileMenu.classList.contains('active');
+    toggle.classList.toggle('active', isActive);
+    mobileMenu.classList.toggle('active', isActive);
+    mobileMenu.setAttribute('aria-hidden', !isActive);
+    body.style.overflow = isActive ? 'hidden' : '';
+    toggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    if (isActive && focusableLinks.length) focusableLinks[0].focus();
+  }
+
+  toggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+      toggleMenu(false);
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      toggleMenu(false);
+      toggle.focus();
+    }
+  });
+
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) toggleMenu(false);
+  });
+
+  // ---------- NEWSLETTER ----------
+  const newsletterForm = document.getElementById('newsletter-form');
+  const newsletterEmail = document.getElementById('newsletter-email');
+  const newsletterFeedback = document.getElementById('newsletter-feedback');
+
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = newsletterEmail.value.trim();
+    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newsletterFeedback.textContent = `🙏🏾 Thank you! (demo: ${email})`;
+      newsletterEmail.value = '';
+      setTimeout(() => { newsletterFeedback.textContent = ''; }, 3000);
+    } else {
+      newsletterFeedback.textContent = 'Please enter a valid email address.';
+    }
+  });
+
+  // ---------- SMOOTH SCROLL (desktop nav) ----------
+  document.querySelectorAll('.nav-desktop a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ---------- HERO CAROUSEL CONTROLS ----------
+  const carousel = document.getElementById('heroCarousel');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function scrollToSlide(index) {
+    if (!carousel) return;
+    const slideWidth = carousel.clientWidth;
+    carousel.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
+    updateIndicators(index);
+  }
+
+  function updateIndicators(index) {
+    indicators.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    currentIndex = index;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    scrollToSlide(currentIndex);
+  });
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    scrollToSlide(currentIndex);
+  });
+
+  indicators.forEach((dot, idx) => {
+    dot.addEventListener('click', () => scrollToSlide(idx));
+  });
+
+  carousel.addEventListener('scroll', debounce(() => {
+    const scrollPos = carousel.scrollLeft;
+    const slideWidth = carousel.clientWidth;
+    const index = Math.round(scrollPos / slideWidth);
+    if (index >= 0 && index < slides.length) {
+      updateIndicators(index);
+    }
+  }, 100));
+
+  // ---------- CART & MODAL WITH RICH DESCRIPTION ----------
+  let cart = JSON.parse(localStorage.getItem('ubukhazi_cart')) || [];
+
+  const productModal = document.getElementById('product-modal');
+  const cartModal = document.getElementById('cart-modal');
+  const closeProduct = document.getElementById('close-product-modal');
+  const closeCart = document.getElementById('close-cart-modal');
+  const cartBtn = document.getElementById('cart-button');
+  const cartCountSpan = document.getElementById('cart-count');
+  const modalCarousel = document.getElementById('modal-carousel');
+  const modalTitle = document.getElementById('modal-title');
+  const modalPrice = document.getElementById('modal-price');
+  const modalDescription = document.getElementById('modal-description');
+  const modalQuantity = document.getElementById('modal-quantity');
+  const addToCartBtn = document.getElementById('add-to-cart-btn');
+  const cartItemsList = document.getElementById('cart-items-list');
+  const cartTotalSpan = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const continueBtn = document.getElementById('continue-shopping-btn');
+
+  let currentProduct = null;
+  let activeModal = null;
+  let currentSlideIndex = 0;
+  let slideCount = 0;
+
+  // Carousel functions
+  function renderCarousel(images) {
+    if (!images || images.length === 0) {
+      modalCarousel.innerHTML = '<div class="carousel-slides"><div class="carousel-slide"><img src="" alt="No image"></div></div>';
+      return;
+    }
+    let slidesHtml = '';
+    images.forEach((img, idx) => {
+      slidesHtml += `<div class="carousel-slide"><img src="${img}" alt="Product view ${idx + 1}" loading="lazy"></div>`;
+    });
+    let dotsHtml = '';
+    for (let i = 0; i < images.length; i++) {
+      dotsHtml += `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`;
+    }
+    modalCarousel.innerHTML = `
+      <div class="carousel-slides" style="transform: translateX(0);">${slidesHtml}</div>
+      <button class="carousel-btn prev" aria-label="Previous image">‹</button>
+      <button class="carousel-btn next" aria-label="Next image">›</button>
+      <div class="carousel-dots">${dotsHtml}</div>
+    `;
+    currentSlideIndex = 0;
+    slideCount = images.length;
+
+    const slidesContainer = modalCarousel.querySelector('.carousel-slides');
+    const prevBtn = modalCarousel.querySelector('.prev');
+    const nextBtn = modalCarousel.querySelector('.next');
+    const dots = modalCarousel.querySelectorAll('.dot');
+
+    function updateSlide(index) {
+      if (index < 0) index = slideCount - 1;
+      if (index >= slideCount) index = 0;
+      slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentSlideIndex = index;
+    }
+
+    prevBtn.addEventListener('click', () => updateSlide(currentSlideIndex - 1));
+    nextBtn.addEventListener('click', () => updateSlide(currentSlideIndex + 1));
+    dots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        updateSlide(idx);
+      });
+    });
+  }
+
+  function renderDescription(product) {
+    let html = `<p>${product.description || ''}</p>`;
+    if (product.features && product.features.length) {
+      html += '<h4>Key Features</h4><ul>';
+      product.features.forEach(f => html += `<li>${f}</li>`);
+      html += '</ul>';
+    }
+    if (product.materials) html += `<h4>Materials</h4><p>${product.materials}</p>`;
+    if (product.origin) html += `<h4>Origin</h4><p>${product.origin}</p>`;
+    if (product.dimensions) html += `<h4>Dimensions</h4><p>${product.dimensions}</p>`;
+    if (product.care) html += `<h4>Care Instructions</h4><p>${product.care}</p>`;
+    if (product.styling) html += `<h4>Styling Suggestions</h4><p>${product.styling}</p>`;
+    modalDescription.innerHTML = html;
+  }
+
+  function openModal(modal, focusElement) {
+    if (activeModal) closeModal(activeModal);
+    modal.classList.add('active');
+    activeModal = modal;
+    body.style.overflow = 'hidden';
+    if (focusElement) focusElement.focus();
+    document.addEventListener('keydown', modalKeyHandler);
+  }
+
+  function closeModal(modal) {
+    modal.classList.remove('active');
+    if (activeModal === modal) {
+      activeModal = null;
+      body.style.overflow = '';
+      document.removeEventListener('keydown', modalKeyHandler);
+      if (modal === productModal && cartBtn) cartBtn.focus();
+      else if (modal === cartModal && cartBtn) cartBtn.focus();
+    }
+  }
+
+  function modalKeyHandler(e) {
+    if (!activeModal) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeModal(activeModal);
+      return;
+    }
+    if (e.key === 'Tab') {
+      const focusable = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
           e.preventDefault();
-          const targetId = link.getAttribute('href');
-          if (targetId && targetId.startsWith('#')) {
-            const targetEl = document.querySelector(targetId);
-            if (targetEl) {
-              const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-            }
-          }
-          toggleMenu(false);
-        });
-      });
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-          toggleMenu(false);
-          toggle.focus();
+          last.focus();
         }
-      });
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) toggleMenu(false);
-      });
-
-      // ---------- NEWSLETTER ----------
-      const newsletterForm = document.getElementById('newsletter-form');
-      const newsletterEmail = document.getElementById('newsletter-email');
-      const newsletterFeedback = document.getElementById('newsletter-feedback');
-      newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = newsletterEmail.value.trim();
-        if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          newsletterFeedback.textContent = `🙏🏾 Thank you! (demo: ${email})`;
-          newsletterEmail.value = '';
-          setTimeout(() => { newsletterFeedback.textContent = ''; }, 3000);
-        } else {
-          newsletterFeedback.textContent = 'Please enter a valid email address.';
-        }
-      });
-
-      // ---------- SMOOTH SCROLL (desktop nav) ----------
-      document.querySelectorAll('.nav-desktop a').forEach(link => {
-        link.addEventListener('click', function(e) {
+      } else {
+        if (document.activeElement === last) {
           e.preventDefault();
-          const targetId = this.getAttribute('href');
-          const targetEl = document.querySelector(targetId);
-          if (targetEl) {
-            const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-        });
+          first.focus();
+        }
+      }
+    }
+  }
+
+  function openProductModal(product) {
+    currentProduct = product;
+    modalTitle.textContent = product.name;
+    modalPrice.textContent = `$${product.price}`;
+    modalQuantity.value = 1;
+    if (product.images && product.images.length) {
+      renderCarousel(product.images);
+    } else {
+      renderCarousel([product.image || '']);
+    }
+    renderDescription(product);
+    openModal(productModal, document.getElementById('close-product-modal'));
+  }
+
+  closeProduct.addEventListener('click', () => closeModal(productModal));
+  closeCart.addEventListener('click', () => closeModal(cartModal));
+
+  window.addEventListener('click', (e) => {
+    if (e.target === productModal) closeModal(productModal);
+    if (e.target === cartModal) closeModal(cartModal);
+  });
+
+  document.querySelectorAll('.product').forEach(card => {
+    card.addEventListener('click', (e) => {
+      const id = card.dataset.id;
+      const name = card.dataset.name;
+      const price = parseInt(card.dataset.price);
+      const description = card.dataset.description || '';
+      const materials = card.dataset.materials || '';
+      const origin = card.dataset.origin || '';
+      const dimensions = card.dataset.dimensions || '';
+      const care = card.dataset.care || '';
+      const styling = card.dataset.styling || '';
+      let features = [];
+      if (card.dataset.features) {
+        try {
+          features = JSON.parse(card.dataset.features);
+        } catch (e) {}
+      }
+      let images = [];
+      if (card.dataset.images) {
+        try {
+          images = JSON.parse(card.dataset.images);
+        } catch (e) {}
+      }
+      openProductModal({ id, name, price, description, materials, origin, dimensions, care, styling, features, images });
+    });
+  });
+
+  function updateCartUI() {
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+    cartCountSpan.textContent = totalItems;
+    cartCountSpan.classList.add('bump');
+    setTimeout(() => cartCountSpan.classList.remove('bump'), 200);
+    localStorage.setItem('ubukhazi_cart', JSON.stringify(cart));
+    if (cartModal.classList.contains('active')) renderCart();
+  }
+
+  function renderCart() {
+    cartItemsList.innerHTML = '';
+    let total = 0;
+    cart.forEach((item) => {
+      total += item.price * item.quantity;
+      const li = document.createElement('li');
+      li.className = 'cart-item';
+      li.innerHTML = `
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.name}</div>
+          <div class="cart-item-price">$${item.price}</div>
+        </div>
+        <div class="cart-item-controls">
+          <button class="cart-item-decr" data-id="${item.id}" aria-label="Decrease quantity">−</button>
+          <span class="cart-item-quantity">${item.quantity}</span>
+          <button class="cart-item-incr" data-id="${item.id}" aria-label="Increase quantity">+</button>
+          <button class="cart-item-remove" data-id="${item.id}" aria-label="Remove item">✕</button>
+        </div>
+      `;
+      cartItemsList.appendChild(li);
+    });
+    cartTotalSpan.textContent = `Total: $${total}`;
+
+    document.querySelectorAll('.cart-item-decr').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const item = cart.find(i => i.id == id);
+        if (item) {
+          if (item.quantity > 1) item.quantity -= 1;
+          else cart = cart.filter(i => i.id != id);
+          updateCartUI();
+        }
       });
-
-      // ---------- CART & MODAL WITH CAROUSEL ----------
-      let cart = JSON.parse(localStorage.getItem('ubukhazi_cart')) || [];
-
-      const productModal = document.getElementById('product-modal');
-      const cartModal = document.getElementById('cart-modal');
-      const closeProduct = document.getElementById('close-product-modal');
-      const closeCart = document.getElementById('close-cart-modal');
-      const cartBtn = document.getElementById('cart-button');
-      const cartCountSpan = document.getElementById('cart-count');
-      const modalCarousel = document.getElementById('modal-carousel');
-      const modalTitle = document.getElementById('modal-title');
-      const modalPrice = document.getElementById('modal-price');
-      const modalQuantity = document.getElementById('modal-quantity');
-      const addToCartBtn = document.getElementById('add-to-cart-btn');
-      const cartItemsList = document.getElementById('cart-items-list');
-      const cartTotalSpan = document.getElementById('cart-total');
-      const checkoutBtn = document.getElementById('checkout-btn');
-      const continueBtn = document.getElementById('continue-shopping-btn');
-
-      let currentProduct = null;
-      let activeModal = null;
-      let currentSlideIndex = 0;
-      let slideCount = 0;
-
-      // Carousel functions
-      function renderCarousel(images) {
-        if (!images || images.length === 0) {
-          modalCarousel.innerHTML = '<div class="carousel-slides"><div class="carousel-slide"><img src="" alt="No image"></div></div>';
-          return;
+    });
+    document.querySelectorAll('.cart-item-incr').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const item = cart.find(i => i.id == id);
+        if (item) {
+          item.quantity += 1;
+          updateCartUI();
         }
-        let slidesHtml = '';
-        images.forEach((img, idx) => {
-          slidesHtml += `<div class="carousel-slide"><img src="${img}" alt="Product view ${idx+1}" loading="lazy"></div>`;
-        });
-        let dotsHtml = '';
-        for (let i = 0; i < images.length; i++) {
-          dotsHtml += `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`;
-        }
-        modalCarousel.innerHTML = `
-          <div class="carousel-slides" style="transform: translateX(0);">${slidesHtml}</div>
-          <button class="carousel-btn prev" aria-label="Previous image">‹</button>
-          <button class="carousel-btn next" aria-label="Next image">›</button>
-          <div class="carousel-dots">${dotsHtml}</div>
-        `;
-        currentSlideIndex = 0;
-        slideCount = images.length;
-
-        const slidesContainer = modalCarousel.querySelector('.carousel-slides');
-        const prevBtn = modalCarousel.querySelector('.prev');
-        const nextBtn = modalCarousel.querySelector('.next');
-        const dots = modalCarousel.querySelectorAll('.dot');
-
-        function updateSlide(index) {
-          if (index < 0) index = slideCount - 1;
-          if (index >= slideCount) index = 0;
-          slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-          dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-          });
-          currentSlideIndex = index;
-        }
-
-        prevBtn.addEventListener('click', () => updateSlide(currentSlideIndex - 1));
-        nextBtn.addEventListener('click', () => updateSlide(currentSlideIndex + 1));
-        dots.forEach(dot => {
-          dot.addEventListener('click', (e) => {
-            const idx = parseInt(e.target.dataset.index, 10);
-            updateSlide(idx);
-          });
-        });
-      }
-
-      function openModal(modal, focusElement) {
-        if (activeModal) closeModal(activeModal);
-        modal.classList.add('active');
-        activeModal = modal;
-        body.style.overflow = 'hidden';
-        if (focusElement) focusElement.focus();
-        document.addEventListener('keydown', modalKeyHandler);
-      }
-
-      function closeModal(modal) {
-        modal.classList.remove('active');
-        if (activeModal === modal) {
-          activeModal = null;
-          body.style.overflow = '';
-          document.removeEventListener('keydown', modalKeyHandler);
-          if (modal === productModal && cartBtn) cartBtn.focus();
-          else if (modal === cartModal && cartBtn) cartBtn.focus();
-        }
-      }
-
-      function modalKeyHandler(e) {
-        if (!activeModal) return;
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          closeModal(activeModal);
-          return;
-        }
-        if (e.key === 'Tab') {
-          const focusable = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (e.shiftKey) {
-            if (document.activeElement === first) {
-              e.preventDefault();
-              last.focus();
-            }
-          } else {
-            if (document.activeElement === last) {
-              e.preventDefault();
-              first.focus();
-            }
-          }
-        }
-      }
-
-      function openProductModal(product) {
-        currentProduct = product;
-        modalTitle.textContent = product.name;
-        modalPrice.textContent = `$${product.price}`;
-        modalQuantity.value = 1;
-        if (product.images && product.images.length) {
-          renderCarousel(product.images);
-        } else {
-          renderCarousel([product.image || '']);
-        }
-        openModal(productModal, document.getElementById('close-product-modal'));
-      }
-
-      closeProduct.addEventListener('click', () => closeModal(productModal));
-      closeCart.addEventListener('click', () => closeModal(cartModal));
-
-      window.addEventListener('click', (e) => {
-        if (e.target === productModal) closeModal(productModal);
-        if (e.target === cartModal) closeModal(cartModal);
       });
-
-      document.querySelectorAll('.product').forEach(card => {
-        card.addEventListener('click', (e) => {
-          const id = card.dataset.id;
-          const name = card.dataset.name;
-          const price = parseInt(card.dataset.price);
-          let images = [];
-          if (card.dataset.images) {
-            try {
-              images = JSON.parse(card.dataset.images);
-            } catch (e) {
-              console.warn('invalid images JSON');
-            }
-          }
-          if (!images.length && card.dataset.image) {
-            images = [card.dataset.image];
-          }
-          openProductModal({ id, name, price, images });
-        });
-      });
-
-      function updateCartUI() {
-        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-        cartCountSpan.textContent = totalItems;
-        localStorage.setItem('ubukhazi_cart', JSON.stringify(cart));
-        if (cartModal.classList.contains('active')) renderCart();
-      }
-
-      function renderCart() {
-        cartItemsList.innerHTML = '';
-        let total = 0;
-        cart.forEach((item) => {
-          total += item.price * item.quantity;
-          const li = document.createElement('li');
-          li.className = 'cart-item';
-          li.innerHTML = `
-            <div class="cart-item-info">
-              <div class="cart-item-title">${item.name}</div>
-              <div class="cart-item-price">$${item.price}</div>
-            </div>
-            <div class="cart-item-controls">
-              <button class="cart-item-decr" data-id="${item.id}" aria-label="Decrease quantity">−</button>
-              <span class="cart-item-quantity">${item.quantity}</span>
-              <button class="cart-item-incr" data-id="${item.id}" aria-label="Increase quantity">+</button>
-              <button class="cart-item-remove" data-id="${item.id}" aria-label="Remove item">✕</button>
-            </div>
-          `;
-          cartItemsList.appendChild(li);
-        });
-        cartTotalSpan.textContent = `Total: $${total}`;
-
-        document.querySelectorAll('.cart-item-decr').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const id = btn.dataset.id;
-            const item = cart.find(i => i.id == id);
-            if (item) {
-              if (item.quantity > 1) item.quantity -= 1;
-              else cart = cart.filter(i => i.id != id);
-              updateCartUI();
-            }
-          });
-        });
-        document.querySelectorAll('.cart-item-incr').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const id = btn.dataset.id;
-            const item = cart.find(i => i.id == id);
-            if (item) {
-              item.quantity += 1;
-              updateCartUI();
-            }
-          });
-        });
-        document.querySelectorAll('.cart-item-remove').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const id = btn.dataset.id;
-            cart = cart.filter(i => i.id != id);
-            updateCartUI();
-          });
-        });
-      }
-
-      addToCartBtn.addEventListener('click', () => {
-        if (!currentProduct) return;
-        const qty = parseInt(modalQuantity.value) || 1;
-        const existing = cart.find(item => item.id === currentProduct.id);
-        if (existing) existing.quantity += qty;
-        else cart.push({ 
-          id: currentProduct.id, 
-          name: currentProduct.name, 
-          price: currentProduct.price, 
-          quantity: qty,
-          image: currentProduct.images ? currentProduct.images[0] : ''
-        });
+    });
+    document.querySelectorAll('.cart-item-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        cart = cart.filter(i => i.id != id);
         updateCartUI();
-        closeModal(productModal);
-        const feedback = document.createElement('div');
-        feedback.textContent = `${currentProduct.name} added to your cart ✨`;
-        feedback.setAttribute('role', 'status');
-        feedback.style.position = 'fixed'; feedback.style.bottom = '20px'; feedback.style.right = '20px';
-        feedback.style.background = 'var(--accent)'; feedback.style.color = 'white'; feedback.style.padding = '0.75rem 1.5rem';
-        feedback.style.zIndex = '999'; feedback.style.borderRadius = '40px';
-        document.body.appendChild(feedback);
-        setTimeout(() => feedback.remove(), 2000);
       });
+    });
+  }
 
-      cartBtn.addEventListener('click', () => {
-        renderCart();
-        openModal(cartModal, document.getElementById('close-cart-modal'));
-      });
+  addToCartBtn.addEventListener('click', () => {
+    if (!currentProduct) return;
+    const qty = parseInt(modalQuantity.value) || 1;
+    const existing = cart.find(item => item.id === currentProduct.id);
+    if (existing) existing.quantity += qty;
+    else cart.push({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      price: currentProduct.price,
+      quantity: qty,
+      image: currentProduct.images ? currentProduct.images[0] : ''
+    });
+    updateCartUI();
+    closeModal(productModal);
+    // Show toast notification
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = `${currentProduct.name} added to your cart ✨`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  });
 
-      continueBtn.addEventListener('click', () => closeModal(cartModal));
+  cartBtn.addEventListener('click', () => {
+    renderCart();
+    openModal(cartModal, document.getElementById('close-cart-modal'));
+  });
 
-      checkoutBtn.addEventListener('click', () => {
-        alert('This is a demonstration. To acquire pieces, please contact us directly.');
-        cart = [];
-        updateCartUI();
-        closeModal(cartModal);
-      });
+  continueBtn.addEventListener('click', () => closeModal(cartModal));
 
-      updateCartUI();
+  checkoutBtn.addEventListener('click', () => {
+    alert('This is a demonstration. To acquire pieces, please contact us directly.');
+    cart = [];
+    updateCartUI();
+    closeModal(cartModal);
+  });
 
-      // ---------- HORIZONTAL STICKY SCROLL ----------
-      const collectionWrapper = document.getElementById('collection-wrapper');
-      const products = document.getElementById('products-scroll');
+  updateCartUI();
 
-      function updateCollectionHeight() {
-        if (!products || !collectionWrapper) return;
-        const scrollWidth = products.scrollWidth;
-        const containerWidth = products.parentElement.clientWidth;
-        const maxScroll = scrollWidth - containerWidth;
-        if (maxScroll <= 0) return;
-        const newHeight = maxScroll + window.innerHeight;
-        collectionWrapper.style.height = newHeight + 'px';
-      }
+  // ---------- HORIZONTAL STICKY SCROLL ----------
+  const collectionWrapper = document.getElementById('collection-wrapper');
+  const products = document.getElementById('products-scroll');
 
-      function updateHorizontalScroll() {
-        if (!collectionWrapper || !products) return;
-        const wrapperRect = collectionWrapper.getBoundingClientRect();
-        const scrollY = window.scrollY;
-        const wrapperTop = wrapperRect.top + scrollY;
-        const wrapperHeight = collectionWrapper.offsetHeight;
-        const viewportHeight = window.innerHeight;
+  function updateCollectionHeight() {
+    if (!products || !collectionWrapper) return;
 
-        let progress = (scrollY - wrapperTop) / (wrapperHeight - viewportHeight);
-        progress = Math.min(1, Math.max(0, progress));
+    products.style.transform = 'translateX(0)';
 
-        const scrollWidth = products.scrollWidth;
-        const containerWidth = products.parentElement.clientWidth;
-        const maxScroll = scrollWidth - containerWidth;
-        if (maxScroll > 0) {
-          products.style.transform = `translateX(-${progress * maxScroll}px)`;
-        }
-      }
+    const scrollWidth = products.scrollWidth;
+    const containerWidth = products.parentElement.clientWidth;
+    const maxScroll = scrollWidth - containerWidth;
 
-      // ---------- PARALLAX ----------
-      const aboutImage = document.getElementById('parallax-image');
-      function updateParallax() {
-        if (!aboutImage) return;
-        const rect = aboutImage.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const relativePos = (rect.top + rect.height / 2) / viewportHeight;
-        const offset = (relativePos - 0.5) * 30;
-        aboutImage.style.transform = `translateY(${offset}px)`;
-      }
+    if (maxScroll <= 0) {
+      collectionWrapper.style.height = '';
+      return;
+    }
 
-      const onScroll = throttle(() => {
-        updateHorizontalScroll();
-        updateParallax();
-      }, 16);
+    collectionWrapper.style.height = maxScroll + 'px';
+    updateHorizontalScroll();
+  }
 
-      window.addEventListener('scroll', onScroll);
-      window.addEventListener('resize', debounce(() => {
-        updateCollectionHeight();
-        updateHorizontalScroll();
-      }, 100));
+  function updateHorizontalScroll() {
+    if (!collectionWrapper || !products) return;
 
-      setTimeout(() => {
-        updateCollectionHeight();
-        updateHorizontalScroll();
-        updateParallax();
-      }, 100);
+    const scrollY = window.scrollY;
+    const wrapperTop = collectionWrapper.getBoundingClientRect().top + scrollY;
+    const wrapperHeight = collectionWrapper.offsetHeight;
 
-      window.addEventListener('load', () => {
-        updateCollectionHeight();
-        updateHorizontalScroll();
-        updateParallax();
-      });
-    })();
+    const scrollable = wrapperHeight;
+    if (scrollable <= 0) return;
+
+    let progress = (scrollY - wrapperTop) / scrollable;
+    progress = Math.min(1, Math.max(0, progress));
+
+    const scrollWidth = products.scrollWidth;
+    const containerWidth = products.parentElement.clientWidth;
+    const maxScroll = scrollWidth - containerWidth;
+
+    if (maxScroll > 0) {
+      products.style.transform = `translateX(-${progress * maxScroll}px)`;
+    }
+  }
+
+  // ---------- PARALLAX ----------
+  const aboutImage = document.getElementById('parallax-image');
+
+  function updateParallax() {
+    if (!aboutImage) return;
+    const rect = aboutImage.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const relativePos = (rect.top + rect.height / 2) / viewportHeight;
+    const offset = (relativePos - 0.5) * 30;
+    aboutImage.style.transform = `translateY(${offset}px)`;
+  }
+
+  const onScroll = throttle(() => {
+    updateHorizontalScroll();
+    updateParallax();
+  }, 16);
+
+  window.addEventListener('scroll', onScroll);
+
+  window.addEventListener('resize', debounce(() => {
+    updateCollectionHeight();
+    updateParallax();
+  }, 100));
+
+  window.addEventListener('load', () => {
+    updateCollectionHeight();
+    updateParallax();
+  });
+
+})();
   </script>
 </body>
 </html>
