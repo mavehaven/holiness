@@ -301,7 +301,7 @@
       outline: none;
     }
 
-    /* ----- HERO (removed fixed background) ----- */
+    /* ----- HERO ----- */
     .hero {
       min-height: 100vh;
       padding: 10rem 6rem 2rem;
@@ -312,7 +312,6 @@
       background-image: url('//d7ae6844498e43f31183ab9e14bb48d9.cdn.bubble.io/f1771186593048x494346909674455300/WhatsApp%20Image%202026-02-15%20at%2021.24.08.jpeg');
       background-size: cover;
       background-position: center;
-      /* background-attachment: fixed removed */
     }
     .hero::before {
       content: '';
@@ -465,7 +464,7 @@
       width: 24px;
     }
 
-    /* ----- COLLECTION (horizontal scroll, no sticky effects) ----- */
+    /* ----- COLLECTION (horizontal scroll) ----- */
     #collection {
       padding: 6rem 6rem 4rem;
       background-color: var(--bg-alt);
@@ -482,18 +481,17 @@
       font-size: 1.1rem;
       line-height: 1.6;
     }
-    /* Horizontal scroll product row */
     .products {
       display: flex;
       flex-wrap: nowrap;
       gap: 1.5rem;
       overflow-x: auto;
-      padding-bottom: 1rem;              /* space for scrollbar */
-      -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-      scroll-behavior: smooth;           /* optional, but not sticky */
+      padding-bottom: 1rem;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
     }
     .product {
-      flex: 0 0 400px;                    /* fixed width, no shrinking */
+      flex: 0 0 400px;
       display: flex;
       flex-direction: column;
       cursor: pointer;
@@ -509,7 +507,7 @@
     }
     .product-image,
     .product-image-duo {
-      flex: 0 0 300px;                    /* fixed height for consistency */
+      flex: 0 0 300px;
       margin-bottom: 1rem;
       box-shadow: var(--shadow-sm);
       transition: var(--transition);
@@ -568,7 +566,7 @@
       transform: translateY(0);
     }
 
-    /* ----- ABOUT (no parallax) ----- */
+    /* ----- ABOUT ----- */
     #about {
       background: var(--bg);
       display: grid;
@@ -590,7 +588,6 @@
       overflow: hidden;
       background: #b29e89;
       border-radius: var(--radius-subtle);
-      /* no transform on scroll */
     }
     .about-image img {
       width: 100%;
@@ -710,7 +707,7 @@
       transform: translateY(-2px);
     }
 
-    /* ----- MODAL STYLES (unchanged) ----- */
+    /* ----- MODAL STYLES (existing) ----- */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -782,6 +779,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      cursor: zoom-in;  /* hint that image can be clicked */
     }
     .carousel-btn {
       position: absolute;
@@ -1037,7 +1035,95 @@
       to { opacity: 0; transform: translateY(-10px); }
     }
 
-    /* responsive adjustments */
+    /* ----- LIGHTBOX (full view) ----- */
+    #lightbox-modal {
+      background: rgba(0, 0, 0, 0.95);
+    }
+    #lightbox-modal .modal {
+      background: transparent;
+      box-shadow: none;
+      max-width: 95vw;
+      max-height: 95vh;
+      padding: 0;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox-modal .close-modal {
+      color: white;
+      top: 10px;
+      right: 10px;
+      font-size: 3rem;
+      background: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    #lightbox-image {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: var(--radius-subtle);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    #lightbox-modal .carousel-btn {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      font-size: 2.8rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      backdrop-filter: blur(4px);
+    }
+    #lightbox-modal .carousel-btn:hover {
+      background: rgba(255,255,255,0.4);
+      transform: translateY(-50%) scale(1.05);
+    }
+    #lightbox-modal .carousel-btn.prev {
+      left: 20px;
+    }
+    #lightbox-modal .carousel-btn.next {
+      right: 20px;
+    }
+    .lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* responsive adjustments (unchanged) */
     @media (max-width: 1024px) {
       header { padding: 1.2rem 4rem; }
       .hero, #about, #contact { padding-left: 4rem; padding-right: 4rem; }
@@ -1138,7 +1224,7 @@
       </div>
     </div>
 
-    <!-- COLLECTION (horizontal scroll, no sticky effects) -->
+    <!-- COLLECTION (horizontal scroll) -->
     <section id="collection">
       <h2 class="reveal">Pieces with purpose</h2>
       <div class="section-intro reveal">Limited‑edition works made in collaboration with master artisans across Southern Africa. Each object carries cultural meaning, material integrity, and a story worth passing on.</div>
@@ -1362,6 +1448,19 @@
     </div>
   </div>
 
+  <!-- LIGHTBOX MODAL (full image view) -->
+  <div class="modal-overlay" id="lightbox-modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Full size image view">
+      <button class="close-modal" id="close-lightbox" aria-label="Close">&times;</button>
+      <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="Expanded view">
+        <button class="carousel-btn prev" id="lightbox-prev" aria-label="Previous image">‹</button>
+        <button class="carousel-btn next" id="lightbox-next" aria-label="Next image">›</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function() {
   // ---------- UTILITIES ----------
@@ -1505,13 +1604,15 @@
     }
   }, 100));
 
-  // ---------- CART & MODAL (unchanged, no scroll effects) ----------
+  // ---------- CART & MODAL (with lightbox integration) ----------
   let cart = JSON.parse(localStorage.getItem('ubukhazi_cart')) || [];
 
   const productModal = document.getElementById('product-modal');
   const cartModal = document.getElementById('cart-modal');
+  const lightboxModal = document.getElementById('lightbox-modal');
   const closeProduct = document.getElementById('close-product-modal');
   const closeCart = document.getElementById('close-cart-modal');
+  const closeLightbox = document.getElementById('close-lightbox');
   const cartBtn = document.getElementById('cart-button');
   const cartCountSpan = document.getElementById('cart-count');
   const modalCarousel = document.getElementById('modal-carousel');
@@ -1525,11 +1626,50 @@
   const checkoutBtn = document.getElementById('checkout-btn');
   const continueBtn = document.getElementById('continue-shopping-btn');
 
+  // Lightbox elements
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  let currentLightboxIndex = 0;
+  let lightboxImages = [];
+
   let currentProduct = null;
   let activeModal = null;
   let currentSlideIndex = 0;
   let slideCount = 0;
 
+  // --- Lightbox functions ---
+  function openLightbox(index) {
+    if (!currentProduct || !currentProduct.images || currentProduct.images.length === 0) return;
+    lightboxImages = currentProduct.images;
+    currentLightboxIndex = index;
+    updateLightboxImage();
+    openModal(lightboxModal, closeLightbox);
+  }
+
+  function updateLightboxImage() {
+    if (lightboxImages.length === 0) return;
+    lightboxImage.src = lightboxImages[currentLightboxIndex];
+    lightboxImage.alt = `Expanded view ${currentLightboxIndex + 1}`;
+    lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+  }
+
+  lightboxPrev.addEventListener('click', () => {
+    if (lightboxImages.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+    updateLightboxImage();
+  });
+
+  lightboxNext.addEventListener('click', () => {
+    if (lightboxImages.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
+    updateLightboxImage();
+  });
+
+  closeLightbox.addEventListener('click', () => closeModal(lightboxModal));
+
+  // --- Modal management ---
   function renderCarousel(images) {
     if (!images || images.length === 0) {
       modalCarousel.innerHTML = '<div class="carousel-slides"><div class="carousel-slide"><img src="" alt="No image"></div></div>';
@@ -1575,6 +1715,15 @@
         updateSlide(idx);
       });
     });
+
+    // Add click listeners to each image to open lightbox
+    const slideImages = modalCarousel.querySelectorAll('.carousel-slide img');
+    slideImages.forEach((img, idx) => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(idx);
+      });
+    });
   }
 
   function renderDescription(product) {
@@ -1609,11 +1758,22 @@
       document.removeEventListener('keydown', modalKeyHandler);
       if (modal === productModal && cartBtn) cartBtn.focus();
       else if (modal === cartModal && cartBtn) cartBtn.focus();
+      else if (modal === lightboxModal && cartBtn) cartBtn.focus();
     }
   }
 
   function modalKeyHandler(e) {
     if (!activeModal) return;
+    // Lightbox left/right navigation
+    if (activeModal === lightboxModal) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        lightboxPrev.click();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        lightboxNext.click();
+      }
+    }
     if (e.key === 'Escape') {
       e.preventDefault();
       closeModal(activeModal);
@@ -1658,6 +1818,7 @@
   window.addEventListener('click', (e) => {
     if (e.target === productModal) closeModal(productModal);
     if (e.target === cartModal) closeModal(cartModal);
+    if (e.target === lightboxModal) closeModal(lightboxModal);
   });
 
   document.querySelectorAll('.product').forEach(card => {
@@ -1785,9 +1946,6 @@
   });
 
   updateCartUI();
-
-  // ---------- NO HORIZONTAL STICKY SCROLL, NO PARALLAX ----------
-  // All scrolling effects removed.
 })();
   </script>
 </body>
